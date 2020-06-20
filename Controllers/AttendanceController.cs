@@ -1,12 +1,9 @@
-﻿using System;
+﻿using KIDS.API.Database;
+using KIDS.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Runtime.InteropServices.ComTypes;
 using System.Web.Http;
-using KIDS.API.Database;
-using KIDS.API.Models;
 
 namespace KIDS.API.Controllers
 {
@@ -41,6 +38,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         /// <summary>
         /// đếm tổng số HS, có mặt, nghỉ phép.. của lớp trong ngay
         /// </summary>

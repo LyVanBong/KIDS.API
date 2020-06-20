@@ -1,9 +1,9 @@
-﻿using System;
+﻿using KIDS.API.Database;
+using KIDS.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Database;
-using KIDS.API.Models;
 
 namespace KIDS.API.Controllers
 {
@@ -38,6 +38,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         /// <summary>
         /// Chi tiết đơn thuốc
         /// </summary>
