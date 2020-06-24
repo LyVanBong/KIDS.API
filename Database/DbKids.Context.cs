@@ -110,5 +110,895 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Prescription_Detail_sel_Result>("sp_Teacher_Prescription_Detail_sel", prescriptionIDParameter);
         }
+    
+        public virtual int sp_Album_Del(Nullable<System.Guid> albumID)
+        {
+            var albumIDParameter = albumID.HasValue ?
+                new ObjectParameter("AlbumID", albumID) :
+                new ObjectParameter("AlbumID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Del", albumIDParameter);
+        }
+    
+        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<int> dateCreate)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var thumbnailParameter = thumbnail != null ?
+                new ObjectParameter("Thumbnail", thumbnail) :
+                new ObjectParameter("Thumbnail", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var dateCreateParameter = dateCreate.HasValue ?
+                new ObjectParameter("DateCreate", dateCreate) :
+                new ObjectParameter("DateCreate", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter);
+        }
+    
+        public virtual ObjectResult<sp_Album_sel_Result> sp_Album_sel(Nullable<System.Guid> classID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_Result>("sp_Album_sel", classIDParameter);
+        }
+    
+        public virtual int sp_Album_Upd(Nullable<System.Guid> albumID, string thumbnail, string description, Nullable<System.Guid> teacherID, Nullable<System.DateTime> dateCreate)
+        {
+            var albumIDParameter = albumID.HasValue ?
+                new ObjectParameter("AlbumID", albumID) :
+                new ObjectParameter("AlbumID", typeof(System.Guid));
+    
+            var thumbnailParameter = thumbnail != null ?
+                new ObjectParameter("Thumbnail", thumbnail) :
+                new ObjectParameter("Thumbnail", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var dateCreateParameter = dateCreate.HasValue ?
+                new ObjectParameter("DateCreate", dateCreate) :
+                new ObjectParameter("DateCreate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Upd", albumIDParameter, thumbnailParameter, descriptionParameter, teacherIDParameter, dateCreateParameter);
+        }
+    
+        public virtual int sp_AlbumImage_Del(Nullable<System.Guid> imageID)
+        {
+            var imageIDParameter = imageID.HasValue ?
+                new ObjectParameter("ImageID", imageID) :
+                new ObjectParameter("ImageID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AlbumImage_Del", imageIDParameter);
+        }
+    
+        public virtual int sp_AlbumImage_Ins(Nullable<System.Guid> albumID, string imageURL, string description, Nullable<int> sort)
+        {
+            var albumIDParameter = albumID.HasValue ?
+                new ObjectParameter("AlbumID", albumID) :
+                new ObjectParameter("AlbumID", typeof(System.Guid));
+    
+            var imageURLParameter = imageURL != null ?
+                new ObjectParameter("ImageURL", imageURL) :
+                new ObjectParameter("ImageURL", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var sortParameter = sort.HasValue ?
+                new ObjectParameter("Sort", sort) :
+                new ObjectParameter("Sort", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AlbumImage_Ins", albumIDParameter, imageURLParameter, descriptionParameter, sortParameter);
+        }
+    
+        public virtual int sp_AlbumImage_Upd(Nullable<System.Guid> imageID, string imageURL, string description, Nullable<int> sort)
+        {
+            var imageIDParameter = imageID.HasValue ?
+                new ObjectParameter("ImageID", imageID) :
+                new ObjectParameter("ImageID", typeof(System.Guid));
+    
+            var imageURLParameter = imageURL != null ?
+                new ObjectParameter("ImageURL", imageURL) :
+                new ObjectParameter("ImageURL", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var sortParameter = sort.HasValue ?
+                new ObjectParameter("Sort", sort) :
+                new ObjectParameter("Sort", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AlbumImage_Upd", imageIDParameter, imageURLParameter, descriptionParameter, sortParameter);
+        }
+    
+        public virtual int sp_News_Del(Nullable<System.Guid> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_News_Del", newsIDParameter);
+        }
+    
+        public virtual int sp_News_Ins(string title, string content, Nullable<System.Guid> classID, Nullable<System.Guid> imageUrl, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var imageUrlParameter = imageUrl.HasValue ?
+                new ObjectParameter("ImageUrl", imageUrl) :
+                new ObjectParameter("ImageUrl", typeof(System.Guid));
+    
+            var dateCreateParameter = dateCreate.HasValue ?
+                new ObjectParameter("DateCreate", dateCreate) :
+                new ObjectParameter("DateCreate", typeof(System.DateTime));
+    
+            var userCreateParameter = userCreate.HasValue ?
+                new ObjectParameter("UserCreate", userCreate) :
+                new ObjectParameter("UserCreate", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_News_Ins", titleParameter, contentParameter, classIDParameter, imageUrlParameter, dateCreateParameter, userCreateParameter);
+        }
+    
+        public virtual ObjectResult<sp_News_sel_Result> sp_News_sel(Nullable<System.Guid> classID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_Result>("sp_News_sel", classIDParameter);
+        }
+    
+        public virtual int sp_News_Upd(Nullable<System.Guid> newsID, string title, string content, Nullable<System.Guid> imageUrl, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(System.Guid));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            var imageUrlParameter = imageUrl.HasValue ?
+                new ObjectParameter("ImageUrl", imageUrl) :
+                new ObjectParameter("ImageUrl", typeof(System.Guid));
+    
+            var dateCreateParameter = dateCreate.HasValue ?
+                new ObjectParameter("DateCreate", dateCreate) :
+                new ObjectParameter("DateCreate", typeof(System.DateTime));
+    
+            var userCreateParameter = userCreate.HasValue ?
+                new ObjectParameter("UserCreate", userCreate) :
+                new ObjectParameter("UserCreate", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_News_Upd", newsIDParameter, titleParameter, contentParameter, imageUrlParameter, dateCreateParameter, userCreateParameter);
+        }
+    
+        public virtual ObjectResult<sp_NewsDetail_sel_Result> sp_NewsDetail_sel(Nullable<System.Guid> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_NewsDetail_sel_Result>("sp_NewsDetail_sel", newsIDParameter);
+        }
+    
+        public virtual int sp_Student_Application_Del(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Application_Del", iDParameter);
+        }
+    
+        public virtual int sp_Student_Application_Ins(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content, Nullable<System.Guid> studentID, Nullable<System.Guid> classID)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Application_Ins", fromDateParameter, toDateParameter, dateParameter, contentParameter, studentIDParameter, classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Application_sel_Result> sp_Student_Application_sel(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Application_sel_Result>("sp_Student_Application_sel", studentIDParameter);
+        }
+    
+        public virtual int sp_Student_Application_Upd(Nullable<System.Guid> iD, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Application_Upd", iDParameter, fromDateParameter, toDateParameter, dateParameter, contentParameter);
+        }
+    
+        public virtual int sp_Student_Communications_Del(Nullable<System.Guid> communicationID)
+        {
+            var communicationIDParameter = communicationID.HasValue ?
+                new ObjectParameter("CommunicationID", communicationID) :
+                new ObjectParameter("CommunicationID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Del", communicationIDParameter);
+        }
+    
+        public virtual int sp_Student_Communications_Ins(Nullable<System.Guid> classID, Nullable<System.Guid> teacherID, Nullable<System.Guid> parent, string content, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> studentID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var parentParameter = parent.HasValue ?
+                new ObjectParameter("Parent", parent) :
+                new ObjectParameter("Parent", typeof(System.Guid));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            var dateCreateParameter = dateCreate.HasValue ?
+                new ObjectParameter("DateCreate", dateCreate) :
+                new ObjectParameter("DateCreate", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Ins", classIDParameter, teacherIDParameter, parentParameter, contentParameter, dateCreateParameter, studentIDParameter);
+        }
+    
+        public virtual int sp_Student_Communications_Upd(Nullable<System.Guid> communicationID, string content, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> teacherID)
+        {
+            var communicationIDParameter = communicationID.HasValue ?
+                new ObjectParameter("CommunicationID", communicationID) :
+                new ObjectParameter("CommunicationID", typeof(System.Guid));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            var dateCreateParameter = dateCreate.HasValue ?
+                new ObjectParameter("DateCreate", dateCreate) :
+                new ObjectParameter("DateCreate", typeof(System.DateTime));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Upd", communicationIDParameter, contentParameter, dateCreateParameter, teacherIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Daily_Hygiene_sel_Result> sp_Student_Daily_Hygiene_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Hygiene_sel_Result>("sp_Student_Daily_Hygiene_sel", dateParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Daily_Meal_sel_Result> sp_Student_Daily_Meal_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID, Nullable<System.Guid> grade)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var gradeParameter = grade.HasValue ?
+                new ObjectParameter("Grade", grade) :
+                new ObjectParameter("Grade", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Meal_sel_Result>("sp_Student_Daily_Meal_sel", dateParameter, studentIDParameter, gradeParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Daily_sel_Result> sp_Student_Daily_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_sel_Result>("sp_Student_Daily_sel", classIDParameter, dateParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Daily_Sleep_sel_Result> sp_Student_Daily_Sleep_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Sleep_sel_Result>("sp_Student_Daily_Sleep_sel", dateParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Daily_Study_sel_Result> sp_Student_Daily_Study_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Study_sel_Result>("sp_Student_Daily_Study_sel", dateParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_HocPhi_ChiTiet_sel_Result> sp_Student_HocPhi_ChiTiet_sel(Nullable<System.Guid> dotThuID, Nullable<System.Guid> studentID)
+        {
+            var dotThuIDParameter = dotThuID.HasValue ?
+                new ObjectParameter("DotThuID", dotThuID) :
+                new ObjectParameter("DotThuID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_HocPhi_ChiTiet_sel_Result>("sp_Student_HocPhi_ChiTiet_sel", dotThuIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_HocPhi_sel_Result> sp_Student_HocPhi_sel(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_HocPhi_sel_Result>("sp_Student_HocPhi_sel", studentIDParameter);
+        }
+    
+        public virtual int sp_Student_Prescription_Del(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Del", iDParameter);
+        }
+    
+        public virtual int sp_Student_Prescription_Detail_Del(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Detail_Del", iDParameter);
+        }
+    
+        public virtual int sp_Student_Prescription_Detail_Ins(string picture, Nullable<System.Guid> prescriptionID, string name, string unit, string description)
+        {
+            var pictureParameter = picture != null ?
+                new ObjectParameter("Picture", picture) :
+                new ObjectParameter("Picture", typeof(string));
+    
+            var prescriptionIDParameter = prescriptionID.HasValue ?
+                new ObjectParameter("PrescriptionID", prescriptionID) :
+                new ObjectParameter("PrescriptionID", typeof(System.Guid));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var unitParameter = unit != null ?
+                new ObjectParameter("Unit", unit) :
+                new ObjectParameter("Unit", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Detail_Ins", pictureParameter, prescriptionIDParameter, nameParameter, unitParameter, descriptionParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Prescription_Detail_sel_Result> sp_Student_Prescription_Detail_sel(Nullable<System.Guid> prescriptionID)
+        {
+            var prescriptionIDParameter = prescriptionID.HasValue ?
+                new ObjectParameter("PrescriptionID", prescriptionID) :
+                new ObjectParameter("PrescriptionID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Prescription_Detail_sel_Result>("sp_Student_Prescription_Detail_sel", prescriptionIDParameter);
+        }
+    
+        public virtual int sp_Student_Prescription_Detail_Upd(Nullable<System.Guid> iD, string picture, string name, string unit, string description)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var pictureParameter = picture != null ?
+                new ObjectParameter("Picture", picture) :
+                new ObjectParameter("Picture", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var unitParameter = unit != null ?
+                new ObjectParameter("Unit", unit) :
+                new ObjectParameter("Unit", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Detail_Upd", iDParameter, pictureParameter, nameParameter, unitParameter, descriptionParameter);
+        }
+    
+        public virtual int sp_Student_Prescription_Ins(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content, Nullable<System.Guid> studentID, Nullable<System.Guid> classID)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Ins", fromDateParameter, toDateParameter, dateParameter, contentParameter, studentIDParameter, classIDParameter);
+        }
+    
+        public virtual int sp_Student_Prescription_Upd(Nullable<System.Guid> iD, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Upd", iDParameter, fromDateParameter, toDateParameter, dateParameter, contentParameter);
+        }
+    
+        public virtual ObjectResult<sp_Study_Plan_Afternoon_sel_Result> sp_Study_Plan_Afternoon_sel(Nullable<System.DateTime> date, Nullable<System.Guid> classID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Study_Plan_Afternoon_sel_Result>("sp_Study_Plan_Afternoon_sel", dateParameter, classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Study_Plan_Morning_sel_Result> sp_Study_Plan_Morning_sel(Nullable<System.DateTime> date, Nullable<System.Guid> classID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Study_Plan_Morning_sel_Result>("sp_Study_Plan_Morning_sel", dateParameter, classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_AlbumDetail_sel_Result> sp_Teacher_AlbumDetail_sel(Nullable<System.Guid> albumID)
+        {
+            var albumIDParameter = albumID.HasValue ?
+                new ObjectParameter("AlbumID", albumID) :
+                new ObjectParameter("AlbumID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AlbumDetail_sel_Result>("sp_Teacher_AlbumDetail_sel", albumIDParameter);
+        }
+    
+        public virtual int sp_Teacher_ApplicationAprove_Upd(Nullable<System.Guid> iD, Nullable<bool> status, Nullable<System.Guid> teacherID, string description)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(bool));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_ApplicationAprove_Upd", iDParameter, statusParameter, teacherIDParameter, descriptionParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_AttendanceArrive_sel_Result> sp_Teacher_AttendanceArrive_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AttendanceArrive_sel_Result>("sp_Teacher_AttendanceArrive_sel", classIDParameter, dateParameter);
+        }
+    
+        public virtual int sp_Teacher_AttendanceArrive_Upd(Nullable<System.Guid> iD, Nullable<bool> coMat, Nullable<bool> nghiCoPhep, Nullable<bool> nghiKhongPhep, Nullable<bool> diMuon, string arriveComment, Nullable<System.Guid> teacherID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var coMatParameter = coMat.HasValue ?
+                new ObjectParameter("CoMat", coMat) :
+                new ObjectParameter("CoMat", typeof(bool));
+    
+            var nghiCoPhepParameter = nghiCoPhep.HasValue ?
+                new ObjectParameter("NghiCoPhep", nghiCoPhep) :
+                new ObjectParameter("NghiCoPhep", typeof(bool));
+    
+            var nghiKhongPhepParameter = nghiKhongPhep.HasValue ?
+                new ObjectParameter("NghiKhongPhep", nghiKhongPhep) :
+                new ObjectParameter("NghiKhongPhep", typeof(bool));
+    
+            var diMuonParameter = diMuon.HasValue ?
+                new ObjectParameter("DiMuon", diMuon) :
+                new ObjectParameter("DiMuon", typeof(bool));
+    
+            var arriveCommentParameter = arriveComment != null ?
+                new ObjectParameter("ArriveComment", arriveComment) :
+                new ObjectParameter("ArriveComment", typeof(string));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_AttendanceArrive_Upd", iDParameter, coMatParameter, nghiCoPhepParameter, nghiKhongPhepParameter, diMuonParameter, arriveCommentParameter, teacherIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_AttendanceLeave_sel_Result> sp_Teacher_AttendanceLeave_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AttendanceLeave_sel_Result>("sp_Teacher_AttendanceLeave_sel", classIDParameter, dateParameter);
+        }
+    
+        public virtual int sp_Teacher_AttendanceLeave_Upd(Nullable<System.Guid> iD, Nullable<System.DateTime> leave, Nullable<bool> leaveLate, string leaveComment, Nullable<System.Guid> nguoiDon, Nullable<System.Guid> teacherID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var leaveParameter = leave.HasValue ?
+                new ObjectParameter("Leave", leave) :
+                new ObjectParameter("Leave", typeof(System.DateTime));
+    
+            var leaveLateParameter = leaveLate.HasValue ?
+                new ObjectParameter("LeaveLate", leaveLate) :
+                new ObjectParameter("LeaveLate", typeof(bool));
+    
+            var leaveCommentParameter = leaveComment != null ?
+                new ObjectParameter("LeaveComment", leaveComment) :
+                new ObjectParameter("LeaveComment", typeof(string));
+    
+            var nguoiDonParameter = nguoiDon.HasValue ?
+                new ObjectParameter("NguoiDon", nguoiDon) :
+                new ObjectParameter("NguoiDon", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_AttendanceLeave_Upd", iDParameter, leaveParameter, leaveLateParameter, leaveCommentParameter, nguoiDonParameter, teacherIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_AttendanceLeaveLate_sel_Result> sp_Teacher_AttendanceLeaveLate_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AttendanceLeaveLate_sel_Result>("sp_Teacher_AttendanceLeaveLate_sel", classIDParameter, dateParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_Assessment_Day_Upd(Nullable<System.Guid> iD, string dayComment, string phieuBeNgoan, Nullable<System.Guid> teacherID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var dayCommentParameter = dayComment != null ?
+                new ObjectParameter("DayComment", dayComment) :
+                new ObjectParameter("DayComment", typeof(string));
+    
+            var phieuBeNgoanParameter = phieuBeNgoan != null ?
+                new ObjectParameter("PhieuBeNgoan", phieuBeNgoan) :
+                new ObjectParameter("PhieuBeNgoan", typeof(string));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Assessment_Day_Upd", iDParameter, dayCommentParameter, phieuBeNgoanParameter, teacherIDParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_Assessment_Week_Upd(Nullable<System.Guid> iD, string weekComment, string phieuBeNgoan, Nullable<System.Guid> teacherID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var weekCommentParameter = weekComment != null ?
+                new ObjectParameter("WeekComment", weekComment) :
+                new ObjectParameter("WeekComment", typeof(string));
+    
+            var phieuBeNgoanParameter = phieuBeNgoan != null ?
+                new ObjectParameter("PhieuBeNgoan", phieuBeNgoan) :
+                new ObjectParameter("PhieuBeNgoan", typeof(string));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Assessment_Week_Upd", iDParameter, weekCommentParameter, phieuBeNgoanParameter, teacherIDParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_Hygiene_Upd(Nullable<System.Guid> iD, Nullable<System.Guid> teacherID, Nullable<int> hygiene, string hygieneComment)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var hygieneParameter = hygiene.HasValue ?
+                new ObjectParameter("Hygiene", hygiene) :
+                new ObjectParameter("Hygiene", typeof(int));
+    
+            var hygieneCommentParameter = hygieneComment != null ?
+                new ObjectParameter("HygieneComment", hygieneComment) :
+                new ObjectParameter("HygieneComment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Hygiene_Upd", iDParameter, teacherIDParameter, hygieneParameter, hygieneCommentParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_Meal_Upd(Nullable<System.Guid> iD, Nullable<System.Guid> teacherID, string mealComment0, string mealComment1, string mealComment2, string mealComment3, string mealComment4, string mealComment5)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var mealComment0Parameter = mealComment0 != null ?
+                new ObjectParameter("MealComment0", mealComment0) :
+                new ObjectParameter("MealComment0", typeof(string));
+    
+            var mealComment1Parameter = mealComment1 != null ?
+                new ObjectParameter("MealComment1", mealComment1) :
+                new ObjectParameter("MealComment1", typeof(string));
+    
+            var mealComment2Parameter = mealComment2 != null ?
+                new ObjectParameter("MealComment2", mealComment2) :
+                new ObjectParameter("MealComment2", typeof(string));
+    
+            var mealComment3Parameter = mealComment3 != null ?
+                new ObjectParameter("MealComment3", mealComment3) :
+                new ObjectParameter("MealComment3", typeof(string));
+    
+            var mealComment4Parameter = mealComment4 != null ?
+                new ObjectParameter("MealComment4", mealComment4) :
+                new ObjectParameter("MealComment4", typeof(string));
+    
+            var mealComment5Parameter = mealComment5 != null ?
+                new ObjectParameter("MealComment5", mealComment5) :
+                new ObjectParameter("MealComment5", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Meal_Upd", iDParameter, teacherIDParameter, mealComment0Parameter, mealComment1Parameter, mealComment2Parameter, mealComment3Parameter, mealComment4Parameter, mealComment5Parameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_Sleep_Upd(Nullable<System.Guid> iD, Nullable<System.Guid> teacherID, Nullable<System.DateTime> sleepFrom, Nullable<System.DateTime> sleepTo, string sleepComment)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var sleepFromParameter = sleepFrom.HasValue ?
+                new ObjectParameter("SleepFrom", sleepFrom) :
+                new ObjectParameter("SleepFrom", typeof(System.DateTime));
+    
+            var sleepToParameter = sleepTo.HasValue ?
+                new ObjectParameter("SleepTo", sleepTo) :
+                new ObjectParameter("SleepTo", typeof(System.DateTime));
+    
+            var sleepCommentParameter = sleepComment != null ?
+                new ObjectParameter("SleepComment", sleepComment) :
+                new ObjectParameter("SleepComment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Sleep_Upd", iDParameter, teacherIDParameter, sleepFromParameter, sleepToParameter, sleepCommentParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_StudyAM_Upd(Nullable<System.Guid> iD, Nullable<System.Guid> teacherID, string studyCommentAM)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var studyCommentAMParameter = studyCommentAM != null ?
+                new ObjectParameter("StudyCommentAM", studyCommentAM) :
+                new ObjectParameter("StudyCommentAM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_StudyAM_Upd", iDParameter, teacherIDParameter, studyCommentAMParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_StudyPM_Upd(Nullable<System.Guid> iD, Nullable<System.Guid> teacherID, string studyCommentPM)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var studyCommentPMParameter = studyCommentPM != null ?
+                new ObjectParameter("StudyCommentPM", studyCommentPM) :
+                new ObjectParameter("StudyCommentPM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_StudyPM_Upd", iDParameter, teacherIDParameter, studyCommentPMParameter);
+        }
+    
+        public virtual int sp_Teacher_PrescriptionAprove_Upd(Nullable<System.Guid> iD, Nullable<bool> status, Nullable<System.Guid> teacherID, string description)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(bool));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_PrescriptionAprove_Upd", iDParameter, statusParameter, teacherIDParameter, descriptionParameter);
+        }
     }
 }

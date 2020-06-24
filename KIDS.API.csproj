@@ -123,13 +123,67 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbKids.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Album_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Login_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_NewsDetail_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_News_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Application_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_Hygiene_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_Meal_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_Sleep_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_Study_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_HocPhi_ChiTiet_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_HocPhi_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Prescription_Detail_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Prescription_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Study_Plan_Afternoon_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Study_Plan_Morning_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_AlbumDetail_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Teacher_Application_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_AttendanceArrive_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_AttendanceLeaveLate_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_AttendanceLeave_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Teacher_Attendance_Count_sel_Result.cs">
