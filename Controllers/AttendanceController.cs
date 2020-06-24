@@ -27,7 +27,7 @@ namespace KIDS.API.Controllers
                 return Ok(new ResponseModel<List<sp_Teacher_Attendance_sel_Result>>()
                 {
                     Code = 3,
-                    Message = "Get data attendance student successfully",
+                    Message = "",
                     Data = data,
                 });
             }
