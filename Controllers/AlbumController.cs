@@ -11,10 +11,12 @@ namespace KIDS.API.Controllers
     public class AlbumController : ApiController
     {
         private H_KIDSEntities _db;
+
         public AlbumController()
         {
             _db = new H_KIDSEntities();
         }
+
         /// <summary>
         /// Lấy danh sách album ảnh trong một lớp học
         /// </summary>

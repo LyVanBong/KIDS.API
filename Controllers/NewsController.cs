@@ -1,9 +1,9 @@
-﻿using System;
+﻿using KIDS.API.Database;
+using KIDS.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Database;
-using KIDS.API.Models;
 
 namespace KIDS.API.Controllers
 {
@@ -11,16 +11,18 @@ namespace KIDS.API.Controllers
     public class NewsController : ApiController
     {
         private H_KIDSEntities _db;
+
         public NewsController()
         {
             _db = new H_KIDSEntities();
         }
+
         [Route("Select")]
         [HttpGet]
         public IHttpActionResult NewsSel(Guid ClassID)
         {
             var data = _db.sp_News_sel(ClassID).ToList();
-            if ( data.Any())
+            if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_News_sel_Result>>()
                 {
@@ -39,6 +41,5 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-
     }
 }
