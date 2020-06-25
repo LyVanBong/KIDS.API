@@ -16,7 +16,11 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-
+        /// <summary>
+        /// lấy danh sách các tin tức
+        /// </summary>
+        /// <param name="ClassID"></param>
+        /// <returns></returns>
         [Route("Select")]
         [HttpGet]
         public IHttpActionResult NewsSel(Guid ClassID)
@@ -36,6 +40,35 @@ namespace KIDS.API.Controllers
                 return Ok(new ResponseModel<IEnumerable<sp_News_sel_Result>>()
                 {
                     Code = -8,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
+        /// <summary>
+        /// lấy chi tiết tin tức
+        /// </summary>
+        /// <param name="NewsID"></param>
+        /// <returns></returns>
+        [Route("Detail")]
+        [HttpGet]
+        public IHttpActionResult NewsDetail(Guid NewsID)
+        {
+            var data = _db.sp_NewsDetail_sel(NewsID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_NewsDetail_sel_Result>>()
+                {
+                    Code = 10,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_NewsDetail_sel_Result>>()
+                {
+                    Code = -11,
                     Message = "FAILED",
                     Data = null,
                 });

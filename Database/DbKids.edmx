@@ -24,6 +24,9 @@
           <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="DateCreate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="sp_AlbumDetail_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AlbumID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_AlbumImage_Del" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ImageID" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -115,10 +118,6 @@
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Grade" Type="uniqueidentifier" Mode="In" />
         </Function>
-        <Function Name="sp_Student_Daily_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="Date" Type="datetime" Mode="In" />
-        </Function>
         <Function Name="sp_Student_Daily_Sleep_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
@@ -182,9 +181,6 @@
         <Function Name="sp_Study_Plan_Morning_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
-        </Function>
-        <Function Name="sp_Teacher_AlbumDetail_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="AlbumID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Teacher_Application_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
@@ -287,6 +283,10 @@
           <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Description" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Teacher_Student_Daily_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="H_KIDSModelStoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -320,7 +320,7 @@
           <Parameter Name="PrescriptionID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Album_Del">
-            <Parameter Name="AlbumID" Mode="In" Type="Guid" />
+          <Parameter Name="AlbumID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Album_Ins">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
@@ -329,7 +329,7 @@
             <Parameter Name="DateCreate" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Album_sel" ReturnType="Collection(H_KIDSModel.sp_Album_sel_Result)">
-            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+          <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Album_Upd">
             <Parameter Name="AlbumID" Mode="In" Type="Guid" />
@@ -339,7 +339,7 @@
             <Parameter Name="DateCreate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_AlbumImage_Del">
-            <Parameter Name="ImageID" Mode="In" Type="Guid" />
+          <Parameter Name="ImageID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_AlbumImage_Ins">
             <Parameter Name="AlbumID" Mode="In" Type="Guid" />
@@ -354,7 +354,7 @@
             <Parameter Name="Sort" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_News_Del">
-            <Parameter Name="NewsID" Mode="In" Type="Guid" />
+          <Parameter Name="NewsID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_News_Ins">
             <Parameter Name="Title" Mode="In" Type="String" />
@@ -365,7 +365,7 @@
             <Parameter Name="UserCreate" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_News_sel" ReturnType="Collection(H_KIDSModel.sp_News_sel_Result)">
-            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+          <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_News_Upd">
             <Parameter Name="NewsID" Mode="In" Type="Guid" />
@@ -376,10 +376,10 @@
             <Parameter Name="UserCreate" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_NewsDetail_sel" ReturnType="Collection(H_KIDSModel.sp_NewsDetail_sel_Result)">
-            <Parameter Name="NewsID" Mode="In" Type="Guid" />
+          <Parameter Name="NewsID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Application_Del">
-            <Parameter Name="ID" Mode="In" Type="Guid" />
+          <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Application_Ins">
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
@@ -390,7 +390,7 @@
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Application_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Application_sel_Result)">
-            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Application_Upd">
             <Parameter Name="ID" Mode="In" Type="Guid" />
@@ -400,7 +400,7 @@
             <Parameter Name="Content" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Communications_Del">
-            <Parameter Name="CommunicationID" Mode="In" Type="Guid" />
+          <Parameter Name="CommunicationID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Communications_Ins">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
@@ -442,13 +442,13 @@
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_HocPhi_sel" ReturnType="Collection(H_KIDSModel.sp_Student_HocPhi_sel_Result)">
-            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Prescription_Del">
-            <Parameter Name="ID" Mode="In" Type="Guid" />
+          <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Prescription_Detail_Del">
-            <Parameter Name="ID" Mode="In" Type="Guid" />
+          <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Prescription_Detail_Ins">
             <Parameter Name="Picture" Mode="In" Type="String" />
@@ -458,7 +458,7 @@
             <Parameter Name="Description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Prescription_Detail_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Prescription_Detail_sel_Result)">
-            <Parameter Name="PrescriptionID" Mode="In" Type="Guid" />
+          <Parameter Name="PrescriptionID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Prescription_Detail_Upd">
             <Parameter Name="ID" Mode="In" Type="Guid" />
@@ -578,6 +578,13 @@
             <Parameter Name="Status" Mode="In" Type="Boolean" />
             <Parameter Name="TeacherID" Mode="In" Type="Guid" />
             <Parameter Name="Description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AlbumDetail_sel" ReturnType="Collection(H_KIDSModel.sp_AlbumDetail_sel_Result)">
+            <Parameter Name="AlbumID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_Student_Daily_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Student_Daily_sel_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -1019,6 +1026,61 @@
           <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_AlbumDetail_sel_Result">
+          <Property Type="Guid" Name="ImageID" Nullable="false" />
+          <Property Type="Guid" Name="AlbumID" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Sort" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Teacher_Student_Daily_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="StudentID" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="CoMat" Nullable="true" />
+          <Property Type="Boolean" Name="NghiCoPhep" Nullable="true" />
+          <Property Type="Boolean" Name="NghiKhongPhep" Nullable="true" />
+          <Property Type="Boolean" Name="DiMuon" Nullable="true" />
+          <Property Type="Int32" Name="Hygiene" Nullable="true" />
+          <Property Type="DateTime" Name="Leave" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LeaveLate" Nullable="true" />
+          <Property Type="Guid" Name="NguoiDon" Nullable="true" />
+          <Property Type="DateTime" Name="SleepFrom" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="SleepTo" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="String" Name="MealComment0" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment3" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment4" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment5" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ArriveComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LeaveComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyCommentAM" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyCommentPM" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="SleepComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="HygieneComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="OverallComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="DayComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhieuBeNgoan" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="WeekComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="WeekPhieuBeNgoan" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="WeekCommentCate" Nullable="true" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="Guid" Name="DiemKiemTraID" Nullable="true" />
+          <Property Type="Double" Name="Diem1" Nullable="true" />
+          <Property Type="Double" Name="Diem2" Nullable="true" />
+          <Property Type="Double" Name="Diem3" Nullable="true" />
+          <Property Type="Double" Name="Diem4" Nullable="true" />
+          <Property Type="Double" Name="DiemTB" Nullable="true" />
+          <Property Type="String" Name="NhanXetKiemTra" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1229,57 +1291,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Student_Daily_sel" FunctionName="H_KIDSModel.Store.sp_Student_Daily_sel">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Daily_sel_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="CoMat" ColumnName="CoMat" />
-                <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
-                <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
-                <ScalarProperty Name="DiMuon" ColumnName="DiMuon" />
-                <ScalarProperty Name="Hygiene" ColumnName="Hygiene" />
-                <ScalarProperty Name="Leave" ColumnName="Leave" />
-                <ScalarProperty Name="LeaveLate" ColumnName="LeaveLate" />
-                <ScalarProperty Name="NguoiDon" ColumnName="NguoiDon" />
-                <ScalarProperty Name="SleepFrom" ColumnName="SleepFrom" />
-                <ScalarProperty Name="SleepTo" ColumnName="SleepTo" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-                <ScalarProperty Name="MealComment0" ColumnName="MealComment0" />
-                <ScalarProperty Name="MealComment1" ColumnName="MealComment1" />
-                <ScalarProperty Name="MealComment2" ColumnName="MealComment2" />
-                <ScalarProperty Name="MealComment3" ColumnName="MealComment3" />
-                <ScalarProperty Name="MealComment4" ColumnName="MealComment4" />
-                <ScalarProperty Name="MealComment5" ColumnName="MealComment5" />
-                <ScalarProperty Name="ArriveComment" ColumnName="ArriveComment" />
-                <ScalarProperty Name="LeaveComment" ColumnName="LeaveComment" />
-                <ScalarProperty Name="StudyCommentAM" ColumnName="StudyCommentAM" />
-                <ScalarProperty Name="StudyCommentPM" ColumnName="StudyCommentPM" />
-                <ScalarProperty Name="SleepComment" ColumnName="SleepComment" />
-                <ScalarProperty Name="HygieneComment" ColumnName="HygieneComment" />
-                <ScalarProperty Name="OverallComment" ColumnName="OverallComment" />
-                <ScalarProperty Name="DayComment" ColumnName="DayComment" />
-                <ScalarProperty Name="PhieuBeNgoan" ColumnName="PhieuBeNgoan" />
-                <ScalarProperty Name="WeekComment" ColumnName="WeekComment" />
-                <ScalarProperty Name="WeekPhieuBeNgoan" ColumnName="WeekPhieuBeNgoan" />
-                <ScalarProperty Name="WeekCommentCate" ColumnName="WeekCommentCate" />
-                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
-                <ScalarProperty Name="DiemKiemTraID" ColumnName="DiemKiemTraID" />
-                <ScalarProperty Name="Diem1" ColumnName="Diem1" />
-                <ScalarProperty Name="Diem2" ColumnName="Diem2" />
-                <ScalarProperty Name="Diem3" ColumnName="Diem3" />
-                <ScalarProperty Name="Diem4" ColumnName="Diem4" />
-                <ScalarProperty Name="DiemTB" ColumnName="DiemTB" />
-                <ScalarProperty Name="NhanXetKiemTra" ColumnName="NhanXetKiemTra" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Student_Daily_Sleep_sel" FunctionName="H_KIDSModel.Store.sp_Student_Daily_Sleep_sel">
             <ResultMapping>
               <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Daily_Sleep_sel_Result">
@@ -1368,18 +1379,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Teacher_AlbumDetail_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_AlbumDetail_sel">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_AlbumDetail_sel_Result">
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
-                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
-                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1547,6 +1546,69 @@
           <FunctionImportMapping FunctionImportName="sp_Teacher_Daily_StudyAM_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_Daily_StudyAM_Upd" />
           <FunctionImportMapping FunctionImportName="sp_Teacher_Daily_StudyPM_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_Daily_StudyPM_Upd" />
           <FunctionImportMapping FunctionImportName="sp_Teacher_PrescriptionAprove_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_PrescriptionAprove_Upd" />
+          <FunctionImportMapping FunctionImportName="sp_AlbumDetail_sel" FunctionName="H_KIDSModel.Store.sp_AlbumDetail_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_AlbumDetail_sel_Result">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Teacher_Student_Daily_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_Student_Daily_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_Student_Daily_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CoMat" ColumnName="CoMat" />
+                <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
+                <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
+                <ScalarProperty Name="DiMuon" ColumnName="DiMuon" />
+                <ScalarProperty Name="Hygiene" ColumnName="Hygiene" />
+                <ScalarProperty Name="Leave" ColumnName="Leave" />
+                <ScalarProperty Name="LeaveLate" ColumnName="LeaveLate" />
+                <ScalarProperty Name="NguoiDon" ColumnName="NguoiDon" />
+                <ScalarProperty Name="SleepFrom" ColumnName="SleepFrom" />
+                <ScalarProperty Name="SleepTo" ColumnName="SleepTo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="MealComment0" ColumnName="MealComment0" />
+                <ScalarProperty Name="MealComment1" ColumnName="MealComment1" />
+                <ScalarProperty Name="MealComment2" ColumnName="MealComment2" />
+                <ScalarProperty Name="MealComment3" ColumnName="MealComment3" />
+                <ScalarProperty Name="MealComment4" ColumnName="MealComment4" />
+                <ScalarProperty Name="MealComment5" ColumnName="MealComment5" />
+                <ScalarProperty Name="ArriveComment" ColumnName="ArriveComment" />
+                <ScalarProperty Name="LeaveComment" ColumnName="LeaveComment" />
+                <ScalarProperty Name="StudyCommentAM" ColumnName="StudyCommentAM" />
+                <ScalarProperty Name="StudyCommentPM" ColumnName="StudyCommentPM" />
+                <ScalarProperty Name="SleepComment" ColumnName="SleepComment" />
+                <ScalarProperty Name="HygieneComment" ColumnName="HygieneComment" />
+                <ScalarProperty Name="OverallComment" ColumnName="OverallComment" />
+                <ScalarProperty Name="DayComment" ColumnName="DayComment" />
+                <ScalarProperty Name="PhieuBeNgoan" ColumnName="PhieuBeNgoan" />
+                <ScalarProperty Name="WeekComment" ColumnName="WeekComment" />
+                <ScalarProperty Name="WeekPhieuBeNgoan" ColumnName="WeekPhieuBeNgoan" />
+                <ScalarProperty Name="WeekCommentCate" ColumnName="WeekCommentCate" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="DiemKiemTraID" ColumnName="DiemKiemTraID" />
+                <ScalarProperty Name="Diem1" ColumnName="Diem1" />
+                <ScalarProperty Name="Diem2" ColumnName="Diem2" />
+                <ScalarProperty Name="Diem3" ColumnName="Diem3" />
+                <ScalarProperty Name="Diem4" ColumnName="Diem4" />
+                <ScalarProperty Name="DiemTB" ColumnName="DiemTB" />
+                <ScalarProperty Name="NhanXetKiemTra" ColumnName="NhanXetKiemTra" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

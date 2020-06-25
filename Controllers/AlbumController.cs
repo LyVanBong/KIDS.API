@@ -46,5 +46,34 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+        /// <summary>
+        /// lấy danh sách ảnh trong album ảnh
+        /// </summary>
+        /// <param name="AlbumID"></param>
+        /// <returns></returns>
+        [Route("Detail")]
+        [HttpGet]
+        public IHttpActionResult AlbumDetailSel(Guid AlbumID)
+        {
+            var data = _db.sp_AlbumDetail_sel(AlbumID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_AlbumDetail_sel_Result>>()
+                {
+                    Code = 9,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_AlbumDetail_sel_Result>>()
+                {
+                    Code = -10,
+                    Message = "FAILED",
+                    Data = null
+                });
+            }
+        }
     }
 }

@@ -1000,5 +1000,27 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_PrescriptionAprove_Upd", iDParameter, statusParameter, teacherIDParameter, descriptionParameter);
         }
+    
+        public virtual ObjectResult<sp_AlbumDetail_sel_Result> sp_AlbumDetail_sel(Nullable<System.Guid> albumID)
+        {
+            var albumIDParameter = albumID.HasValue ?
+                new ObjectParameter("AlbumID", albumID) :
+                new ObjectParameter("AlbumID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_AlbumDetail_sel_Result>("sp_AlbumDetail_sel", albumIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Student_Daily_sel_Result> sp_Teacher_Student_Daily_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Student_Daily_sel_Result>("sp_Teacher_Student_Daily_sel", classIDParameter, dateParameter);
+        }
     }
 }

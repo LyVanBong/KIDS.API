@@ -125,6 +125,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbKids.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_AlbumDetail_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Album_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -198,6 +201,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Teacher_Prescription_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_Student_Daily_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
