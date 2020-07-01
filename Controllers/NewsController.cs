@@ -16,6 +16,58 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+        [Route("Select/All")]
+        [HttpGet]
+        public IHttpActionResult NewsSelAll()
+        {
+            var data = _db.sp_News_sel_all().ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_all_Result>>()
+                {
+                    Code = 11,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_all_Result>>()
+                {
+                    Code = -12,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
+        /// <summary>
+        /// lấy all news theo trường
+        /// </summary>
+        /// <returns></returns>
+        [Route("Select/School")]
+        [HttpGet]
+        public IHttpActionResult NewsSelSchool()
+        {
+            var data = _db.sp_News_sel_School().ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_School_Result>>()
+                {
+                    Code = 11,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_School_Result>>()
+                {
+                    Code = -12,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
         /// <summary>
         /// lấy danh sách các tin tức
         /// </summary>
@@ -23,12 +75,12 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult NewsSel(Guid ClassID)
+        public IHttpActionResult NewsSel(string ClassID)
         {
-            var data = _db.sp_News_sel(ClassID).ToList();
+            var data = _db.sp_News_sel_Class(ClassID).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_News_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_Class_Result>>()
                 {
                     Code = 7,
                     Message = "SUCCESSFULLY",
@@ -37,7 +89,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_News_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_Class_Result>>()
                 {
                     Code = -8,
                     Message = "FAILED",

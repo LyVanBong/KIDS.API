@@ -141,11 +141,11 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter);
         }
     
-        public virtual ObjectResult<sp_Album_sel_Result> sp_Album_sel(Nullable<System.Guid> classID)
+        public virtual ObjectResult<sp_Album_sel_Result> sp_Album_sel(string classID)
         {
-            var classIDParameter = classID.HasValue ?
+            var classIDParameter = classID != null ?
                 new ObjectParameter("ClassID", classID) :
-                new ObjectParameter("ClassID", typeof(System.Guid));
+                new ObjectParameter("ClassID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_Result>("sp_Album_sel", classIDParameter);
         }
@@ -264,11 +264,11 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_News_Ins", titleParameter, contentParameter, classIDParameter, imageUrlParameter, dateCreateParameter, userCreateParameter);
         }
     
-        public virtual ObjectResult<sp_News_sel_Result> sp_News_sel(Nullable<System.Guid> classID)
+        public virtual ObjectResult<sp_News_sel_Result> sp_News_sel(string classID)
         {
-            var classIDParameter = classID.HasValue ?
+            var classIDParameter = classID != null ?
                 new ObjectParameter("ClassID", classID) :
-                new ObjectParameter("ClassID", typeof(System.Guid));
+                new ObjectParameter("ClassID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_Result>("sp_News_sel", classIDParameter);
         }
@@ -1021,6 +1021,44 @@ namespace KIDS.API.Database
                 new ObjectParameter("Date", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Student_Daily_sel_Result>("sp_Teacher_Student_Daily_sel", classIDParameter, dateParameter);
+        }
+    
+        public virtual ObjectResult<sp_Album_sel_all_Result> sp_Album_sel_all()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_all_Result>("sp_Album_sel_all");
+        }
+    
+        public virtual ObjectResult<sp_Album_sel_Class_Result> sp_Album_sel_Class(string classID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_Class_Result>("sp_Album_sel_Class", classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Album_sel_School_Result> sp_Album_sel_School()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_School_Result>("sp_Album_sel_School");
+        }
+    
+        public virtual ObjectResult<sp_News_sel_all_Result> sp_News_sel_all()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_all_Result>("sp_News_sel_all");
+        }
+    
+        public virtual ObjectResult<sp_News_sel_Class_Result> sp_News_sel_Class(string classID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_Class_Result>("sp_News_sel_Class", classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_News_sel_School_Result> sp_News_sel_School()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_School_Result>("sp_News_sel_School");
         }
     }
 }

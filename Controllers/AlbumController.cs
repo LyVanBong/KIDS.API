@@ -16,20 +16,14 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-
-        /// <summary>
-        /// Lấy danh sách album ảnh trong một lớp học
-        /// </summary>
-        /// <param name="ClassID"></param>
-        /// <returns></returns>
-        [Route("Select")]
+        [Route("Select/All")]
         [HttpGet]
-        public IHttpActionResult AlbumSel(Guid ClassID)
+        public IHttpActionResult AlbumSelAll()
         {
-            var data = _db.sp_Album_sel(ClassID).ToList();
+            var data = _db.sp_Album_sel_all().ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_all_Result>>()
                 {
                     Code = 6,
                     Message = "SUCCESSFULLY",
@@ -38,7 +32,64 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_all_Result>>()
+                {
+                    Code = -7,
+                    Message = "FAILED",
+                    Data = null
+                });
+            }
+        }
+        /// <summary>
+        /// lấy danh sách album theo trường
+        /// </summary>
+        /// <returns></returns>
+        [Route("Select/School")]
+        [HttpGet]
+        public IHttpActionResult AlbumSelSchool()
+        {
+            var data = _db.sp_Album_sel_School().ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_School_Result>>()
+                {
+                    Code = 6,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_School_Result>>()
+                {
+                    Code = -7,
+                    Message = "FAILED",
+                    Data = null
+                });
+            }
+        }
+        /// <summary>
+        /// Lấy danh sách album ảnh trong một lớp học
+        /// </summary>
+        /// <param name="ClassID"></param>
+        /// <returns></returns>
+        [Route("Select")]
+        [HttpGet]
+        public IHttpActionResult AlbumSel(string ClassID)
+        {
+            var data = _db.sp_Album_sel_Class(ClassID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_Class_Result>>()
+                {
+                    Code = 6,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_Class_Result>>()
                 {
                     Code = -7,
                     Message = "FAILED",
