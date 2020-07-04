@@ -1095,5 +1095,18 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_Result>("sp_Student_Communications_sel", classIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Teachers_Notification_Result> sp_Teachers_Notification(Nullable<System.Guid> classID, Nullable<System.Guid> schoolID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teachers_Notification_Result>("sp_Teachers_Notification", classIDParameter, schoolIDParameter);
+        }
     }
 }
