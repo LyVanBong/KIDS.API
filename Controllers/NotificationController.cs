@@ -10,11 +10,11 @@ using KIDS.API.Models;
 namespace KIDS.API.Controllers
 {
     [RoutePrefix("api/v1/Notification")]
-    public class NotificationController : ApiController
+    public class NotificationsController : ApiController
     {
         private H_KIDSEntities _db;
 
-        public NotificationController()
+        public NotificationsController()
         {
             _db = new H_KIDSEntities();
         }
@@ -28,10 +28,10 @@ namespace KIDS.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllNotification(Guid ClassId, Guid SchoolId)
         {
-            var data = _db.sp_Teachers_Notification(ClassId, SchoolId).ToList();
+            var data = _db.sp_Teachers_Notifications(ClassId, SchoolId).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notification_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notifications_Result>>()
                 {
                     Code = 15,
                     Message = "SUCCESSFULLY",
@@ -39,7 +39,7 @@ namespace KIDS.API.Controllers
                 });
             }
             else
-                return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notification_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notifications_Result>>()
                 {
                     Code = -16,
                     Message = "FAILED",
