@@ -131,6 +131,9 @@
     <Compile Include="Database\sp_Album_sel_all_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Album_sel_ClassAndSchool_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Album_sel_Class_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -149,6 +152,9 @@
     <Compile Include="Database\sp_News_sel_all_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_News_sel_ClassAndSchool_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_News_sel_Class_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -159,6 +165,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Application_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Communications_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Daily_Hygiene_sel_Result.cs">

@@ -1060,5 +1060,40 @@ namespace KIDS.API.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_School_Result>("sp_News_sel_School");
         }
+    
+        public virtual ObjectResult<sp_Album_sel_ClassAndSchool_Result> sp_Album_sel_ClassAndSchool(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_ClassAndSchool_Result>("sp_Album_sel_ClassAndSchool", classIDParameter, schoolIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_News_sel_ClassAndSchool_Result> sp_News_sel_ClassAndSchool(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchool_Result>("sp_News_sel_ClassAndSchool", classIDParameter, schoolIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Communications_sel_Result> sp_Student_Communications_sel(Nullable<System.Guid> classID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_Result>("sp_Student_Communications_sel", classIDParameter);
+        }
     }
 }

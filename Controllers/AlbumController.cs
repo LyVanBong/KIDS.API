@@ -11,19 +11,22 @@ namespace KIDS.API.Controllers
     public class AlbumController : ApiController
     {
         private H_KIDSEntities _db;
-
         public AlbumController()
         {
             _db = new H_KIDSEntities();
         }
+        /// <summary>
+        /// lấy danh sách album do class + school tạo
+        /// </summary>
+        /// <returns></returns>
         [Route("Select/All")]
         [HttpGet]
-        public IHttpActionResult AlbumSelAll()
+        public IHttpActionResult AlbumSelAll(string SchoolId, string ClassId)
         {
-            var data = _db.sp_Album_sel_all().ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(ClassId, SchoolId).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_all_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
                 {
                     Code = 6,
                     Message = "SUCCESSFULLY",
@@ -32,7 +35,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_all_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
                 {
                     Code = -7,
                     Message = "FAILED",
@@ -41,17 +44,17 @@ namespace KIDS.API.Controllers
             }
         }
         /// <summary>
-        /// lấy danh sách album theo trường
+        /// lấy danh sách album do trường tạo
         /// </summary>
         /// <returns></returns>
         [Route("Select/School")]
         [HttpGet]
-        public IHttpActionResult AlbumSelSchool()
+        public IHttpActionResult AlbumSelSchool(string SchoolId)
         {
-            var data = _db.sp_Album_sel_School().ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, SchoolId).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_School_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
                 {
                     Code = 6,
                     Message = "SUCCESSFULLY",
@@ -60,7 +63,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_School_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
                 {
                     Code = -7,
                     Message = "FAILED",
@@ -77,10 +80,10 @@ namespace KIDS.API.Controllers
         [HttpGet]
         public IHttpActionResult AlbumSel(string ClassID)
         {
-            var data = _db.sp_Album_sel_Class(ClassID).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(ClassID, ClassID).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_Class_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
                 {
                     Code = 6,
                     Message = "SUCCESSFULLY",
@@ -89,7 +92,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_Class_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
                 {
                     Code = -7,
                     Message = "FAILED",
