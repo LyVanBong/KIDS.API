@@ -1108,5 +1108,36 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teachers_Notification_Result>("sp_Teachers_Notification", classIDParameter, schoolIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Teacher_Application_sel_ID_Result> sp_Teacher_Application_sel_ID(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Application_sel_ID_Result>("sp_Teacher_Application_sel_ID", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Prescription_sel_ID_Result> sp_Teacher_Prescription_sel_ID(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Prescription_sel_ID_Result>("sp_Teacher_Prescription_sel_ID", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teachers_Notifications_Result> sp_Teachers_Notifications(Nullable<System.Guid> classID, Nullable<System.Guid> schoolID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teachers_Notifications_Result>("sp_Teachers_Notifications", classIDParameter, schoolIDParameter);
+        }
     }
 }
