@@ -22,7 +22,7 @@ namespace KIDS.API.Controllers
         /// <param name="teacher"></param>
         /// <returns></returns>
         [Route("Update")]
-        [HttpPut]
+        [HttpPost]
         public IHttpActionResult Update(TeacherModel teacher)
         {
             var data = _db.sp_Teacher_Profile_Upd(teacher.TeacherId, teacher.Name, teacher.Sex, teacher.Dob, teacher.Phone, teacher.Email, teacher.Address, teacher.Picture);
