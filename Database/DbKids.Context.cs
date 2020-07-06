@@ -1139,5 +1139,115 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teachers_Notifications_Result>("sp_Teachers_Notifications", classIDParameter, schoolIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Student_Profile_sel_Result> sp_Student_Profile_sel(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Profile_sel_Result>("sp_Student_Profile_sel", studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_StudentParent_sel_Result> sp_StudentParent_sel(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_StudentParent_sel_Result>("sp_StudentParent_sel", studentIDParameter);
+        }
+    
+        public virtual int sp_Students_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var sexParameter = sex.HasValue ?
+                new ObjectParameter("Sex", sex) :
+                new ObjectParameter("Sex", typeof(int));
+    
+            var dOBParameter = dOB.HasValue ?
+                new ObjectParameter("DOB", dOB) :
+                new ObjectParameter("DOB", typeof(System.DateTime));
+    
+            var mobileParameter = mobile != null ?
+                new ObjectParameter("Mobile", mobile) :
+                new ObjectParameter("Mobile", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var pictureParameter = picture != null ?
+                new ObjectParameter("Picture", picture) :
+                new ObjectParameter("Picture", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Students_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, mobileParameter, emailParameter, addressParameter, pictureParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Profile_sel_Result> sp_Teacher_Profile_sel(Nullable<System.Guid> teacherID)
+        {
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Profile_sel_Result>("sp_Teacher_Profile_sel", teacherIDParameter);
+        }
+    
+        public virtual int sp_Teacher_Profile_Upd(Nullable<System.Guid> teacherID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string phone, string email, string address, string picture)
+        {
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var sexParameter = sex.HasValue ?
+                new ObjectParameter("Sex", sex) :
+                new ObjectParameter("Sex", typeof(int));
+    
+            var dOBParameter = dOB.HasValue ?
+                new ObjectParameter("DOB", dOB) :
+                new ObjectParameter("DOB", typeof(System.DateTime));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("Phone", phone) :
+                new ObjectParameter("Phone", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var pictureParameter = picture != null ?
+                new ObjectParameter("Picture", picture) :
+                new ObjectParameter("Picture", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Profile_Upd", teacherIDParameter, nameParameter, sexParameter, dOBParameter, phoneParameter, emailParameter, addressParameter, pictureParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_StudentList_sel_Result> sp_Teacher_StudentList_sel(Nullable<System.Guid> classID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_StudentList_sel_Result>("sp_Teacher_StudentList_sel", classIDParameter);
+        }
     }
 }

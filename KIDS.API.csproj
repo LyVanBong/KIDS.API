@@ -111,6 +111,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TeacherPrescriptionController.cs" />
     <Compile Include="Database\DbKids.Context.cs">
       <AutoGen>True</AutoGen>
@@ -166,6 +167,9 @@
     <Compile Include="Database\sp_News_sel_School_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_StudentParent_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Student_Application_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -197,6 +201,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Prescription_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Profile_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Study_Plan_Afternoon_sel_Result.cs">
@@ -244,6 +251,12 @@
     <Compile Include="Database\sp_Teacher_Prescription_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Teacher_Profile_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_StudentList_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Teacher_Student_Daily_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -253,6 +266,7 @@
     <Compile Include="Helpers\HashFunctionHelper.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

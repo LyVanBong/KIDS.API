@@ -179,6 +179,22 @@
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="Content" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Student_Profile_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_StudentParent_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Students_Profile_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Sex" Type="int" Mode="In" />
+          <Parameter Name="DOB" Type="datetime" Mode="In" />
+          <Parameter Name="Mobile" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Picture" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_Study_Plan_Afternoon_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
@@ -294,9 +310,25 @@
           <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Description" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Teacher_Profile_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Teacher_Profile_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Sex" Type="int" Mode="In" />
+          <Parameter Name="DOB" Type="datetime" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Picture" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_Teacher_Student_Daily_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_Teacher_StudentList_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Teachers_Notifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
@@ -635,6 +667,38 @@
           <FunctionImport Name="sp_Teachers_Notifications" ReturnType="Collection(H_KIDSModel.sp_Teachers_Notifications_Result)">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
             <Parameter Name="SchoolID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Profile_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Profile_sel_Result)">
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_StudentParent_sel" ReturnType="Collection(H_KIDSModel.sp_StudentParent_sel_Result)">
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Students_Profile_Upd">
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Sex" Mode="In" Type="Int32" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="Mobile" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Picture" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_Profile_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Profile_sel_Result)">
+            <Parameter Name="TeacherID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_Profile_Upd">
+            <Parameter Name="TeacherID" Mode="In" Type="Guid" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Sex" Mode="In" Type="Int32" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Picture" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_StudentList_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_StudentList_sel_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -1294,6 +1358,123 @@
           <Property Type="String" Name="Status" Nullable="true" MaxLength="75" />
           <Property Type="Int32" Name="Type" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="sp_Student_Profile_sel_Result">
+          <Property Type="Guid" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="String" Name="Father" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Mother" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FatherPhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MotherPhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="HKTT" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="DonVi" Nullable="true" />
+          <Property Type="Guid" Name="Nation" Nullable="true" />
+          <Property Type="Guid" Name="Nationality" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="DoiTuongChinhSach" Nullable="true" />
+          <Property Type="Guid" Name="DoiTuongHoTro" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="DateStatus" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Nguon" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NguoiGioiThieu" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TruongHoc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NganhNghe" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TrinhDoChuyenMon" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NhanVien" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_StudentParent_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Guid" Name="StudentID" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Tel" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Relationship" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_Teacher_Profile_sel_Result">
+          <Property Type="Guid" Name="TeacherID" Nullable="false" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Guid" Name="DoiTuong" Nullable="true" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="Guid" Name="PositionID" Nullable="true" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="HKTT" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="Nation" Nullable="true" />
+          <Property Type="Guid" Name="DonVi" Nullable="true" />
+          <Property Type="Guid" Name="ChucVu" Nullable="true" />
+          <Property Type="Guid" Name="VaiTro" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Tel" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="LaDangVien" Nullable="true" />
+          <Property Type="DateTime" Name="NgayVaoDang" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="DateTime" Name="DateIn" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="DateStatus" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NickUser" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_Teacher_StudentList_sel_Result">
+          <Property Type="Guid" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="String" Name="Father" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Mother" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FatherPhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MotherPhone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="HKTT" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="DonVi" Nullable="true" />
+          <Property Type="Guid" Name="Nation" Nullable="true" />
+          <Property Type="Guid" Name="Nationality" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="DoiTuongChinhSach" Nullable="true" />
+          <Property Type="Guid" Name="DoiTuongHoTro" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="DateStatus" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Nguon" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NguoiGioiThieu" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TruongHoc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NganhNghe" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TrinhDoChuyenMon" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NhanVien" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1890,6 +2071,141 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Student_Profile_sel" FunctionName="H_KIDSModel.Store.sp_Student_Profile_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Profile_sel_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Father" ColumnName="Father" />
+                <ScalarProperty Name="Mother" ColumnName="Mother" />
+                <ScalarProperty Name="FatherPhone" ColumnName="FatherPhone" />
+                <ScalarProperty Name="MotherPhone" ColumnName="MotherPhone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HKTT" ColumnName="HKTT" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="DonVi" ColumnName="DonVi" />
+                <ScalarProperty Name="Nation" ColumnName="Nation" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DoiTuongChinhSach" ColumnName="DoiTuongChinhSach" />
+                <ScalarProperty Name="DoiTuongHoTro" ColumnName="DoiTuongHoTro" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateStatus" ColumnName="DateStatus" />
+                <ScalarProperty Name="Nguon" ColumnName="Nguon" />
+                <ScalarProperty Name="NguoiGioiThieu" ColumnName="NguoiGioiThieu" />
+                <ScalarProperty Name="TruongHoc" ColumnName="TruongHoc" />
+                <ScalarProperty Name="NganhNghe" ColumnName="NganhNghe" />
+                <ScalarProperty Name="TrinhDoChuyenMon" ColumnName="TrinhDoChuyenMon" />
+                <ScalarProperty Name="NhanVien" ColumnName="NhanVien" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_StudentParent_sel" FunctionName="H_KIDSModel.Store.sp_StudentParent_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_StudentParent_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Students_Profile_Upd" FunctionName="H_KIDSModel.Store.sp_Students_Profile_Upd" />
+          <FunctionImportMapping FunctionImportName="sp_Teacher_Profile_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_Profile_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_Profile_sel_Result">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DoiTuong" ColumnName="DoiTuong" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HKTT" ColumnName="HKTT" />
+                <ScalarProperty Name="Nation" ColumnName="Nation" />
+                <ScalarProperty Name="DonVi" ColumnName="DonVi" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="VaiTro" ColumnName="VaiTro" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LaDangVien" ColumnName="LaDangVien" />
+                <ScalarProperty Name="NgayVaoDang" ColumnName="NgayVaoDang" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="DateIn" ColumnName="DateIn" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateStatus" ColumnName="DateStatus" />
+                <ScalarProperty Name="NickUser" ColumnName="NickUser" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Teacher_Profile_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_Profile_Upd" />
+          <FunctionImportMapping FunctionImportName="sp_Teacher_StudentList_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_StudentList_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_StudentList_sel_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Father" ColumnName="Father" />
+                <ScalarProperty Name="Mother" ColumnName="Mother" />
+                <ScalarProperty Name="FatherPhone" ColumnName="FatherPhone" />
+                <ScalarProperty Name="MotherPhone" ColumnName="MotherPhone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HKTT" ColumnName="HKTT" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="DonVi" ColumnName="DonVi" />
+                <ScalarProperty Name="Nation" ColumnName="Nation" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DoiTuongChinhSach" ColumnName="DoiTuongChinhSach" />
+                <ScalarProperty Name="DoiTuongHoTro" ColumnName="DoiTuongHoTro" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateStatus" ColumnName="DateStatus" />
+                <ScalarProperty Name="Nguon" ColumnName="Nguon" />
+                <ScalarProperty Name="NguoiGioiThieu" ColumnName="NguoiGioiThieu" />
+                <ScalarProperty Name="TruongHoc" ColumnName="TruongHoc" />
+                <ScalarProperty Name="NganhNghe" ColumnName="NganhNghe" />
+                <ScalarProperty Name="TrinhDoChuyenMon" ColumnName="TrinhDoChuyenMon" />
+                <ScalarProperty Name="NhanVien" ColumnName="NhanVien" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </ComplexTypeMapping>
             </ResultMapping>
