@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using KIDS.API.Configurations;
 
 namespace KIDS.API.Controllers
 {
@@ -14,6 +15,40 @@ namespace KIDS.API.Controllers
         public AlbumController()
         {
             _db = new H_KIDSEntities();
+        }
+        /// <summary>
+        /// Thêm album mới
+        /// </summary>
+        /// <param name="album"></param>
+        /// <returns></returns>
+        [Route("InsertAlbum")]
+        [HttpPost]
+        public IHttpActionResult InsertAlbum(AlbumModel album)
+        {
+            var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 27,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+        /// <summary>
+        /// xao mot album anh
+        /// </summary>
+        /// <param name="albumId"></param>
+        /// <returns></returns>
+        [Route("DeleteAlbum")]
+        [HttpDelete]
+        public IHttpActionResult DeleteAlbum(Guid albumId)
+        {
+            var data = _db.sp_Album_Del(albumId);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 24,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
         }
         /// <summary>
         /// lấy danh sách album do class + school tạo
