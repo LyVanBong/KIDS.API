@@ -273,7 +273,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_Result>("sp_News_sel", classIDParameter);
         }
     
-        public virtual int sp_News_Upd(Nullable<System.Guid> newsID, string title, string content, Nullable<System.Guid> imageUrl, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
+        public virtual int sp_News_Upd(Nullable<System.Guid> newsID, string title, string content, string imageUrl, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
         {
             var newsIDParameter = newsID.HasValue ?
                 new ObjectParameter("NewsID", newsID) :
@@ -287,9 +287,9 @@ namespace KIDS.API.Database
                 new ObjectParameter("Content", content) :
                 new ObjectParameter("Content", typeof(string));
     
-            var imageUrlParameter = imageUrl.HasValue ?
+            var imageUrlParameter = imageUrl != null ?
                 new ObjectParameter("ImageUrl", imageUrl) :
-                new ObjectParameter("ImageUrl", typeof(System.Guid));
+                new ObjectParameter("ImageUrl", typeof(string));
     
             var dateCreateParameter = dateCreate.HasValue ?
                 new ObjectParameter("DateCreate", dateCreate) :
