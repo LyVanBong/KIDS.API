@@ -120,7 +120,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Del", albumIDParameter);
         }
     
-        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<int> dateCreate)
+        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate)
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
@@ -136,7 +136,7 @@ namespace KIDS.API.Database
     
             var dateCreateParameter = dateCreate.HasValue ?
                 new ObjectParameter("DateCreate", dateCreate) :
-                new ObjectParameter("DateCreate", typeof(int));
+                new ObjectParameter("DateCreate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter);
         }
@@ -273,7 +273,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_Result>("sp_News_sel", classIDParameter);
         }
     
-        public virtual int sp_News_Upd(Nullable<System.Guid> newsID, string title, string content, Nullable<System.Guid> imageUrl, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
+        public virtual int sp_News_Upd(Nullable<System.Guid> newsID, string title, string content, string imageUrl, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
         {
             var newsIDParameter = newsID.HasValue ?
                 new ObjectParameter("NewsID", newsID) :
@@ -287,9 +287,9 @@ namespace KIDS.API.Database
                 new ObjectParameter("Content", content) :
                 new ObjectParameter("Content", typeof(string));
     
-            var imageUrlParameter = imageUrl.HasValue ?
+            var imageUrlParameter = imageUrl != null ?
                 new ObjectParameter("ImageUrl", imageUrl) :
-                new ObjectParameter("ImageUrl", typeof(System.Guid));
+                new ObjectParameter("ImageUrl", typeof(string));
     
             var dateCreateParameter = dateCreate.HasValue ?
                 new ObjectParameter("DateCreate", dateCreate) :
@@ -1248,6 +1248,1036 @@ namespace KIDS.API.Database
                 new ObjectParameter("ClassID", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_StudentList_sel_Result>("sp_Teacher_StudentList_sel", classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Assess_sel_Result> sp_Student_Assess_sel(Nullable<System.Guid> assessID, Nullable<System.Guid> studentID)
+        {
+            var assessIDParameter = assessID.HasValue ?
+                new ObjectParameter("AssessID", assessID) :
+                new ObjectParameter("AssessID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Assess_sel_Result>("sp_Student_Assess_sel", assessIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Assess_Student_sel_Result> sp_Student_Assess_Student_sel(Nullable<System.Guid> assessID, Nullable<System.Guid> studentID)
+        {
+            var assessIDParameter = assessID.HasValue ?
+                new ObjectParameter("AssessID", assessID) :
+                new ObjectParameter("AssessID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Assess_Student_sel_Result>("sp_Student_Assess_Student_sel", assessIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Assess_sel_Result> sp_Teacher_Assess_sel(Nullable<System.Guid> assessID)
+        {
+            var assessIDParameter = assessID.HasValue ?
+                new ObjectParameter("AssessID", assessID) :
+                new ObjectParameter("AssessID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Assess_sel_Result>("sp_Teacher_Assess_sel", assessIDParameter);
+        }
+    
+        public virtual int sp_Teacher_Assess_Student_Result_Upd(Nullable<System.Guid> iD, Nullable<bool> result)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var resultParameter = result.HasValue ?
+                new ObjectParameter("Result", result) :
+                new ObjectParameter("Result", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Assess_Student_Result_Upd", iDParameter, resultParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Assess_Student_sel_Result> sp_Teacher_Assess_Student_sel(Nullable<System.Guid> assessID, Nullable<System.Guid> studentID)
+        {
+            var assessIDParameter = assessID.HasValue ?
+                new ObjectParameter("AssessID", assessID) :
+                new ObjectParameter("AssessID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Assess_Student_sel_Result>("sp_Teacher_Assess_Student_sel", assessIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_AssessPlan_sel_Result> sp_Teacher_AssessPlan_sel()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AssessPlan_sel_Result>("sp_Teacher_AssessPlan_sel");
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Student_DOB_sel_Result> sp_Teacher_Student_DOB_sel(Nullable<int> month)
+        {
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Student_DOB_sel_Result>("sp_Teacher_Student_DOB_sel", monthParameter);
+        }
+    
+        public virtual int cp_RptTable1_del(string nickName, string donVi)
+        {
+            var nickNameParameter = nickName != null ?
+                new ObjectParameter("NickName", nickName) :
+                new ObjectParameter("NickName", typeof(string));
+    
+            var donViParameter = donVi != null ?
+                new ObjectParameter("DonVi", donVi) :
+                new ObjectParameter("DonVi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("cp_RptTable1_del", nickNameParameter, donViParameter);
+        }
+    
+        public virtual int cp_RptTable1_ins(string nickName, string donVi, string string1, string string2, string string3, string string4, string string5, string string6, string string7, string string8, string string9, string string10, string string11, string string12, string string13, string string14, string string15, string string16, string string17, string string18, string string19, string string20, string string21, string string22, string string23, string string24, string string25, string string26, string string27, string string28, string string29, string string30, string string31, string string32, string string33, string string34, string string35, string string36, string string37, string string38, string string39, string string40, string string41, string string42, string string43, string string44, string string45, string string46, string string47, string string48, string string49, string string50, string string51, string string52, string string53, string string54, string string55, string string56, string string57, string string58, string string59, string string60, Nullable<double> float1, Nullable<double> float2, Nullable<double> float3, Nullable<double> float4, Nullable<double> float5, Nullable<double> float6, Nullable<double> float7, Nullable<double> float8, Nullable<double> float9, Nullable<double> float10, Nullable<double> float11, Nullable<double> float12, Nullable<double> float13, Nullable<double> float14, Nullable<double> float15, Nullable<double> float16, Nullable<double> float17, Nullable<double> float18, Nullable<double> float19, Nullable<double> float20, Nullable<double> float21, Nullable<double> float22, Nullable<double> float23, Nullable<double> float24, Nullable<double> float25, Nullable<double> float26, Nullable<double> float27, Nullable<double> float28, Nullable<double> float29, Nullable<double> float30, Nullable<double> float31, Nullable<double> float32, Nullable<double> float33, Nullable<double> float34, Nullable<double> float35, Nullable<double> float36, Nullable<double> float37, Nullable<double> float38, Nullable<double> float39, Nullable<double> float40)
+        {
+            var nickNameParameter = nickName != null ?
+                new ObjectParameter("NickName", nickName) :
+                new ObjectParameter("NickName", typeof(string));
+    
+            var donViParameter = donVi != null ?
+                new ObjectParameter("DonVi", donVi) :
+                new ObjectParameter("DonVi", typeof(string));
+    
+            var string1Parameter = string1 != null ?
+                new ObjectParameter("String1", string1) :
+                new ObjectParameter("String1", typeof(string));
+    
+            var string2Parameter = string2 != null ?
+                new ObjectParameter("String2", string2) :
+                new ObjectParameter("String2", typeof(string));
+    
+            var string3Parameter = string3 != null ?
+                new ObjectParameter("String3", string3) :
+                new ObjectParameter("String3", typeof(string));
+    
+            var string4Parameter = string4 != null ?
+                new ObjectParameter("String4", string4) :
+                new ObjectParameter("String4", typeof(string));
+    
+            var string5Parameter = string5 != null ?
+                new ObjectParameter("String5", string5) :
+                new ObjectParameter("String5", typeof(string));
+    
+            var string6Parameter = string6 != null ?
+                new ObjectParameter("String6", string6) :
+                new ObjectParameter("String6", typeof(string));
+    
+            var string7Parameter = string7 != null ?
+                new ObjectParameter("String7", string7) :
+                new ObjectParameter("String7", typeof(string));
+    
+            var string8Parameter = string8 != null ?
+                new ObjectParameter("String8", string8) :
+                new ObjectParameter("String8", typeof(string));
+    
+            var string9Parameter = string9 != null ?
+                new ObjectParameter("String9", string9) :
+                new ObjectParameter("String9", typeof(string));
+    
+            var string10Parameter = string10 != null ?
+                new ObjectParameter("String10", string10) :
+                new ObjectParameter("String10", typeof(string));
+    
+            var string11Parameter = string11 != null ?
+                new ObjectParameter("String11", string11) :
+                new ObjectParameter("String11", typeof(string));
+    
+            var string12Parameter = string12 != null ?
+                new ObjectParameter("String12", string12) :
+                new ObjectParameter("String12", typeof(string));
+    
+            var string13Parameter = string13 != null ?
+                new ObjectParameter("String13", string13) :
+                new ObjectParameter("String13", typeof(string));
+    
+            var string14Parameter = string14 != null ?
+                new ObjectParameter("String14", string14) :
+                new ObjectParameter("String14", typeof(string));
+    
+            var string15Parameter = string15 != null ?
+                new ObjectParameter("String15", string15) :
+                new ObjectParameter("String15", typeof(string));
+    
+            var string16Parameter = string16 != null ?
+                new ObjectParameter("String16", string16) :
+                new ObjectParameter("String16", typeof(string));
+    
+            var string17Parameter = string17 != null ?
+                new ObjectParameter("String17", string17) :
+                new ObjectParameter("String17", typeof(string));
+    
+            var string18Parameter = string18 != null ?
+                new ObjectParameter("String18", string18) :
+                new ObjectParameter("String18", typeof(string));
+    
+            var string19Parameter = string19 != null ?
+                new ObjectParameter("String19", string19) :
+                new ObjectParameter("String19", typeof(string));
+    
+            var string20Parameter = string20 != null ?
+                new ObjectParameter("String20", string20) :
+                new ObjectParameter("String20", typeof(string));
+    
+            var string21Parameter = string21 != null ?
+                new ObjectParameter("String21", string21) :
+                new ObjectParameter("String21", typeof(string));
+    
+            var string22Parameter = string22 != null ?
+                new ObjectParameter("String22", string22) :
+                new ObjectParameter("String22", typeof(string));
+    
+            var string23Parameter = string23 != null ?
+                new ObjectParameter("String23", string23) :
+                new ObjectParameter("String23", typeof(string));
+    
+            var string24Parameter = string24 != null ?
+                new ObjectParameter("String24", string24) :
+                new ObjectParameter("String24", typeof(string));
+    
+            var string25Parameter = string25 != null ?
+                new ObjectParameter("String25", string25) :
+                new ObjectParameter("String25", typeof(string));
+    
+            var string26Parameter = string26 != null ?
+                new ObjectParameter("String26", string26) :
+                new ObjectParameter("String26", typeof(string));
+    
+            var string27Parameter = string27 != null ?
+                new ObjectParameter("String27", string27) :
+                new ObjectParameter("String27", typeof(string));
+    
+            var string28Parameter = string28 != null ?
+                new ObjectParameter("String28", string28) :
+                new ObjectParameter("String28", typeof(string));
+    
+            var string29Parameter = string29 != null ?
+                new ObjectParameter("String29", string29) :
+                new ObjectParameter("String29", typeof(string));
+    
+            var string30Parameter = string30 != null ?
+                new ObjectParameter("String30", string30) :
+                new ObjectParameter("String30", typeof(string));
+    
+            var string31Parameter = string31 != null ?
+                new ObjectParameter("String31", string31) :
+                new ObjectParameter("String31", typeof(string));
+    
+            var string32Parameter = string32 != null ?
+                new ObjectParameter("String32", string32) :
+                new ObjectParameter("String32", typeof(string));
+    
+            var string33Parameter = string33 != null ?
+                new ObjectParameter("String33", string33) :
+                new ObjectParameter("String33", typeof(string));
+    
+            var string34Parameter = string34 != null ?
+                new ObjectParameter("String34", string34) :
+                new ObjectParameter("String34", typeof(string));
+    
+            var string35Parameter = string35 != null ?
+                new ObjectParameter("String35", string35) :
+                new ObjectParameter("String35", typeof(string));
+    
+            var string36Parameter = string36 != null ?
+                new ObjectParameter("String36", string36) :
+                new ObjectParameter("String36", typeof(string));
+    
+            var string37Parameter = string37 != null ?
+                new ObjectParameter("String37", string37) :
+                new ObjectParameter("String37", typeof(string));
+    
+            var string38Parameter = string38 != null ?
+                new ObjectParameter("String38", string38) :
+                new ObjectParameter("String38", typeof(string));
+    
+            var string39Parameter = string39 != null ?
+                new ObjectParameter("String39", string39) :
+                new ObjectParameter("String39", typeof(string));
+    
+            var string40Parameter = string40 != null ?
+                new ObjectParameter("String40", string40) :
+                new ObjectParameter("String40", typeof(string));
+    
+            var string41Parameter = string41 != null ?
+                new ObjectParameter("String41", string41) :
+                new ObjectParameter("String41", typeof(string));
+    
+            var string42Parameter = string42 != null ?
+                new ObjectParameter("String42", string42) :
+                new ObjectParameter("String42", typeof(string));
+    
+            var string43Parameter = string43 != null ?
+                new ObjectParameter("String43", string43) :
+                new ObjectParameter("String43", typeof(string));
+    
+            var string44Parameter = string44 != null ?
+                new ObjectParameter("String44", string44) :
+                new ObjectParameter("String44", typeof(string));
+    
+            var string45Parameter = string45 != null ?
+                new ObjectParameter("String45", string45) :
+                new ObjectParameter("String45", typeof(string));
+    
+            var string46Parameter = string46 != null ?
+                new ObjectParameter("String46", string46) :
+                new ObjectParameter("String46", typeof(string));
+    
+            var string47Parameter = string47 != null ?
+                new ObjectParameter("String47", string47) :
+                new ObjectParameter("String47", typeof(string));
+    
+            var string48Parameter = string48 != null ?
+                new ObjectParameter("String48", string48) :
+                new ObjectParameter("String48", typeof(string));
+    
+            var string49Parameter = string49 != null ?
+                new ObjectParameter("String49", string49) :
+                new ObjectParameter("String49", typeof(string));
+    
+            var string50Parameter = string50 != null ?
+                new ObjectParameter("String50", string50) :
+                new ObjectParameter("String50", typeof(string));
+    
+            var string51Parameter = string51 != null ?
+                new ObjectParameter("String51", string51) :
+                new ObjectParameter("String51", typeof(string));
+    
+            var string52Parameter = string52 != null ?
+                new ObjectParameter("String52", string52) :
+                new ObjectParameter("String52", typeof(string));
+    
+            var string53Parameter = string53 != null ?
+                new ObjectParameter("String53", string53) :
+                new ObjectParameter("String53", typeof(string));
+    
+            var string54Parameter = string54 != null ?
+                new ObjectParameter("String54", string54) :
+                new ObjectParameter("String54", typeof(string));
+    
+            var string55Parameter = string55 != null ?
+                new ObjectParameter("String55", string55) :
+                new ObjectParameter("String55", typeof(string));
+    
+            var string56Parameter = string56 != null ?
+                new ObjectParameter("String56", string56) :
+                new ObjectParameter("String56", typeof(string));
+    
+            var string57Parameter = string57 != null ?
+                new ObjectParameter("String57", string57) :
+                new ObjectParameter("String57", typeof(string));
+    
+            var string58Parameter = string58 != null ?
+                new ObjectParameter("String58", string58) :
+                new ObjectParameter("String58", typeof(string));
+    
+            var string59Parameter = string59 != null ?
+                new ObjectParameter("String59", string59) :
+                new ObjectParameter("String59", typeof(string));
+    
+            var string60Parameter = string60 != null ?
+                new ObjectParameter("String60", string60) :
+                new ObjectParameter("String60", typeof(string));
+    
+            var float1Parameter = float1.HasValue ?
+                new ObjectParameter("Float1", float1) :
+                new ObjectParameter("Float1", typeof(double));
+    
+            var float2Parameter = float2.HasValue ?
+                new ObjectParameter("Float2", float2) :
+                new ObjectParameter("Float2", typeof(double));
+    
+            var float3Parameter = float3.HasValue ?
+                new ObjectParameter("Float3", float3) :
+                new ObjectParameter("Float3", typeof(double));
+    
+            var float4Parameter = float4.HasValue ?
+                new ObjectParameter("Float4", float4) :
+                new ObjectParameter("Float4", typeof(double));
+    
+            var float5Parameter = float5.HasValue ?
+                new ObjectParameter("Float5", float5) :
+                new ObjectParameter("Float5", typeof(double));
+    
+            var float6Parameter = float6.HasValue ?
+                new ObjectParameter("Float6", float6) :
+                new ObjectParameter("Float6", typeof(double));
+    
+            var float7Parameter = float7.HasValue ?
+                new ObjectParameter("Float7", float7) :
+                new ObjectParameter("Float7", typeof(double));
+    
+            var float8Parameter = float8.HasValue ?
+                new ObjectParameter("Float8", float8) :
+                new ObjectParameter("Float8", typeof(double));
+    
+            var float9Parameter = float9.HasValue ?
+                new ObjectParameter("Float9", float9) :
+                new ObjectParameter("Float9", typeof(double));
+    
+            var float10Parameter = float10.HasValue ?
+                new ObjectParameter("Float10", float10) :
+                new ObjectParameter("Float10", typeof(double));
+    
+            var float11Parameter = float11.HasValue ?
+                new ObjectParameter("Float11", float11) :
+                new ObjectParameter("Float11", typeof(double));
+    
+            var float12Parameter = float12.HasValue ?
+                new ObjectParameter("Float12", float12) :
+                new ObjectParameter("Float12", typeof(double));
+    
+            var float13Parameter = float13.HasValue ?
+                new ObjectParameter("Float13", float13) :
+                new ObjectParameter("Float13", typeof(double));
+    
+            var float14Parameter = float14.HasValue ?
+                new ObjectParameter("Float14", float14) :
+                new ObjectParameter("Float14", typeof(double));
+    
+            var float15Parameter = float15.HasValue ?
+                new ObjectParameter("Float15", float15) :
+                new ObjectParameter("Float15", typeof(double));
+    
+            var float16Parameter = float16.HasValue ?
+                new ObjectParameter("Float16", float16) :
+                new ObjectParameter("Float16", typeof(double));
+    
+            var float17Parameter = float17.HasValue ?
+                new ObjectParameter("Float17", float17) :
+                new ObjectParameter("Float17", typeof(double));
+    
+            var float18Parameter = float18.HasValue ?
+                new ObjectParameter("Float18", float18) :
+                new ObjectParameter("Float18", typeof(double));
+    
+            var float19Parameter = float19.HasValue ?
+                new ObjectParameter("Float19", float19) :
+                new ObjectParameter("Float19", typeof(double));
+    
+            var float20Parameter = float20.HasValue ?
+                new ObjectParameter("Float20", float20) :
+                new ObjectParameter("Float20", typeof(double));
+    
+            var float21Parameter = float21.HasValue ?
+                new ObjectParameter("Float21", float21) :
+                new ObjectParameter("Float21", typeof(double));
+    
+            var float22Parameter = float22.HasValue ?
+                new ObjectParameter("Float22", float22) :
+                new ObjectParameter("Float22", typeof(double));
+    
+            var float23Parameter = float23.HasValue ?
+                new ObjectParameter("Float23", float23) :
+                new ObjectParameter("Float23", typeof(double));
+    
+            var float24Parameter = float24.HasValue ?
+                new ObjectParameter("Float24", float24) :
+                new ObjectParameter("Float24", typeof(double));
+    
+            var float25Parameter = float25.HasValue ?
+                new ObjectParameter("Float25", float25) :
+                new ObjectParameter("Float25", typeof(double));
+    
+            var float26Parameter = float26.HasValue ?
+                new ObjectParameter("Float26", float26) :
+                new ObjectParameter("Float26", typeof(double));
+    
+            var float27Parameter = float27.HasValue ?
+                new ObjectParameter("Float27", float27) :
+                new ObjectParameter("Float27", typeof(double));
+    
+            var float28Parameter = float28.HasValue ?
+                new ObjectParameter("Float28", float28) :
+                new ObjectParameter("Float28", typeof(double));
+    
+            var float29Parameter = float29.HasValue ?
+                new ObjectParameter("Float29", float29) :
+                new ObjectParameter("Float29", typeof(double));
+    
+            var float30Parameter = float30.HasValue ?
+                new ObjectParameter("Float30", float30) :
+                new ObjectParameter("Float30", typeof(double));
+    
+            var float31Parameter = float31.HasValue ?
+                new ObjectParameter("Float31", float31) :
+                new ObjectParameter("Float31", typeof(double));
+    
+            var float32Parameter = float32.HasValue ?
+                new ObjectParameter("Float32", float32) :
+                new ObjectParameter("Float32", typeof(double));
+    
+            var float33Parameter = float33.HasValue ?
+                new ObjectParameter("Float33", float33) :
+                new ObjectParameter("Float33", typeof(double));
+    
+            var float34Parameter = float34.HasValue ?
+                new ObjectParameter("Float34", float34) :
+                new ObjectParameter("Float34", typeof(double));
+    
+            var float35Parameter = float35.HasValue ?
+                new ObjectParameter("Float35", float35) :
+                new ObjectParameter("Float35", typeof(double));
+    
+            var float36Parameter = float36.HasValue ?
+                new ObjectParameter("Float36", float36) :
+                new ObjectParameter("Float36", typeof(double));
+    
+            var float37Parameter = float37.HasValue ?
+                new ObjectParameter("Float37", float37) :
+                new ObjectParameter("Float37", typeof(double));
+    
+            var float38Parameter = float38.HasValue ?
+                new ObjectParameter("Float38", float38) :
+                new ObjectParameter("Float38", typeof(double));
+    
+            var float39Parameter = float39.HasValue ?
+                new ObjectParameter("Float39", float39) :
+                new ObjectParameter("Float39", typeof(double));
+    
+            var float40Parameter = float40.HasValue ?
+                new ObjectParameter("Float40", float40) :
+                new ObjectParameter("Float40", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("cp_RptTable1_ins", nickNameParameter, donViParameter, string1Parameter, string2Parameter, string3Parameter, string4Parameter, string5Parameter, string6Parameter, string7Parameter, string8Parameter, string9Parameter, string10Parameter, string11Parameter, string12Parameter, string13Parameter, string14Parameter, string15Parameter, string16Parameter, string17Parameter, string18Parameter, string19Parameter, string20Parameter, string21Parameter, string22Parameter, string23Parameter, string24Parameter, string25Parameter, string26Parameter, string27Parameter, string28Parameter, string29Parameter, string30Parameter, string31Parameter, string32Parameter, string33Parameter, string34Parameter, string35Parameter, string36Parameter, string37Parameter, string38Parameter, string39Parameter, string40Parameter, string41Parameter, string42Parameter, string43Parameter, string44Parameter, string45Parameter, string46Parameter, string47Parameter, string48Parameter, string49Parameter, string50Parameter, string51Parameter, string52Parameter, string53Parameter, string54Parameter, string55Parameter, string56Parameter, string57Parameter, string58Parameter, string59Parameter, string60Parameter, float1Parameter, float2Parameter, float3Parameter, float4Parameter, float5Parameter, float6Parameter, float7Parameter, float8Parameter, float9Parameter, float10Parameter, float11Parameter, float12Parameter, float13Parameter, float14Parameter, float15Parameter, float16Parameter, float17Parameter, float18Parameter, float19Parameter, float20Parameter, float21Parameter, float22Parameter, float23Parameter, float24Parameter, float25Parameter, float26Parameter, float27Parameter, float28Parameter, float29Parameter, float30Parameter, float31Parameter, float32Parameter, float33Parameter, float34Parameter, float35Parameter, float36Parameter, float37Parameter, float38Parameter, float39Parameter, float40Parameter);
+        }
+    
+        public virtual int cp_RptTable2_ins(string nickName, string donVi, string string1, string string2, string string3, string string4, string string5, string string6, string string7, string string8, string string9, string string10, string string11, string string12, string string13, string string14, string string15, string string16, string string17, string string18, string string19, string string20, string string21, string string22, string string23, string string24, string string25, string string26, string string27, string string28, string string29, string string30, string string31, string string32, string string33, string string34, string string35, string string36, string string37, string string38, string string39, string string40, string string41, string string42, string string43, string string44, string string45, string string46, string string47, string string48, string string49, string string50, string string51, string string52, string string53, string string54, string string55, string string56, string string57, string string58, string string59, string string60, Nullable<double> float1, Nullable<double> float2, Nullable<double> float3, Nullable<double> float4, Nullable<double> float5, Nullable<double> float6, Nullable<double> float7, Nullable<double> float8, Nullable<double> float9, Nullable<double> float10, Nullable<double> float11, Nullable<double> float12, Nullable<double> float13, Nullable<double> float14, Nullable<double> float15, Nullable<double> float16, Nullable<double> float17, Nullable<double> float18, Nullable<double> float19, Nullable<double> float20, Nullable<double> float21, Nullable<double> float22, Nullable<double> float23, Nullable<double> float24, Nullable<double> float25, Nullable<double> float26, Nullable<double> float27, Nullable<double> float28, Nullable<double> float29, Nullable<double> float30, Nullable<double> float31, Nullable<double> float32, Nullable<double> float33, Nullable<double> float34, Nullable<double> float35, Nullable<double> float36, Nullable<double> float37, Nullable<double> float38, Nullable<double> float39, Nullable<double> float40)
+        {
+            var nickNameParameter = nickName != null ?
+                new ObjectParameter("NickName", nickName) :
+                new ObjectParameter("NickName", typeof(string));
+    
+            var donViParameter = donVi != null ?
+                new ObjectParameter("DonVi", donVi) :
+                new ObjectParameter("DonVi", typeof(string));
+    
+            var string1Parameter = string1 != null ?
+                new ObjectParameter("String1", string1) :
+                new ObjectParameter("String1", typeof(string));
+    
+            var string2Parameter = string2 != null ?
+                new ObjectParameter("String2", string2) :
+                new ObjectParameter("String2", typeof(string));
+    
+            var string3Parameter = string3 != null ?
+                new ObjectParameter("String3", string3) :
+                new ObjectParameter("String3", typeof(string));
+    
+            var string4Parameter = string4 != null ?
+                new ObjectParameter("String4", string4) :
+                new ObjectParameter("String4", typeof(string));
+    
+            var string5Parameter = string5 != null ?
+                new ObjectParameter("String5", string5) :
+                new ObjectParameter("String5", typeof(string));
+    
+            var string6Parameter = string6 != null ?
+                new ObjectParameter("String6", string6) :
+                new ObjectParameter("String6", typeof(string));
+    
+            var string7Parameter = string7 != null ?
+                new ObjectParameter("String7", string7) :
+                new ObjectParameter("String7", typeof(string));
+    
+            var string8Parameter = string8 != null ?
+                new ObjectParameter("String8", string8) :
+                new ObjectParameter("String8", typeof(string));
+    
+            var string9Parameter = string9 != null ?
+                new ObjectParameter("String9", string9) :
+                new ObjectParameter("String9", typeof(string));
+    
+            var string10Parameter = string10 != null ?
+                new ObjectParameter("String10", string10) :
+                new ObjectParameter("String10", typeof(string));
+    
+            var string11Parameter = string11 != null ?
+                new ObjectParameter("String11", string11) :
+                new ObjectParameter("String11", typeof(string));
+    
+            var string12Parameter = string12 != null ?
+                new ObjectParameter("String12", string12) :
+                new ObjectParameter("String12", typeof(string));
+    
+            var string13Parameter = string13 != null ?
+                new ObjectParameter("String13", string13) :
+                new ObjectParameter("String13", typeof(string));
+    
+            var string14Parameter = string14 != null ?
+                new ObjectParameter("String14", string14) :
+                new ObjectParameter("String14", typeof(string));
+    
+            var string15Parameter = string15 != null ?
+                new ObjectParameter("String15", string15) :
+                new ObjectParameter("String15", typeof(string));
+    
+            var string16Parameter = string16 != null ?
+                new ObjectParameter("String16", string16) :
+                new ObjectParameter("String16", typeof(string));
+    
+            var string17Parameter = string17 != null ?
+                new ObjectParameter("String17", string17) :
+                new ObjectParameter("String17", typeof(string));
+    
+            var string18Parameter = string18 != null ?
+                new ObjectParameter("String18", string18) :
+                new ObjectParameter("String18", typeof(string));
+    
+            var string19Parameter = string19 != null ?
+                new ObjectParameter("String19", string19) :
+                new ObjectParameter("String19", typeof(string));
+    
+            var string20Parameter = string20 != null ?
+                new ObjectParameter("String20", string20) :
+                new ObjectParameter("String20", typeof(string));
+    
+            var string21Parameter = string21 != null ?
+                new ObjectParameter("String21", string21) :
+                new ObjectParameter("String21", typeof(string));
+    
+            var string22Parameter = string22 != null ?
+                new ObjectParameter("String22", string22) :
+                new ObjectParameter("String22", typeof(string));
+    
+            var string23Parameter = string23 != null ?
+                new ObjectParameter("String23", string23) :
+                new ObjectParameter("String23", typeof(string));
+    
+            var string24Parameter = string24 != null ?
+                new ObjectParameter("String24", string24) :
+                new ObjectParameter("String24", typeof(string));
+    
+            var string25Parameter = string25 != null ?
+                new ObjectParameter("String25", string25) :
+                new ObjectParameter("String25", typeof(string));
+    
+            var string26Parameter = string26 != null ?
+                new ObjectParameter("String26", string26) :
+                new ObjectParameter("String26", typeof(string));
+    
+            var string27Parameter = string27 != null ?
+                new ObjectParameter("String27", string27) :
+                new ObjectParameter("String27", typeof(string));
+    
+            var string28Parameter = string28 != null ?
+                new ObjectParameter("String28", string28) :
+                new ObjectParameter("String28", typeof(string));
+    
+            var string29Parameter = string29 != null ?
+                new ObjectParameter("String29", string29) :
+                new ObjectParameter("String29", typeof(string));
+    
+            var string30Parameter = string30 != null ?
+                new ObjectParameter("String30", string30) :
+                new ObjectParameter("String30", typeof(string));
+    
+            var string31Parameter = string31 != null ?
+                new ObjectParameter("String31", string31) :
+                new ObjectParameter("String31", typeof(string));
+    
+            var string32Parameter = string32 != null ?
+                new ObjectParameter("String32", string32) :
+                new ObjectParameter("String32", typeof(string));
+    
+            var string33Parameter = string33 != null ?
+                new ObjectParameter("String33", string33) :
+                new ObjectParameter("String33", typeof(string));
+    
+            var string34Parameter = string34 != null ?
+                new ObjectParameter("String34", string34) :
+                new ObjectParameter("String34", typeof(string));
+    
+            var string35Parameter = string35 != null ?
+                new ObjectParameter("String35", string35) :
+                new ObjectParameter("String35", typeof(string));
+    
+            var string36Parameter = string36 != null ?
+                new ObjectParameter("String36", string36) :
+                new ObjectParameter("String36", typeof(string));
+    
+            var string37Parameter = string37 != null ?
+                new ObjectParameter("String37", string37) :
+                new ObjectParameter("String37", typeof(string));
+    
+            var string38Parameter = string38 != null ?
+                new ObjectParameter("String38", string38) :
+                new ObjectParameter("String38", typeof(string));
+    
+            var string39Parameter = string39 != null ?
+                new ObjectParameter("String39", string39) :
+                new ObjectParameter("String39", typeof(string));
+    
+            var string40Parameter = string40 != null ?
+                new ObjectParameter("String40", string40) :
+                new ObjectParameter("String40", typeof(string));
+    
+            var string41Parameter = string41 != null ?
+                new ObjectParameter("String41", string41) :
+                new ObjectParameter("String41", typeof(string));
+    
+            var string42Parameter = string42 != null ?
+                new ObjectParameter("String42", string42) :
+                new ObjectParameter("String42", typeof(string));
+    
+            var string43Parameter = string43 != null ?
+                new ObjectParameter("String43", string43) :
+                new ObjectParameter("String43", typeof(string));
+    
+            var string44Parameter = string44 != null ?
+                new ObjectParameter("String44", string44) :
+                new ObjectParameter("String44", typeof(string));
+    
+            var string45Parameter = string45 != null ?
+                new ObjectParameter("String45", string45) :
+                new ObjectParameter("String45", typeof(string));
+    
+            var string46Parameter = string46 != null ?
+                new ObjectParameter("String46", string46) :
+                new ObjectParameter("String46", typeof(string));
+    
+            var string47Parameter = string47 != null ?
+                new ObjectParameter("String47", string47) :
+                new ObjectParameter("String47", typeof(string));
+    
+            var string48Parameter = string48 != null ?
+                new ObjectParameter("String48", string48) :
+                new ObjectParameter("String48", typeof(string));
+    
+            var string49Parameter = string49 != null ?
+                new ObjectParameter("String49", string49) :
+                new ObjectParameter("String49", typeof(string));
+    
+            var string50Parameter = string50 != null ?
+                new ObjectParameter("String50", string50) :
+                new ObjectParameter("String50", typeof(string));
+    
+            var string51Parameter = string51 != null ?
+                new ObjectParameter("String51", string51) :
+                new ObjectParameter("String51", typeof(string));
+    
+            var string52Parameter = string52 != null ?
+                new ObjectParameter("String52", string52) :
+                new ObjectParameter("String52", typeof(string));
+    
+            var string53Parameter = string53 != null ?
+                new ObjectParameter("String53", string53) :
+                new ObjectParameter("String53", typeof(string));
+    
+            var string54Parameter = string54 != null ?
+                new ObjectParameter("String54", string54) :
+                new ObjectParameter("String54", typeof(string));
+    
+            var string55Parameter = string55 != null ?
+                new ObjectParameter("String55", string55) :
+                new ObjectParameter("String55", typeof(string));
+    
+            var string56Parameter = string56 != null ?
+                new ObjectParameter("String56", string56) :
+                new ObjectParameter("String56", typeof(string));
+    
+            var string57Parameter = string57 != null ?
+                new ObjectParameter("String57", string57) :
+                new ObjectParameter("String57", typeof(string));
+    
+            var string58Parameter = string58 != null ?
+                new ObjectParameter("String58", string58) :
+                new ObjectParameter("String58", typeof(string));
+    
+            var string59Parameter = string59 != null ?
+                new ObjectParameter("String59", string59) :
+                new ObjectParameter("String59", typeof(string));
+    
+            var string60Parameter = string60 != null ?
+                new ObjectParameter("String60", string60) :
+                new ObjectParameter("String60", typeof(string));
+    
+            var float1Parameter = float1.HasValue ?
+                new ObjectParameter("Float1", float1) :
+                new ObjectParameter("Float1", typeof(double));
+    
+            var float2Parameter = float2.HasValue ?
+                new ObjectParameter("Float2", float2) :
+                new ObjectParameter("Float2", typeof(double));
+    
+            var float3Parameter = float3.HasValue ?
+                new ObjectParameter("Float3", float3) :
+                new ObjectParameter("Float3", typeof(double));
+    
+            var float4Parameter = float4.HasValue ?
+                new ObjectParameter("Float4", float4) :
+                new ObjectParameter("Float4", typeof(double));
+    
+            var float5Parameter = float5.HasValue ?
+                new ObjectParameter("Float5", float5) :
+                new ObjectParameter("Float5", typeof(double));
+    
+            var float6Parameter = float6.HasValue ?
+                new ObjectParameter("Float6", float6) :
+                new ObjectParameter("Float6", typeof(double));
+    
+            var float7Parameter = float7.HasValue ?
+                new ObjectParameter("Float7", float7) :
+                new ObjectParameter("Float7", typeof(double));
+    
+            var float8Parameter = float8.HasValue ?
+                new ObjectParameter("Float8", float8) :
+                new ObjectParameter("Float8", typeof(double));
+    
+            var float9Parameter = float9.HasValue ?
+                new ObjectParameter("Float9", float9) :
+                new ObjectParameter("Float9", typeof(double));
+    
+            var float10Parameter = float10.HasValue ?
+                new ObjectParameter("Float10", float10) :
+                new ObjectParameter("Float10", typeof(double));
+    
+            var float11Parameter = float11.HasValue ?
+                new ObjectParameter("Float11", float11) :
+                new ObjectParameter("Float11", typeof(double));
+    
+            var float12Parameter = float12.HasValue ?
+                new ObjectParameter("Float12", float12) :
+                new ObjectParameter("Float12", typeof(double));
+    
+            var float13Parameter = float13.HasValue ?
+                new ObjectParameter("Float13", float13) :
+                new ObjectParameter("Float13", typeof(double));
+    
+            var float14Parameter = float14.HasValue ?
+                new ObjectParameter("Float14", float14) :
+                new ObjectParameter("Float14", typeof(double));
+    
+            var float15Parameter = float15.HasValue ?
+                new ObjectParameter("Float15", float15) :
+                new ObjectParameter("Float15", typeof(double));
+    
+            var float16Parameter = float16.HasValue ?
+                new ObjectParameter("Float16", float16) :
+                new ObjectParameter("Float16", typeof(double));
+    
+            var float17Parameter = float17.HasValue ?
+                new ObjectParameter("Float17", float17) :
+                new ObjectParameter("Float17", typeof(double));
+    
+            var float18Parameter = float18.HasValue ?
+                new ObjectParameter("Float18", float18) :
+                new ObjectParameter("Float18", typeof(double));
+    
+            var float19Parameter = float19.HasValue ?
+                new ObjectParameter("Float19", float19) :
+                new ObjectParameter("Float19", typeof(double));
+    
+            var float20Parameter = float20.HasValue ?
+                new ObjectParameter("Float20", float20) :
+                new ObjectParameter("Float20", typeof(double));
+    
+            var float21Parameter = float21.HasValue ?
+                new ObjectParameter("Float21", float21) :
+                new ObjectParameter("Float21", typeof(double));
+    
+            var float22Parameter = float22.HasValue ?
+                new ObjectParameter("Float22", float22) :
+                new ObjectParameter("Float22", typeof(double));
+    
+            var float23Parameter = float23.HasValue ?
+                new ObjectParameter("Float23", float23) :
+                new ObjectParameter("Float23", typeof(double));
+    
+            var float24Parameter = float24.HasValue ?
+                new ObjectParameter("Float24", float24) :
+                new ObjectParameter("Float24", typeof(double));
+    
+            var float25Parameter = float25.HasValue ?
+                new ObjectParameter("Float25", float25) :
+                new ObjectParameter("Float25", typeof(double));
+    
+            var float26Parameter = float26.HasValue ?
+                new ObjectParameter("Float26", float26) :
+                new ObjectParameter("Float26", typeof(double));
+    
+            var float27Parameter = float27.HasValue ?
+                new ObjectParameter("Float27", float27) :
+                new ObjectParameter("Float27", typeof(double));
+    
+            var float28Parameter = float28.HasValue ?
+                new ObjectParameter("Float28", float28) :
+                new ObjectParameter("Float28", typeof(double));
+    
+            var float29Parameter = float29.HasValue ?
+                new ObjectParameter("Float29", float29) :
+                new ObjectParameter("Float29", typeof(double));
+    
+            var float30Parameter = float30.HasValue ?
+                new ObjectParameter("Float30", float30) :
+                new ObjectParameter("Float30", typeof(double));
+    
+            var float31Parameter = float31.HasValue ?
+                new ObjectParameter("Float31", float31) :
+                new ObjectParameter("Float31", typeof(double));
+    
+            var float32Parameter = float32.HasValue ?
+                new ObjectParameter("Float32", float32) :
+                new ObjectParameter("Float32", typeof(double));
+    
+            var float33Parameter = float33.HasValue ?
+                new ObjectParameter("Float33", float33) :
+                new ObjectParameter("Float33", typeof(double));
+    
+            var float34Parameter = float34.HasValue ?
+                new ObjectParameter("Float34", float34) :
+                new ObjectParameter("Float34", typeof(double));
+    
+            var float35Parameter = float35.HasValue ?
+                new ObjectParameter("Float35", float35) :
+                new ObjectParameter("Float35", typeof(double));
+    
+            var float36Parameter = float36.HasValue ?
+                new ObjectParameter("Float36", float36) :
+                new ObjectParameter("Float36", typeof(double));
+    
+            var float37Parameter = float37.HasValue ?
+                new ObjectParameter("Float37", float37) :
+                new ObjectParameter("Float37", typeof(double));
+    
+            var float38Parameter = float38.HasValue ?
+                new ObjectParameter("Float38", float38) :
+                new ObjectParameter("Float38", typeof(double));
+    
+            var float39Parameter = float39.HasValue ?
+                new ObjectParameter("Float39", float39) :
+                new ObjectParameter("Float39", typeof(double));
+    
+            var float40Parameter = float40.HasValue ?
+                new ObjectParameter("Float40", float40) :
+                new ObjectParameter("Float40", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("cp_RptTable2_ins", nickNameParameter, donViParameter, string1Parameter, string2Parameter, string3Parameter, string4Parameter, string5Parameter, string6Parameter, string7Parameter, string8Parameter, string9Parameter, string10Parameter, string11Parameter, string12Parameter, string13Parameter, string14Parameter, string15Parameter, string16Parameter, string17Parameter, string18Parameter, string19Parameter, string20Parameter, string21Parameter, string22Parameter, string23Parameter, string24Parameter, string25Parameter, string26Parameter, string27Parameter, string28Parameter, string29Parameter, string30Parameter, string31Parameter, string32Parameter, string33Parameter, string34Parameter, string35Parameter, string36Parameter, string37Parameter, string38Parameter, string39Parameter, string40Parameter, string41Parameter, string42Parameter, string43Parameter, string44Parameter, string45Parameter, string46Parameter, string47Parameter, string48Parameter, string49Parameter, string50Parameter, string51Parameter, string52Parameter, string53Parameter, string54Parameter, string55Parameter, string56Parameter, string57Parameter, string58Parameter, string59Parameter, string60Parameter, float1Parameter, float2Parameter, float3Parameter, float4Parameter, float5Parameter, float6Parameter, float7Parameter, float8Parameter, float9Parameter, float10Parameter, float11Parameter, float12Parameter, float13Parameter, float14Parameter, float15Parameter, float16Parameter, float17Parameter, float18Parameter, float19Parameter, float20Parameter, float21Parameter, float22Parameter, float23Parameter, float24Parameter, float25Parameter, float26Parameter, float27Parameter, float28Parameter, float29Parameter, float30Parameter, float31Parameter, float32Parameter, float33Parameter, float34Parameter, float35Parameter, float36Parameter, float37Parameter, float38Parameter, float39Parameter, float40Parameter);
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Teacher_Result> sp_Login_Teacher(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Teacher_Result>("sp_Login_Teacher", usernameParameter, passwordParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     }
 }

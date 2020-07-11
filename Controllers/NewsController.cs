@@ -17,6 +17,23 @@ namespace KIDS.API.Controllers
             _db = new H_KIDSEntities();
         }
         /// <summary>
+        /// Cập nhân tin tức
+        /// </summary>
+        /// <returns></returns>
+        [Route("Update")]
+        [HttpPost]
+        public IHttpActionResult UpdateNews(UpdateNewsModel update)
+        {
+            var data = _db.sp_News_Upd(update.NewsId, update.Title, update.Content, update.ImageUrl, update.DateCreate,
+                update.UserCreate);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 30,
+                Message = "SUCCESSFULLY",
+                Data = data,
+            });
+        }
+        /// <summary>
         /// lấy danh sách thông báo do trường và lợp tạo ra
         /// </summary>
         /// <returns></returns>
