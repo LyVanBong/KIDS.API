@@ -1,21 +1,3 @@
-# ASP.NET
-- task: FtpUpload@2
-  inputs:
-    credentialsOption: 'inputs'
-    serverUrl: 'ftp://103.78.88.19:21'
-    username: 'administrator'
-    password: 'Socnic123$%^'
-    rootDirectory: '\'
-    filePatterns: '**'
-    remoteDirectory: '/upload/$(Build.BuildId)/'
-    clean: false
-    cleanContents: false
-    preservePaths: false
-    trustSSL: false
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
-
 trigger:
 - master
 
@@ -45,3 +27,21 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+# ASP.NET
+- task: FtpUpload@2
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: 'ftp://103.78.88.19:21'
+    username: 'administrator'
+    password: 'Socnic123$%^'
+    rootDirectory: '\'
+    filePatterns: '**'
+    remoteDirectory: '/upload/$(Build.BuildId)/'
+    clean: false
+    cleanContents: false
+    preservePaths: false
+    trustSSL: false
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
