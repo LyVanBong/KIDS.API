@@ -295,7 +295,7 @@
           <Parameter Name="Title" Type="nvarchar" Mode="In" />
           <Parameter Name="Content" Type="ntext" Mode="In" />
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="ImageUrl" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ImageUrl" Type="nvarchar" Mode="In" />
           <Parameter Name="DateCreate" Type="datetime" Mode="In" />
           <Parameter Name="UserCreate" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -682,7 +682,7 @@
             <Parameter Name="Title" Mode="In" Type="String" />
             <Parameter Name="Content" Mode="In" Type="String" />
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
-            <Parameter Name="ImageUrl" Mode="In" Type="Guid" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
             <Parameter Name="DateCreate" Mode="In" Type="DateTime" />
             <Parameter Name="UserCreate" Mode="In" Type="Guid" />
           </FunctionImport>
