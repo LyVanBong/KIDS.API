@@ -56,8 +56,8 @@ namespace KIDS.API.Controllers
         /// <param name="NewsId"></param>
         /// <returns></returns>
         [Route("DeleteNews")]
-        [HttpPost]
-        public IHttpActionResult DeleteNews(Guid newsId)
+        [HttpDelete]
+        public IHttpActionResult DeleteNews([FromBody] Guid newsId)
         {
             var data = _db.sp_News_Del(newsId);
             return Ok(new ResponseModel<int>

@@ -105,14 +105,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configurations\AppConstants.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
+    <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ApplicationController..cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\StudyPlanController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
-    <Compile Include="Controllers\TeacherPrescriptionController.cs" />
     <Compile Include="Database\DbKids.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -293,10 +294,12 @@
     <Compile Include="Helpers\HashFunctionHelper.cs" />
     <Compile Include="Models\AlbumImageModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />
+    <Compile Include="Models\PrescriptionModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UpdateAttendance.cs" />
+    <Compile Include="Models\ApplicationModel.cs" />
     <Compile Include="Models\UpdateNewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
