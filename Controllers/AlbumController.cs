@@ -25,7 +25,24 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult InsertAlbum(AlbumModel album)
         {
-            var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate);
+            var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate, album.UserCreate);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 27,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+        /// <summary>
+        /// update album
+        /// </summary>
+        /// <param name="albumID"></param>
+        /// <returns></returns>
+        [Route("UpdateAlbum")]
+        [HttpPost]
+        public IHttpActionResult UpdateAlbum(AlbumModel album)
+        {
+            var data = _db.sp_Album_Upd(album.AlbumID, album.Thumbnail, album.Description, album.UserCreate, album.DateCreate);
             return Ok(new ResponseModel<int>
             {
                 Code = 27,
@@ -39,7 +56,7 @@ namespace KIDS.API.Controllers
         /// <param name="albumId"></param>
         /// <returns></returns>
         [Route("DeleteAlbum")]
-        [HttpDelete]
+        [HttpPost]
         public IHttpActionResult DeleteAlbum(Guid albumId)
         {
             var data = _db.sp_Album_Del(albumId);
@@ -163,6 +180,57 @@ namespace KIDS.API.Controllers
                     Data = null
                 });
             }
+        }
+        /// <summary>
+        /// Thêm album Detail mới
+        /// </summary>
+        /// <param name="albumDetail"></param>
+        /// <returns></returns>
+        [Route("InsertAlbumImage")]
+        [HttpPost]
+        public IHttpActionResult InsertAlbumImage(AlbumImageModel albumImage)
+        {
+            var data = _db.sp_AlbumImage_Ins(albumImage.AlbumID, albumImage.ImageURL, albumImage.Description, albumImage.Sort);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 27,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+        /// <summary>
+        /// update album
+        /// </summary>
+        /// <param name="imageId"></param>
+        /// <returns></returns>
+        [Route("UpdateAlbumImage")]
+        [HttpPost]
+        public IHttpActionResult UpdateAlbumImage(AlbumImageModel albumImage)
+        {
+            var data = _db.sp_AlbumImage_Upd(albumImage.ImageID, albumImage.ImageURL, albumImage.Description, albumImage.Sort);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 27,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+        /// <summary>
+        /// xao mot album anh
+        /// </summary>
+        /// <param name="imageId"></param>
+        /// <returns></returns>
+        [Route("DeleteAlbumImage")]
+        [HttpPost]
+        public IHttpActionResult DeleteAlbumImage(Guid imageId)
+        {
+            var data = _db.sp_AlbumImage_Del(imageId);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 24,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
         }
     }
 }

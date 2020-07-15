@@ -120,7 +120,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Del", albumIDParameter);
         }
     
-        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate)
+        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate )
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
@@ -137,8 +137,12 @@ namespace KIDS.API.Database
             var dateCreateParameter = dateCreate.HasValue ?
                 new ObjectParameter("DateCreate", dateCreate) :
                 new ObjectParameter("DateCreate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter);
+
+            var userCreateParameter = userCreate.HasValue ?
+               new ObjectParameter("UserCreate", userCreate) :
+               new ObjectParameter("UserCreate", typeof(System.Guid));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter,userCreateParameter);
         }
     
         public virtual ObjectResult<sp_Album_sel_Result> sp_Album_sel(string classID)
@@ -150,7 +154,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_Result>("sp_Album_sel", classIDParameter);
         }
     
-        public virtual int sp_Album_Upd(Nullable<System.Guid> albumID, string thumbnail, string description, Nullable<System.Guid> teacherID, Nullable<System.DateTime> dateCreate)
+        public virtual int sp_Album_Upd(Nullable<System.Guid> albumID, string thumbnail, string description, Nullable<System.Guid> userCreate, Nullable<System.DateTime> dateCreate)
         {
             var albumIDParameter = albumID.HasValue ?
                 new ObjectParameter("AlbumID", albumID) :
@@ -164,15 +168,15 @@ namespace KIDS.API.Database
                 new ObjectParameter("Description", description) :
                 new ObjectParameter("Description", typeof(string));
     
-            var teacherIDParameter = teacherID.HasValue ?
-                new ObjectParameter("TeacherID", teacherID) :
-                new ObjectParameter("TeacherID", typeof(System.Guid));
+            var userCreateParameter = userCreate.HasValue ?
+                new ObjectParameter("UserCreate", userCreate) :
+                new ObjectParameter("UserCreate", typeof(System.Guid));
     
             var dateCreateParameter = dateCreate.HasValue ?
                 new ObjectParameter("DateCreate", dateCreate) :
                 new ObjectParameter("DateCreate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Upd", albumIDParameter, thumbnailParameter, descriptionParameter, teacherIDParameter, dateCreateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Upd", albumIDParameter, thumbnailParameter, descriptionParameter, userCreateParameter, dateCreateParameter);
         }
     
         public virtual int sp_AlbumImage_Del(Nullable<System.Guid> imageID)

@@ -1,4 +1,5 @@
-﻿using KIDS.API.Database;
+﻿using KIDS.API.Configurations;
+using KIDS.API.Database;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,23 @@ namespace KIDS.API.Controllers
             {
                 Code = 30,
                 Message = "SUCCESSFULLY",
+                Data = data,
+            });
+        }
+        /// <summary>
+        /// Xóa tin tức
+        /// </summary>
+        /// <param name="NewsId"></param>
+        /// <returns></returns>
+        [Route("DeleteNews")]
+        [HttpPost]
+        public IHttpActionResult DeleteNews(Guid newsId)
+        {
+            var data = _db.sp_News_Del(newsId);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 24,
+                Message = AppConstants.Successfully,
                 Data = data,
             });
         }
