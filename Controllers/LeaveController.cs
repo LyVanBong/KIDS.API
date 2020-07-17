@@ -18,10 +18,10 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Leave")]
         [HttpGet]
-        public IHttpActionResult LeaveSchool(Guid TeacherId, Guid ClassId)
+        public IHttpActionResult LeaveSchool(Guid ClassId)
         {
             var db = new H_KIDSEntities();
-            var data = db.sp_Teacher_Application_sel(ClassId, TeacherId).ToList();
+            var data = db.sp_Teacher_Application_sel(ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Teacher_Application_sel_Result>>()

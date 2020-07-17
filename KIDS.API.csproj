@@ -105,14 +105,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Configurations\AppConstants.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
+    <Compile Include="Controllers\ApplicationController..cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
+    <Compile Include="Controllers\CommunicationsController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\StudyPlanController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
-    <Compile Include="Controllers\TeacherPrescriptionController.cs" />
     <Compile Include="Database\DbKids.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,7 +190,16 @@
     <Compile Include="Database\sp_Student_Assess_Student_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Student_Communications_Reply_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Communications_sel_Reply_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Student_Communications_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Communications_sel_TeacherToStudent_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Daily_Hygiene_sel_Result.cs">
@@ -266,6 +277,12 @@
     <Compile Include="Database\sp_Teacher_Attendance_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Teacher_CommunicationsClass_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_Communications_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Teacher_Prescription_Detail_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -293,8 +310,12 @@
     <Compile Include="Helpers\HashFunctionHelper.cs" />
     <Compile Include="Models\AlbumImageModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />
+    <Compile Include="Models\ApplicationModel.cs" />
+    <Compile Include="Models\CommunicationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PrescriptionModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\StudyPlanModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UpdateAttendance.cs" />
     <Compile Include="Models\UpdateNewsModel.cs" />

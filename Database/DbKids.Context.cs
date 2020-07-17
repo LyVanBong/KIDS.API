@@ -50,17 +50,13 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Prescription_sel_Result>("sp_Student_Prescription_sel", studentIDParameter);
         }
     
-        public virtual ObjectResult<sp_Teacher_Application_sel_Result> sp_Teacher_Application_sel(Nullable<System.Guid> classID, Nullable<System.Guid> teacherID)
+        public virtual ObjectResult<sp_Teacher_Application_sel_Result> sp_Teacher_Application_sel(Nullable<System.Guid> classID)
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
     
-            var teacherIDParameter = teacherID.HasValue ?
-                new ObjectParameter("TeacherID", teacherID) :
-                new ObjectParameter("TeacherID", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Application_sel_Result>("sp_Teacher_Application_sel", classIDParameter, teacherIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Application_sel_Result>("sp_Teacher_Application_sel", classIDParameter);
         }
     
         public virtual ObjectResult<sp_Teacher_Attendance_Count_sel_Result> sp_Teacher_Attendance_Count_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
@@ -89,17 +85,13 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Attendance_sel_Result>("sp_Teacher_Attendance_sel", classIDParameter, dateParameter);
         }
     
-        public virtual ObjectResult<sp_Teacher_Prescription_sel_Result> sp_Teacher_Prescription_sel(Nullable<System.Guid> classID, Nullable<System.Guid> teacherID)
+        public virtual ObjectResult<sp_Teacher_Prescription_sel_Result> sp_Teacher_Prescription_sel(Nullable<System.Guid> classID)
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
     
-            var teacherIDParameter = teacherID.HasValue ?
-                new ObjectParameter("TeacherID", teacherID) :
-                new ObjectParameter("TeacherID", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Prescription_sel_Result>("sp_Teacher_Prescription_sel", classIDParameter, teacherIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Prescription_sel_Result>("sp_Teacher_Prescription_sel", classIDParameter);
         }
     
         public virtual ObjectResult<sp_Teacher_Prescription_Detail_sel_Result> sp_Teacher_Prescription_Detail_sel(Nullable<System.Guid> prescriptionID)
@@ -120,7 +112,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Del", albumIDParameter);
         }
     
-        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate )
+        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
@@ -137,12 +129,12 @@ namespace KIDS.API.Database
             var dateCreateParameter = dateCreate.HasValue ?
                 new ObjectParameter("DateCreate", dateCreate) :
                 new ObjectParameter("DateCreate", typeof(System.DateTime));
-
+    
             var userCreateParameter = userCreate.HasValue ?
-               new ObjectParameter("UserCreate", userCreate) :
-               new ObjectParameter("UserCreate", typeof(System.Guid));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter,userCreateParameter);
+                new ObjectParameter("UserCreate", userCreate) :
+                new ObjectParameter("UserCreate", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter, userCreateParameter);
         }
     
         public virtual ObjectResult<sp_Album_sel_Result> sp_Album_sel(string classID)
@@ -396,7 +388,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Del", communicationIDParameter);
         }
     
-        public virtual int sp_Student_Communications_Ins(Nullable<System.Guid> classID, Nullable<System.Guid> teacherID, Nullable<System.Guid> parent, string content, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> studentID)
+        public virtual int sp_Student_Communications_Ins(Nullable<System.Guid> classID, Nullable<System.Guid> teacherID, Nullable<System.Guid> parent, string content, Nullable<System.DateTime> dateCreate, string studentID, Nullable<int> type)
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
@@ -418,14 +410,18 @@ namespace KIDS.API.Database
                 new ObjectParameter("DateCreate", dateCreate) :
                 new ObjectParameter("DateCreate", typeof(System.DateTime));
     
-            var studentIDParameter = studentID.HasValue ?
+            var studentIDParameter = studentID != null ?
                 new ObjectParameter("StudentID", studentID) :
-                new ObjectParameter("StudentID", typeof(System.Guid));
+                new ObjectParameter("StudentID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Ins", classIDParameter, teacherIDParameter, parentParameter, contentParameter, dateCreateParameter, studentIDParameter);
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Ins", classIDParameter, teacherIDParameter, parentParameter, contentParameter, dateCreateParameter, studentIDParameter, typeParameter);
         }
     
-        public virtual int sp_Student_Communications_Upd(Nullable<System.Guid> communicationID, string content, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> teacherID)
+        public virtual int sp_Student_Communications_Upd(Nullable<System.Guid> communicationID, string content, Nullable<System.DateTime> dateCreate)
         {
             var communicationIDParameter = communicationID.HasValue ?
                 new ObjectParameter("CommunicationID", communicationID) :
@@ -439,11 +435,7 @@ namespace KIDS.API.Database
                 new ObjectParameter("DateCreate", dateCreate) :
                 new ObjectParameter("DateCreate", typeof(System.DateTime));
     
-            var teacherIDParameter = teacherID.HasValue ?
-                new ObjectParameter("TeacherID", teacherID) :
-                new ObjectParameter("TeacherID", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Upd", communicationIDParameter, contentParameter, dateCreateParameter, teacherIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Communications_Upd", communicationIDParameter, contentParameter, dateCreateParameter);
         }
     
         public virtual ObjectResult<sp_Student_Daily_Hygiene_sel_Result> sp_Student_Daily_Hygiene_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID)
@@ -1091,13 +1083,13 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchool_Result>("sp_News_sel_ClassAndSchool", classIDParameter, schoolIDParameter);
         }
     
-        public virtual ObjectResult<sp_Student_Communications_sel_Result> sp_Student_Communications_sel(Nullable<System.Guid> classID)
+        public virtual ObjectResult<sp_Student_Communications_sel_Result> sp_Student_Communications_sel(Nullable<System.Guid> studentID)
         {
-            var classIDParameter = classID.HasValue ?
-                new ObjectParameter("ClassID", classID) :
-                new ObjectParameter("ClassID", typeof(System.Guid));
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_Result>("sp_Student_Communications_sel", classIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_Result>("sp_Student_Communications_sel", studentIDParameter);
         }
     
         public virtual ObjectResult<sp_Teachers_Notification_Result> sp_Teachers_Notification(Nullable<System.Guid> classID, Nullable<System.Guid> schoolID)
@@ -2282,6 +2274,72 @@ namespace KIDS.API.Database
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<sp_Student_Communications_Reply_sel_Result> sp_Student_Communications_Reply_sel(Nullable<System.Guid> communicationID)
+        {
+            var communicationIDParameter = communicationID.HasValue ?
+                new ObjectParameter("CommunicationID", communicationID) :
+                new ObjectParameter("CommunicationID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_Reply_sel_Result>("sp_Student_Communications_Reply_sel", communicationIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Communications_sel_Reply_Result> sp_Student_Communications_sel_Reply(Nullable<System.Guid> parent)
+        {
+            var parentParameter = parent.HasValue ?
+                new ObjectParameter("Parent", parent) :
+                new ObjectParameter("Parent", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_Reply_Result>("sp_Student_Communications_sel_Reply", parentParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Communications_sel_TeacherToStudent_Result> sp_Student_Communications_sel_TeacherToStudent(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_TeacherToStudent_Result>("sp_Student_Communications_sel_TeacherToStudent", studentIDParameter);
+        }
+    
+        public virtual int sp_Teacher_CommunicationAprove_Upd(Nullable<System.Guid> communicationID, Nullable<bool> isConfirmed, Nullable<System.Guid> teacherID, string content)
+        {
+            var communicationIDParameter = communicationID.HasValue ?
+                new ObjectParameter("CommunicationID", communicationID) :
+                new ObjectParameter("CommunicationID", typeof(System.Guid));
+    
+            var isConfirmedParameter = isConfirmed.HasValue ?
+                new ObjectParameter("IsConfirmed", isConfirmed) :
+                new ObjectParameter("IsConfirmed", typeof(bool));
+    
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            var contentParameter = content != null ?
+                new ObjectParameter("Content", content) :
+                new ObjectParameter("Content", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_CommunicationAprove_Upd", communicationIDParameter, isConfirmedParameter, teacherIDParameter, contentParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_Communications_sel_Result> sp_Teacher_Communications_sel(Nullable<System.Guid> teacherID)
+        {
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Communications_sel_Result>("sp_Teacher_Communications_sel", teacherIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Teacher_CommunicationsClass_sel_Result> sp_Teacher_CommunicationsClass_sel(Nullable<System.Guid> classID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_CommunicationsClass_sel_Result>("sp_Teacher_CommunicationsClass_sel", classIDParameter);
         }
     }
 }
