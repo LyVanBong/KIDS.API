@@ -106,12 +106,10 @@
     <Compile Include="Configurations\AppConstants.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Controllers\ApplicationController..cs" />
-    <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\CommunicationsController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ApplicationController..cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
@@ -320,7 +318,6 @@
     <Compile Include="Models\StudyPlanModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UpdateAttendance.cs" />
-    <Compile Include="Models\ApplicationModel.cs" />
     <Compile Include="Models\UpdateNewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
