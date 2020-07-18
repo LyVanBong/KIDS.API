@@ -113,6 +113,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
+    <Compile Include="Controllers\DailyController.cs" />
     <Compile Include="Controllers\StudyPlanController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Database\DbKids.Context.cs">
@@ -212,6 +213,12 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Daily_Sleep_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_Study_AM_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Daily_Study_PM_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Daily_Study_sel_Result.cs">
@@ -315,6 +322,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PrescriptionModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\StudyPlanModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UpdateAttendance.cs" />

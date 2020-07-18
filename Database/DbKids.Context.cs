@@ -2341,5 +2341,31 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_CommunicationsClass_sel_Result>("sp_Teacher_CommunicationsClass_sel", classIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Student_Daily_Study_AM_sel_Result> sp_Student_Daily_Study_AM_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Study_AM_sel_Result>("sp_Student_Daily_Study_AM_sel", dateParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Daily_Study_PM_sel_Result> sp_Student_Daily_Study_PM_sel(Nullable<System.DateTime> date, Nullable<System.Guid> studentID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Study_PM_sel_Result>("sp_Student_Daily_Study_PM_sel", dateParameter, studentIDParameter);
+        }
     }
 }
