@@ -17,7 +17,7 @@ namespace KIDS.API.Database
         public string Name { get; set; }
         public string Contents { get; set; }
         public Nullable<System.DateTime> TimeFrom { get; set; }
-        public Nullable<System.DateTime> TimeTo { get; set; }
+        public Nullable<int> Column1 { get; set; }
         public string NhanXet { get; set; }
         public string ThoiGian { get; set; }
     }

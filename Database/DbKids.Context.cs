@@ -2367,5 +2367,64 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Daily_Study_PM_sel_Result>("sp_Student_Daily_Study_PM_sel", dateParameter, studentIDParameter);
         }
+    
+        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string email, string address, string picture)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var sexParameter = sex.HasValue ?
+                new ObjectParameter("Sex", sex) :
+                new ObjectParameter("Sex", typeof(int));
+    
+            var dOBParameter = dOB.HasValue ?
+                new ObjectParameter("DOB", dOB) :
+                new ObjectParameter("DOB", typeof(System.DateTime));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var pictureParameter = picture != null ?
+                new ObjectParameter("Picture", picture) :
+                new ObjectParameter("Picture", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, emailParameter, addressParameter, pictureParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_sel_Result> sp_Student_sel(Nullable<System.Guid> classID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_sel_Result>("sp_Student_sel", classIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Study_Morning_sel_Result> sp_Student_Study_Morning_sel(Nullable<System.DateTime> date, Nullable<System.Guid> classID, Nullable<System.Guid> studentID)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Study_Morning_sel_Result>("sp_Student_Study_Morning_sel", dateParameter, classIDParameter, studentIDParameter);
+        }
     }
 }
