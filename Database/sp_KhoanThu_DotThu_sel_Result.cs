@@ -11,13 +11,12 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Student_HocPhi_sel_Result
+    public partial class sp_KhoanThu_DotThu_sel_Result
     {
         public System.Guid ID { get; set; }
-        public System.Guid DotThu_HocSinhID { get; set; }
+        public string TenThu { get; set; }
         public Nullable<System.DateTime> ThoiGianThu { get; set; }
         public Nullable<System.DateTime> DenNgay { get; set; }
-        public string TenDotThu { get; set; }
         public Nullable<decimal> TongCong { get; set; }
         public string TrangThai { get; set; }
     }

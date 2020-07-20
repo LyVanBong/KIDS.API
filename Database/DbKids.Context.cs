@@ -2461,5 +2461,23 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Study_Afternoon_sel_Result>("sp_Student_Study_Afternoon_sel", dateParameter, classIDParameter, studentIDParameter);
         }
+    
+        public virtual ObjectResult<sp_KhoanThu_DotThu_ChiTiet_sel_Result> sp_KhoanThu_DotThu_ChiTiet_sel(Nullable<System.Guid> dotThu_HocSinhID)
+        {
+            var dotThu_HocSinhIDParameter = dotThu_HocSinhID.HasValue ?
+                new ObjectParameter("DotThu_HocSinhID", dotThu_HocSinhID) :
+                new ObjectParameter("DotThu_HocSinhID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_KhoanThu_DotThu_ChiTiet_sel_Result>("sp_KhoanThu_DotThu_ChiTiet_sel", dotThu_HocSinhIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_KhoanThu_DotThu_sel_Result> sp_KhoanThu_DotThu_sel(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_KhoanThu_DotThu_sel_Result>("sp_KhoanThu_DotThu_sel", studentIDParameter);
+        }
     }
 }

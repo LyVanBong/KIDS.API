@@ -281,6 +281,12 @@
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_KhoanThu_DotThu_ChiTiet_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DotThu_HocSinhID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_KhoanThu_DotThu_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NickName" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
@@ -1338,6 +1344,12 @@
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="sp_KhoanThu_DotThu_ChiTiet_sel" ReturnType="Collection(H_KIDSModel.sp_KhoanThu_DotThu_ChiTiet_sel_Result)">
+          <Parameter Name="DotThu_HocSinhID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_KhoanThu_DotThu_sel" ReturnType="Collection(H_KIDSModel.sp_KhoanThu_DotThu_sel_Result)">
+          <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
           <Property Type="Guid" Name="NguoiSuDung" Nullable="true" />
@@ -2389,6 +2401,29 @@
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
           <Property Type="String" Name="NhanXet" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <ComplexType Name="sp_KhoanThu_DotThu_ChiTiet_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="DotThu_HocSinhID" Nullable="true" />
+          <Property Type="Guid" Name="KhoanThu" Nullable="false" />
+          <Property Type="Int32" Name="SoBuoi" Nullable="true" />
+          <Property Type="Decimal" Name="MucThu" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="MienGiam" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="SoTien" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="Ngay" Nullable="true" Precision="23" />
+          <Property Type="String" Name="GhiChu" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="false" />
+          <Property Type="String" Name="TenKhoanThu" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_KhoanThu_DotThu_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TenThu" Nullable="true" MaxLength="75" />
+          <Property Type="DateTime" Name="ThoiGianThu" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DenNgay" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="TongCong" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="String" Name="TrangThai" Nullable="false" MaxLength="9" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3411,6 +3446,37 @@
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
                 <ScalarProperty Name="NhanXet" ColumnName="NhanXet" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_KhoanThu_DotThu_ChiTiet_sel" FunctionName="H_KIDSModel.Store.sp_KhoanThu_DotThu_ChiTiet_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_KhoanThu_DotThu_ChiTiet_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DotThu_HocSinhID" ColumnName="DotThu_HocSinhID" />
+                <ScalarProperty Name="KhoanThu" ColumnName="KhoanThu" />
+                <ScalarProperty Name="SoBuoi" ColumnName="SoBuoi" />
+                <ScalarProperty Name="MucThu" ColumnName="MucThu" />
+                <ScalarProperty Name="MienGiam" ColumnName="MienGiam" />
+                <ScalarProperty Name="SoTien" ColumnName="SoTien" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="TenKhoanThu" ColumnName="TenKhoanThu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_KhoanThu_DotThu_sel" FunctionName="H_KIDSModel.Store.sp_KhoanThu_DotThu_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_KhoanThu_DotThu_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TenThu" ColumnName="TenThu" />
+                <ScalarProperty Name="ThoiGianThu" ColumnName="ThoiGianThu" />
+                <ScalarProperty Name="DenNgay" ColumnName="DenNgay" />
+                <ScalarProperty Name="TongCong" ColumnName="TongCong" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
