@@ -454,6 +454,11 @@
         <Function Name="sp_Student_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_Student_Study_Afternoon_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_Student_Study_Morning_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
@@ -1326,6 +1331,11 @@
           <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Students_Parents_sel" ReturnType="Collection(H_KIDSModel.sp_Students_Parents_sel_Result)">
+          <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Study_Afternoon_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Study_Afternoon_sel_Result)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
@@ -2373,6 +2383,12 @@
           <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="Picture" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_Student_Study_Afternoon_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
+          <Property Type="String" Name="NhanXet" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3385,6 +3401,16 @@
                 <ScalarProperty Name="Relationship" ColumnName="Relationship" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Student_Study_Afternoon_sel" FunctionName="H_KIDSModel.Store.sp_Student_Study_Afternoon_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Study_Afternoon_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+                <ScalarProperty Name="NhanXet" ColumnName="NhanXet" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -42,7 +42,31 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-
+        //bài học buổi chiểu theo học sinh, ngày
+        [Route("Afternoon/Student")]
+        [HttpGet]
+        public IHttpActionResult AfternoonStudent(DateTime date, Guid ClassID, Guid StudentID)
+        {
+            var data = _db.sp_Student_Study_Afternoon_sel(date, ClassID, StudentID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Student_Study_Afternoon_sel_Result>>()
+                {
+                    Code = 18,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Student_Study_Afternoon_sel_Result>>()
+                {
+                    Code = -19,
+                    Message = "FAILED",
+                    Data = null
+                });
+            }
+        }
 
         // Học sinh ngủ trong ngày
         [Route("SelectSleep/Student")]
@@ -93,7 +117,7 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
             }
-           
+
         }
         // Học sinh vệ sinh trong ngày
         [Route("SelectHygiene/Student")]
