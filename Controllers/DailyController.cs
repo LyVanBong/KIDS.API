@@ -20,12 +20,12 @@ namespace KIDS.API.Controllers
         //bài học buổi sáng theo học sinh, ngày
         [Route("Morning/Student")]
         [HttpGet]
-        public IHttpActionResult MorningStudent(DateTime date, Guid StudentID)
+        public IHttpActionResult MorningStudent(DateTime date, Guid ClassID, Guid StudentID)
         {
-            var data = _db.sp_Student_Daily_Study_AM_sel(date, StudentID).ToList();
+            var data = _db.sp_Student_Study_Morning_sel(date, ClassID, StudentID).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Student_Daily_Study_AM_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Student_Study_Morning_sel_Result>>()
                 {
                     Code = 18,
                     Message = "SUCCESSFULLY",
@@ -34,7 +34,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Student_Daily_Study_AM_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Student_Study_Morning_sel_Result>>()
                 {
                     Code = -19,
                     Message = "FAILED",
@@ -42,32 +42,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-        /// <summary>
-        /// select bài học buổi chiều theo học sinh, ngày
-        [Route("Afternoon/Student")]
-        [HttpGet]
-        public IHttpActionResult AfternoonStudent(DateTime date, Guid StudentID)
-        {
-            var data = _db.sp_Student_Daily_Study_PM_sel(date, StudentID).ToList();
-            if (data.Any())
-            {
-                return Ok(new ResponseModel<IEnumerable<sp_Student_Daily_Study_PM_sel_Result>>()
-                {
-                    Code = 19,
-                    Message = "SUCCESSFULLY",
-                    Data = data,
-                });
-            }
-            else
-            {
-                return Ok(new ResponseModel<IEnumerable<sp_Student_Daily_Study_PM_sel_Result>>()
-                {
-                    Code = -20,
-                    Message = "FAILED",
-                    Data = null
-                });
-            }
-        }
+
 
         // Học sinh ngủ trong ngày
         [Route("SelectSleep/Student")]
@@ -97,9 +72,9 @@ namespace KIDS.API.Controllers
         // Học sinh ăn trong ngày
         [Route("SelectMeal/Student")]
         [HttpGet]
-        public IHttpActionResult Student_DailyMeal(DateTime Date, Guid StudentID, Guid GradeID)
+        public IHttpActionResult Student_DailyMeal(DateTime Date, Guid StudentID, Guid Grade)
         {
-            var data = _db.sp_Student_Daily_Meal_sel(Date, StudentID, GradeID).ToList();
+            var data = _db.sp_Student_Daily_Meal_sel(Date, StudentID, Grade).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Student_Daily_Meal_sel_Result>>()
@@ -118,6 +93,7 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
             }
+           
         }
         // Học sinh vệ sinh trong ngày
         [Route("SelectHygiene/Student")]
@@ -147,61 +123,7 @@ namespace KIDS.API.Controllers
 
 
         //GIÁO VIÊN
-        //bài học buổi sáng theo lớp, ngày
-        [Route("Morning")]
-        [HttpGet]
-        public IHttpActionResult Morning(DateTime date, Guid classId)
-        {
-            var data = _db.sp_Study_Plan_Morning_sel(date, classId).ToList();
-            if (data.Any())
-            {
-                return Ok(new ResponseModel<IEnumerable<sp_Study_Plan_Morning_sel_Result>>()
-                {
-                    Code = 18,
-                    Message = "SUCCESSFULLY",
-                    Data = data,
-                });
-            }
-            else
-            {
-                return Ok(new ResponseModel<IEnumerable<sp_Study_Plan_Morning_sel_Result>>()
-                {
-                    Code = -19,
-                    Message = "FAILED",
-                    Data = null
-                });
-            }
-        }
-        /// <summary>
-        /// select bài học buổi chiều theo lớp, ngày
-        /// </summary>
-        /// <param name="date"></param>
-        /// <param name="classId"></param>
-        /// <returns></returns>
-        [Route("Afternoon")]
-        [HttpGet]
-        public IHttpActionResult Afternoon(DateTime date, Guid classId)
-        {
-            var data = _db.sp_Study_Plan_Afternoon_sel(date, classId).ToList();
-            if (data.Any())
-            {
-                return Ok(new ResponseModel<IEnumerable<sp_Study_Plan_Afternoon_sel_Result>>()
-                {
-                    Code = 19,
-                    Message = "SUCCESSFULLY",
-                    Data = data,
-                });
-            }
-            else
-            {
-                return Ok(new ResponseModel<IEnumerable<sp_Study_Plan_Afternoon_sel_Result>>()
-                {
-                    Code = -20,
-                    Message = "FAILED",
-                    Data = null
-                });
-            }
-        }
+
         // lấy danh sách học sinh có mặt trong ngày
         [Route("SelectAttendance")]
         [HttpGet]

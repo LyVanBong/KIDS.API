@@ -11,10 +11,13 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Student_Study_Morning_sel_Result
+    public partial class sp_Teacher_Assign_sel_Result
     {
         public Nullable<System.Guid> ID { get; set; }
-        public string Contents { get; set; }
-        public string ThoiGian { get; set; }
+        public Nullable<System.Guid> ClassID { get; set; }
+        public Nullable<System.Guid> TeacherID { get; set; }
+        public Nullable<System.Guid> Roles { get; set; }
+        public string TeacherName { get; set; }
+        public string ClassName { get; set; }
     }
 }

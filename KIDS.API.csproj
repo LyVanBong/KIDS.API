@@ -115,6 +115,7 @@
     <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\DailyController.cs" />
     <Compile Include="Controllers\StudyPlanController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Database\DbKids.Context.cs">
       <AutoGen>True</AutoGen>
@@ -180,6 +181,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_StudentParent_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Students_Parents_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Application_sel_Result.cs">
@@ -275,6 +279,9 @@
     <Compile Include="Database\sp_Teacher_Assess_Student_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Teacher_Assign_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Teacher_AttendanceArrive_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -330,6 +337,7 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\StudyPlanModel.cs" />
+    <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UpdateAttendance.cs" />
     <Compile Include="Models\UpdateNewsModel.cs" />

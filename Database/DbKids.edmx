@@ -462,6 +462,9 @@
         <Function Name="sp_StudentParent_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_Students_Parents_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_Students_Profile_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -501,6 +504,9 @@
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Teacher_AssessPlan_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Teacher_Assign_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_Teacher_Attendance_Count_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Date" Type="datetime" Mode="In" />
@@ -1299,6 +1305,11 @@
             <Parameter Name="Date" Mode="In" Type="DateTime" />
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="sp_Student_Study_Morning_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Study_Morning_sel_Result)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
           <FunctionImport Name="sp_Student_Profile_Upd">
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
             <Parameter Name="Name" Mode="In" Type="String" />
@@ -1311,9 +1322,10 @@
           <FunctionImport Name="sp_Student_sel" ReturnType="Collection(H_KIDSModel.sp_Student_sel_Result)">
           <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
-          <FunctionImport Name="sp_Student_Study_Morning_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Study_Morning_sel_Result)">
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
-            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+          <FunctionImport Name="sp_Teacher_Assign_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Assign_sel_Result)">
+          <Parameter Name="ClassID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Students_Parents_sel" ReturnType="Collection(H_KIDSModel.sp_Students_Parents_sel_Result)">
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
@@ -2297,6 +2309,11 @@
           <Property Type="String" Name="NhanXet" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
         </ComplexType>
+        <ComplexType Name="sp_Student_Study_Morning_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
+        </ComplexType>
         <ComplexType Name="sp_Student_sel_Result">
           <Property Type="Guid" Name="StudentID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -2333,11 +2350,28 @@
           <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="SchoolName" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="sp_Student_Study_Morning_sel_Result">
+        <ComplexType Name="sp_Teacher_Assign_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
-          <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
-          <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
-          <Property Type="String" Name="NhanXet1" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="Guid" Name="TeacherID" Nullable="true" />
+          <Property Type="Guid" Name="Roles" Nullable="true" />
+          <Property Type="String" Name="TeacherName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_Students_Parents_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Guid" Name="StudentID" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Mobile" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Tel" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Relationship" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3273,6 +3307,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Student_Study_Morning_sel" FunctionName="H_KIDSModel.Store.sp_Student_Study_Morning_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Study_Morning_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Student_Profile_Upd" FunctionName="H_KIDSModel.Store.sp_Student_Profile_Upd" />
           <FunctionImportMapping FunctionImportName="sp_Student_sel" FunctionName="H_KIDSModel.Store.sp_Student_sel">
             <ResultMapping>
@@ -3314,13 +3357,34 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Student_Study_Morning_sel" FunctionName="H_KIDSModel.Store.sp_Student_Study_Morning_sel">
+          <FunctionImportMapping FunctionImportName="sp_Teacher_Assign_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_Assign_sel">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Study_Morning_sel_Result">
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_Assign_sel_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Contents" ColumnName="Contents" />
-                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
-                <ScalarProperty Name="NhanXet1" ColumnName="NhanXet1" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Students_Parents_sel" FunctionName="H_KIDSModel.Store.sp_Students_Parents_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Students_Parents_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
