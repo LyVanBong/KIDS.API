@@ -14,7 +14,6 @@ namespace KIDS.API.Database
     public partial class sp_Student_HocPhi_sel_Result
     {
         public System.Guid ID { get; set; }
-        public System.Guid DotThu_HocSinhID { get; set; }
         public Nullable<System.DateTime> ThoiGianThu { get; set; }
         public Nullable<System.DateTime> DenNgay { get; set; }
         public string TenDotThu { get; set; }
