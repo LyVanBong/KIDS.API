@@ -535,10 +535,6 @@
           <Parameter Name="ArriveComment" Type="nvarchar" Mode="In" />
           <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
         </Function>
-        <Function Name="sp_Teacher_AttendanceLeave_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="Date" Type="datetime" Mode="In" />
-        </Function>
         <Function Name="sp_Teacher_AttendanceLeave_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Leave" Type="datetime" Mode="In" />
@@ -548,6 +544,10 @@
           <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Teacher_AttendanceLeaveLate_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_Teacher_AttendanceLeaves_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Date" Type="datetime" Mode="In" />
         </Function>
@@ -1349,6 +1349,10 @@
           </FunctionImport>
           <FunctionImport Name="sp_KhoanThu_DotThu_sel" ReturnType="Collection(H_KIDSModel.sp_KhoanThu_DotThu_sel_Result)">
           <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_AttendanceLeaves_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_AttendanceLeaves_sel_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -2424,6 +2428,54 @@
           <Property Type="Decimal" Name="TongCong" Nullable="true" Precision="38" Scale="0" />
           <Property Type="String" Name="TrangThai" Nullable="false" MaxLength="9" />
         </ComplexType>
+        <ComplexType Name="sp_Teacher_AttendanceLeaves_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="StudentID" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="CoMat" Nullable="true" />
+          <Property Type="Boolean" Name="NghiCoPhep" Nullable="true" />
+          <Property Type="Boolean" Name="NghiKhongPhep" Nullable="true" />
+          <Property Type="Boolean" Name="DiMuon" Nullable="true" />
+          <Property Type="Int32" Name="Hygiene" Nullable="true" />
+          <Property Type="DateTime" Name="Leave" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LeaveLate" Nullable="true" />
+          <Property Type="Guid" Name="NguoiDon" Nullable="true" />
+          <Property Type="DateTime" Name="SleepFrom" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="SleepTo" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="String" Name="MealComment0" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment3" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment4" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MealComment5" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ArriveComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LeaveComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyCommentAM" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyCommentPM" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="SleepComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="HygieneComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="OverallComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="DayComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhieuBeNgoan" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="WeekComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="WeekPhieuBeNgoan" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="WeekCommentCate" Nullable="true" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="Guid" Name="DiemKiemTraID" Nullable="true" />
+          <Property Type="Double" Name="Diem1" Nullable="true" />
+          <Property Type="Double" Name="Diem2" Nullable="true" />
+          <Property Type="Double" Name="Diem3" Nullable="true" />
+          <Property Type="Double" Name="Diem4" Nullable="true" />
+          <Property Type="Double" Name="DiemTB" Nullable="true" />
+          <Property Type="String" Name="NhanXetKiemTra" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="NickName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ParentName" Nullable="true" MaxLength="200" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2732,57 +2784,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Teacher_AttendanceArrive_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_AttendanceArrive_Upd" />
-          <FunctionImportMapping FunctionImportName="sp_Teacher_AttendanceLeave_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_AttendanceLeave_sel">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_AttendanceLeave_sel_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="CoMat" ColumnName="CoMat" />
-                <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
-                <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
-                <ScalarProperty Name="DiMuon" ColumnName="DiMuon" />
-                <ScalarProperty Name="Hygiene" ColumnName="Hygiene" />
-                <ScalarProperty Name="Leave" ColumnName="Leave" />
-                <ScalarProperty Name="LeaveLate" ColumnName="LeaveLate" />
-                <ScalarProperty Name="NguoiDon" ColumnName="NguoiDon" />
-                <ScalarProperty Name="SleepFrom" ColumnName="SleepFrom" />
-                <ScalarProperty Name="SleepTo" ColumnName="SleepTo" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-                <ScalarProperty Name="MealComment0" ColumnName="MealComment0" />
-                <ScalarProperty Name="MealComment1" ColumnName="MealComment1" />
-                <ScalarProperty Name="MealComment2" ColumnName="MealComment2" />
-                <ScalarProperty Name="MealComment3" ColumnName="MealComment3" />
-                <ScalarProperty Name="MealComment4" ColumnName="MealComment4" />
-                <ScalarProperty Name="MealComment5" ColumnName="MealComment5" />
-                <ScalarProperty Name="ArriveComment" ColumnName="ArriveComment" />
-                <ScalarProperty Name="LeaveComment" ColumnName="LeaveComment" />
-                <ScalarProperty Name="StudyCommentAM" ColumnName="StudyCommentAM" />
-                <ScalarProperty Name="StudyCommentPM" ColumnName="StudyCommentPM" />
-                <ScalarProperty Name="SleepComment" ColumnName="SleepComment" />
-                <ScalarProperty Name="HygieneComment" ColumnName="HygieneComment" />
-                <ScalarProperty Name="OverallComment" ColumnName="OverallComment" />
-                <ScalarProperty Name="DayComment" ColumnName="DayComment" />
-                <ScalarProperty Name="PhieuBeNgoan" ColumnName="PhieuBeNgoan" />
-                <ScalarProperty Name="WeekComment" ColumnName="WeekComment" />
-                <ScalarProperty Name="WeekPhieuBeNgoan" ColumnName="WeekPhieuBeNgoan" />
-                <ScalarProperty Name="WeekCommentCate" ColumnName="WeekCommentCate" />
-                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
-                <ScalarProperty Name="DiemKiemTraID" ColumnName="DiemKiemTraID" />
-                <ScalarProperty Name="Diem1" ColumnName="Diem1" />
-                <ScalarProperty Name="Diem2" ColumnName="Diem2" />
-                <ScalarProperty Name="Diem3" ColumnName="Diem3" />
-                <ScalarProperty Name="Diem4" ColumnName="Diem4" />
-                <ScalarProperty Name="DiemTB" ColumnName="DiemTB" />
-                <ScalarProperty Name="NhanXetKiemTra" ColumnName="NhanXetKiemTra" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Teacher_AttendanceLeave_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_AttendanceLeave_Upd" />
           <FunctionImportMapping FunctionImportName="sp_Teacher_AttendanceLeaveLate_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_AttendanceLeaveLate_sel">
             <ResultMapping>
@@ -3477,6 +3478,58 @@
                 <ScalarProperty Name="DenNgay" ColumnName="DenNgay" />
                 <ScalarProperty Name="TongCong" ColumnName="TongCong" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Teacher_AttendanceLeaves_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_AttendanceLeaves_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_AttendanceLeaves_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CoMat" ColumnName="CoMat" />
+                <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
+                <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
+                <ScalarProperty Name="DiMuon" ColumnName="DiMuon" />
+                <ScalarProperty Name="Hygiene" ColumnName="Hygiene" />
+                <ScalarProperty Name="Leave" ColumnName="Leave" />
+                <ScalarProperty Name="LeaveLate" ColumnName="LeaveLate" />
+                <ScalarProperty Name="NguoiDon" ColumnName="NguoiDon" />
+                <ScalarProperty Name="SleepFrom" ColumnName="SleepFrom" />
+                <ScalarProperty Name="SleepTo" ColumnName="SleepTo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="MealComment0" ColumnName="MealComment0" />
+                <ScalarProperty Name="MealComment1" ColumnName="MealComment1" />
+                <ScalarProperty Name="MealComment2" ColumnName="MealComment2" />
+                <ScalarProperty Name="MealComment3" ColumnName="MealComment3" />
+                <ScalarProperty Name="MealComment4" ColumnName="MealComment4" />
+                <ScalarProperty Name="MealComment5" ColumnName="MealComment5" />
+                <ScalarProperty Name="ArriveComment" ColumnName="ArriveComment" />
+                <ScalarProperty Name="LeaveComment" ColumnName="LeaveComment" />
+                <ScalarProperty Name="StudyCommentAM" ColumnName="StudyCommentAM" />
+                <ScalarProperty Name="StudyCommentPM" ColumnName="StudyCommentPM" />
+                <ScalarProperty Name="SleepComment" ColumnName="SleepComment" />
+                <ScalarProperty Name="HygieneComment" ColumnName="HygieneComment" />
+                <ScalarProperty Name="OverallComment" ColumnName="OverallComment" />
+                <ScalarProperty Name="DayComment" ColumnName="DayComment" />
+                <ScalarProperty Name="PhieuBeNgoan" ColumnName="PhieuBeNgoan" />
+                <ScalarProperty Name="WeekComment" ColumnName="WeekComment" />
+                <ScalarProperty Name="WeekPhieuBeNgoan" ColumnName="WeekPhieuBeNgoan" />
+                <ScalarProperty Name="WeekCommentCate" ColumnName="WeekCommentCate" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="DiemKiemTraID" ColumnName="DiemKiemTraID" />
+                <ScalarProperty Name="Diem1" ColumnName="Diem1" />
+                <ScalarProperty Name="Diem2" ColumnName="Diem2" />
+                <ScalarProperty Name="Diem3" ColumnName="Diem3" />
+                <ScalarProperty Name="Diem4" ColumnName="Diem4" />
+                <ScalarProperty Name="DiemTB" ColumnName="DiemTB" />
+                <ScalarProperty Name="NhanXetKiemTra" ColumnName="NhanXetKiemTra" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

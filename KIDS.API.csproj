@@ -298,6 +298,9 @@
     <Compile Include="Database\sp_Teacher_AttendanceLeaveLate_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Teacher_AttendanceLeaves_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Teacher_AttendanceLeave_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
