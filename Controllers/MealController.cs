@@ -17,12 +17,11 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-       
-        //Thông báo thu tiền
-      
+
+        //danh sách các bữa ăn (sáng, trưa....)
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult MealControllerSel()
+        public IHttpActionResult MealSel()
         {
             var data = _db.sp_DinhDuong_BuaAn_sel().ToList();
             if (data.Any())
@@ -44,6 +43,55 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-       
+        //danh sách các món ăn (cháo, cơm..) từ bữa ăn (sáng. chiều...)
+        [Route("Select/MonAn")]
+        [HttpGet]
+        public IHttpActionResult MonAnSel(Guid BuaAn, Guid Khoi, DateTime Ngay)
+        {
+            var data = _db.sp_SelectMonAnFromBuaAn_sel(BuaAn, Khoi, Ngay).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_SelectMonAnFromBuaAn_sel_Result>>()
+                {
+                    Code = 11,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_SelectMonAnFromBuaAn_sel_Result>>()
+                {
+                    Code = -12,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
+        //Lấy tên món ăn từ ID món ăn
+        [Route("Select/TenMonAn")]
+        [HttpGet]
+        public IHttpActionResult TenMonAnSel(Guid ID)
+        {
+            var data = _db.sp_SelectTenMonAn_sel(ID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_SelectTenMonAn_sel_Result>>()
+                {
+                    Code = 11,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_SelectTenMonAn_sel_Result>>()
+                {
+                    Code = -12,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
     }
 }

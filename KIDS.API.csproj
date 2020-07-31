@@ -191,6 +191,12 @@
     <Compile Include="Database\sp_News_sel_School_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_SelectMonAnFromBuaAn_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_SelectTenMonAn_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_StudentParent_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>

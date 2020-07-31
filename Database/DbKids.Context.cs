@@ -2497,5 +2497,31 @@ namespace KIDS.API.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_DinhDuong_BuaAn_sel_Result>("sp_DinhDuong_BuaAn_sel");
         }
+    
+        public virtual ObjectResult<sp_SelectMonAnFromBuaAn_sel_Result> sp_SelectMonAnFromBuaAn_sel(Nullable<System.Guid> buaAn, Nullable<System.Guid> khoi, Nullable<System.DateTime> ngay)
+        {
+            var buaAnParameter = buaAn.HasValue ?
+                new ObjectParameter("BuaAn", buaAn) :
+                new ObjectParameter("BuaAn", typeof(System.Guid));
+    
+            var khoiParameter = khoi.HasValue ?
+                new ObjectParameter("Khoi", khoi) :
+                new ObjectParameter("Khoi", typeof(System.Guid));
+    
+            var ngayParameter = ngay.HasValue ?
+                new ObjectParameter("Ngay", ngay) :
+                new ObjectParameter("Ngay", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectMonAnFromBuaAn_sel_Result>("sp_SelectMonAnFromBuaAn_sel", buaAnParameter, khoiParameter, ngayParameter);
+        }
+    
+        public virtual ObjectResult<sp_SelectTenMonAn_sel_Result> sp_SelectTenMonAn_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectTenMonAn_sel_Result>("sp_SelectTenMonAn_sel", iDParameter);
+        }
     }
 }

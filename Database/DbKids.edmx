@@ -327,6 +327,14 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_SelectMonAnFromBuaAn_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BuaAn" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Khoi" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Ngay" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_SelectTenMonAn_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_Student_Application_Del" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -1356,6 +1364,14 @@
             <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_DinhDuong_BuaAn_sel" ReturnType="Collection(H_KIDSModel.sp_DinhDuong_BuaAn_sel_Result)" />
+          <FunctionImport Name="sp_SelectMonAnFromBuaAn_sel" ReturnType="Collection(H_KIDSModel.sp_SelectMonAnFromBuaAn_sel_Result)">
+            <Parameter Name="BuaAn" Mode="In" Type="Guid" />
+            <Parameter Name="Khoi" Mode="In" Type="Guid" />
+            <Parameter Name="Ngay" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SelectTenMonAn_sel" ReturnType="Collection(H_KIDSModel.sp_SelectTenMonAn_sel_Result)">
+          <Parameter Name="ID" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
           <Property Type="Guid" Name="NguoiSuDung" Nullable="true" />
@@ -2484,6 +2500,54 @@
           <Property Type="Int32" Name="Sort" Nullable="true" />
           <Property Type="String" Name="Time" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_SelectMonAnFromBuaAn_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Guid" Name="ThucDon" Nullable="true" />
+          <Property Type="Guid" Name="Khoi" Nullable="true" />
+          <Property Type="Int32" Name="NgayThu" Nullable="true" />
+          <Property Type="DateTime" Name="NgayThangTheoThu" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="ThucDonTuan" Nullable="true" />
+          <Property Type="Guid" Name="BuaAn" Nullable="true" />
+          <Property Type="String" Name="MonAn" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectTenMonAn_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="String" Name="Ten" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="Nhom" Nullable="true" />
+          <Property Type="Int32" Name="DonViTinh" Nullable="true" />
+          <Property Type="Int32" Name="DonViTinh2" Nullable="true" />
+          <Property Type="Decimal" Name="GiaTriQuyDoi" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Double" Name="TyLeThaiBo" Nullable="true" />
+          <Property Type="Boolean" Name="DongVat" Nullable="true" />
+          <Property Type="Boolean" Name="ThucVat" Nullable="true" />
+          <Property Type="Double" Name="Calo" Nullable="true" />
+          <Property Type="Double" Name="Dam" Nullable="true" />
+          <Property Type="Double" Name="Duong" Nullable="true" />
+          <Property Type="Double" Name="Beo" Nullable="true" />
+          <Property Type="String" Name="BuaAnApDung" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Khoi" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="LaNVL" Nullable="true" />
+          <Property Type="Boolean" Name="LaBanHang" Nullable="true" />
+          <Property Type="String" Name="MoTa" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Ma" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Ten1" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="DonGiaNhap" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DonGiaNhap2" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Picture1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Picture2" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Decimal" Name="DonGia2" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="HeSoPhu" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DinhMucTonKhoNhoNhat" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DinhMucTonKhoLonNhat" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="QuanLyTheoSoLoVaHanSuDung" Nullable="true" />
+          <Property Type="Boolean" Name="NgungBan" Nullable="true" />
+          <Property Type="Boolean" Name="Fix" Nullable="true" />
+          <Property Type="Decimal" Name="TonKho" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="Serial" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3548,6 +3612,62 @@
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectMonAnFromBuaAn_sel" FunctionName="H_KIDSModel.Store.sp_SelectMonAnFromBuaAn_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_SelectMonAnFromBuaAn_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ThucDon" ColumnName="ThucDon" />
+                <ScalarProperty Name="Khoi" ColumnName="Khoi" />
+                <ScalarProperty Name="NgayThu" ColumnName="NgayThu" />
+                <ScalarProperty Name="NgayThangTheoThu" ColumnName="NgayThangTheoThu" />
+                <ScalarProperty Name="ThucDonTuan" ColumnName="ThucDonTuan" />
+                <ScalarProperty Name="BuaAn" ColumnName="BuaAn" />
+                <ScalarProperty Name="MonAn" ColumnName="MonAn" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectTenMonAn_sel" FunctionName="H_KIDSModel.Store.sp_SelectTenMonAn_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_SelectTenMonAn_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="Nhom" ColumnName="Nhom" />
+                <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+                <ScalarProperty Name="DonViTinh2" ColumnName="DonViTinh2" />
+                <ScalarProperty Name="GiaTriQuyDoi" ColumnName="GiaTriQuyDoi" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="TyLeThaiBo" ColumnName="TyLeThaiBo" />
+                <ScalarProperty Name="DongVat" ColumnName="DongVat" />
+                <ScalarProperty Name="ThucVat" ColumnName="ThucVat" />
+                <ScalarProperty Name="Calo" ColumnName="Calo" />
+                <ScalarProperty Name="Dam" ColumnName="Dam" />
+                <ScalarProperty Name="Duong" ColumnName="Duong" />
+                <ScalarProperty Name="Beo" ColumnName="Beo" />
+                <ScalarProperty Name="BuaAnApDung" ColumnName="BuaAnApDung" />
+                <ScalarProperty Name="Khoi" ColumnName="Khoi" />
+                <ScalarProperty Name="LaNVL" ColumnName="LaNVL" />
+                <ScalarProperty Name="LaBanHang" ColumnName="LaBanHang" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
+                <ScalarProperty Name="Ten1" ColumnName="Ten1" />
+                <ScalarProperty Name="DonGiaNhap" ColumnName="DonGiaNhap" />
+                <ScalarProperty Name="DonGiaNhap2" ColumnName="DonGiaNhap2" />
+                <ScalarProperty Name="Picture1" ColumnName="Picture1" />
+                <ScalarProperty Name="Picture2" ColumnName="Picture2" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="DonGia2" ColumnName="DonGia2" />
+                <ScalarProperty Name="HeSoPhu" ColumnName="HeSoPhu" />
+                <ScalarProperty Name="DinhMucTonKhoNhoNhat" ColumnName="DinhMucTonKhoNhoNhat" />
+                <ScalarProperty Name="DinhMucTonKhoLonNhat" ColumnName="DinhMucTonKhoLonNhat" />
+                <ScalarProperty Name="QuanLyTheoSoLoVaHanSuDung" ColumnName="QuanLyTheoSoLoVaHanSuDung" />
+                <ScalarProperty Name="NgungBan" ColumnName="NgungBan" />
+                <ScalarProperty Name="Fix" ColumnName="Fix" />
+                <ScalarProperty Name="TonKho" ColumnName="TonKho" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
