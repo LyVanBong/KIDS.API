@@ -108,6 +108,7 @@
     <Compile Include="Controllers\ApplicationController..cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\CommunicationsController.cs" />
+    <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\FinanceController.cs" />
@@ -149,6 +150,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Album_sel_School_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_DinhDuong_BuaAn_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_helpdiagramdefinition_Result.cs">
@@ -296,6 +300,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Teacher_AttendanceLeaveLate_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Teacher_AttendanceLeaves_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Teacher_AttendanceLeave_sel_Result.cs">

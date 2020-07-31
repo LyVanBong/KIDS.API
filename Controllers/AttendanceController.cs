@@ -72,17 +72,17 @@ namespace KIDS.API.Controllers
         [HttpGet]
         public IHttpActionResult Afternoon(Guid classId, DateTime date)
         {
-            var data = _db.sp_Teacher_AttendanceLeave_sel(classId, date).ToList();
+            var data = _db.sp_Teacher_AttendanceLeaves_sel(classId, date).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<List<sp_Teacher_AttendanceLeave_sel_Result>>()
+                return Ok(new ResponseModel<List<sp_Teacher_AttendanceLeaves_sel_Result>>()
                 {
                     Code = 22,
                     Message = "SUCCESSFULLY",
                     Data = data,
                 });
             }
-            return Ok(new ResponseModel<List<sp_Teacher_AttendanceLeave_sel_Result>>()
+            return Ok(new ResponseModel<List<sp_Teacher_AttendanceLeaves_sel_Result>>()
             {
                 Code = -23,
                 Message = "Get data attendance student error",
