@@ -79,10 +79,10 @@ namespace KIDS.API.Controllers
         [HttpGet]
         public IHttpActionResult StudentOfClass(Guid ClassID)
         {
-            var data = _db.sp_Student_sel(ClassID).ToList();
+            var data = _db.sp_Teacher_StudentList_sel(ClassID).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Student_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Teacher_StudentList_sel_Result>>()
                 {
                     Code = 16,
                     Message = "SUCCESSFULLY",
@@ -91,7 +91,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_Student_sel_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_Teacher_StudentList_sel_Result>>()
                 {
                     Code = -17,
                     Message = "FAILED",
