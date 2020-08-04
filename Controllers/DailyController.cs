@@ -191,7 +191,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult UpdateStudyAfternoon(DailyModel update)
         {
-            var data = _db.sp_Teacher_Daily_StudyAM_Upd(update.ID, update.UserCreate, update.StudyCommentPM);
+            var data = _db.sp_Teacher_Daily_StudyPM_Upd(update.ID, update.UserCreate, update.StudyCommentPM);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,
