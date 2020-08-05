@@ -11,10 +11,9 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Student_Study_Morning_sel_Result
+    public partial class sp_Student_AssessPlan_sel_Result
     {
         public Nullable<System.Guid> ID { get; set; }
-        public string Contents { get; set; }
-        public string ThoiGian { get; set; }
+        public string Name { get; set; }
     }
 }

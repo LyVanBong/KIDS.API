@@ -2558,5 +2558,10 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Assess_Student_sel_Result>("sp_Assess_Student_sel", assessIDParameter, studentIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Student_AssessPlan_sel_Result> sp_Student_AssessPlan_sel()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_AssessPlan_sel_Result>("sp_Student_AssessPlan_sel");
+        }
     }
 }

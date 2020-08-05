@@ -108,6 +108,7 @@
     <Compile Include="Controllers\ApplicationController..cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\CommunicationsController.cs" />
+    <Compile Include="Controllers\AssessController.cs" />
     <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -210,6 +211,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Application_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_AssessPlan_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Assess_sel_Result.cs">
@@ -365,6 +369,7 @@
     <Compile Include="Models\PrescriptionModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
+    <Compile Include="Models\AssessModel.cs" />
     <Compile Include="Models\StudyPlanModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
