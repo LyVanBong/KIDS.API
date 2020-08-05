@@ -152,6 +152,12 @@
     <Compile Include="Database\sp_Album_sel_School_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Assess_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Assess_Student_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_DinhDuong_BuaAn_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>

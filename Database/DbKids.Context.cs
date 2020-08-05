@@ -2523,5 +2523,40 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectTenMonAn_sel_Result>("sp_SelectTenMonAn_sel", iDParameter);
         }
+    
+        public virtual ObjectResult<sp_Assess_sel_Result> sp_Assess_sel(Nullable<System.Guid> assessID)
+        {
+            var assessIDParameter = assessID.HasValue ?
+                new ObjectParameter("AssessID", assessID) :
+                new ObjectParameter("AssessID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Assess_sel_Result>("sp_Assess_sel", assessIDParameter);
+        }
+    
+        public virtual int sp_Assess_Student_Result_Upd(Nullable<System.Guid> iD, Nullable<bool> result)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var resultParameter = result.HasValue ?
+                new ObjectParameter("Result", result) :
+                new ObjectParameter("Result", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Assess_Student_Result_Upd", iDParameter, resultParameter);
+        }
+    
+        public virtual ObjectResult<sp_Assess_Student_sel_Result> sp_Assess_Student_sel(Nullable<System.Guid> assessID, Nullable<System.Guid> studentID)
+        {
+            var assessIDParameter = assessID.HasValue ?
+                new ObjectParameter("AssessID", assessID) :
+                new ObjectParameter("AssessID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Assess_Student_sel_Result>("sp_Assess_Student_sel", assessIDParameter, studentIDParameter);
+        }
     }
 }

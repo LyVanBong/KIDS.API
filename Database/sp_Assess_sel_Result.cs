@@ -11,11 +11,17 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Student_Study_Morning_sel_Result
+    public partial class sp_Assess_sel_Result
     {
-        public Nullable<System.Guid> ID { get; set; }
-        public string Contents { get; set; }
-        public string ThoiGian { get; set; }
-        public string NhanXet { get; set; }
+        public Nullable<System.Guid> StudentID { get; set; }
+        public string NickName { get; set; }
+        public string Name { get; set; }
+        public string Picture { get; set; }
+        public string ClassName { get; set; }
+        public string A { get; set; }
+        public string B { get; set; }
+        public string C { get; set; }
+        public string D { get; set; }
+        public Nullable<decimal> TyLe { get; set; }
     }
 }
