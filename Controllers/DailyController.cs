@@ -244,7 +244,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult UpdateAssessment_Day(DailyModel update)
         {
-            var data = _db.sp_Teacher_Daily_Assessment_Day_Upd(update.ID, update.PhieuBeNgoan, update.DayComment, update.UserCreate);
+            var data = _db.sp_Teacher_Daily_Assessment_Day_Upd(update.ID,update.DayComment, update.PhieuBeNgoan, update.UserCreate);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,
