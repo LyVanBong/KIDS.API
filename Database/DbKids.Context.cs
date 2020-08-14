@@ -1307,17 +1307,17 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Assess_Student_sel_Result>("sp_Teacher_Assess_Student_sel", assessIDParameter, studentIDParameter);
         }
     
-        public virtual ObjectResult<sp_Teacher_AssessPlan_sel_Result> sp_Teacher_AssessPlan_sel(Nullable<System.Guid> gradeID, Nullable<System.Guid> classID)
+        public virtual ObjectResult<sp_Teacher_AssessPlan_sel_Result> sp_Teacher_AssessPlan_sel(Nullable<System.Guid> schoolID, Nullable<System.Guid> classID)
         {
-            var gradeIDParameter = gradeID.HasValue ?
-                new ObjectParameter("GradeID", gradeID) :
-                new ObjectParameter("GradeID", typeof(System.Guid));
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
     
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AssessPlan_sel_Result>("sp_Teacher_AssessPlan_sel", gradeIDParameter, classIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_AssessPlan_sel_Result>("sp_Teacher_AssessPlan_sel", schoolIDParameter, classIDParameter);
         }
     
         public virtual ObjectResult<sp_Teacher_Student_DOB_sel_Result> sp_Teacher_Student_DOB_sel(Nullable<int> month)
@@ -2567,16 +2567,17 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Assess_Student_sel_Result>("sp_Assess_Student_sel", assessIDParameter, studentIDParameter);
         }
     
-        public virtual ObjectResult<sp_Student_AssessPlan_sel_Result> sp_Student_AssessPlan_sel(Nullable<System.Guid> GradeID, Nullable<System.Guid> ClassID)
+        public virtual ObjectResult<sp_Student_AssessPlan_sel_Result> sp_Student_AssessPlan_sel(Nullable<System.Guid> schoolID, Nullable<System.Guid> classID)
         {
-            var assessIDParameter = GradeID.HasValue ?
-               new ObjectParameter("GradeID", GradeID) :
-               new ObjectParameter("GradeID", typeof(System.Guid));
-
-            var studentIDParameter = ClassID.HasValue ?
-                new ObjectParameter("ClassID", ClassID) :
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_AssessPlan_sel_Result>("sp_Student_AssessPlan_sel");
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_AssessPlan_sel_Result>("sp_Student_AssessPlan_sel", schoolIDParameter, classIDParameter);
         }
     }
 }
