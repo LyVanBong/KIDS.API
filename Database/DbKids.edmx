@@ -535,7 +535,10 @@
           <Parameter Name="AssessID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
-        <Function Name="sp_Teacher_AssessPlan_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Teacher_AssessPlan_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GradeID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="sp_Teacher_Assign_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -1058,7 +1061,10 @@
             <Parameter Name="AssessID" Mode="In" Type="Guid" />
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
-          <FunctionImport Name="sp_Teacher_AssessPlan_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_AssessPlan_sel_Result)" />
+          <FunctionImport Name="sp_Teacher_AssessPlan_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_AssessPlan_sel_Result)" >
+            <Parameter Name="GradeID" Mode="In" Type="Guid" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+          </FunctionImport>
           <FunctionImport Name="sp_Teacher_Student_DOB_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Student_DOB_sel_Result)">
           <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>

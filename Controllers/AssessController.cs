@@ -22,9 +22,9 @@ namespace KIDS.API.Controllers
 
         [Route("Select/Plan")]
         [HttpGet]
-        public IHttpActionResult AssessPlan()
+        public IHttpActionResult AssessPlan(Guid GradeID, Guid ClassID)
         {
-            var data = _db.sp_Student_AssessPlan_sel().ToList();
+            var data = _db.sp_Student_AssessPlan_sel(GradeID,ClassID).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Student_AssessPlan_sel_Result>>()
