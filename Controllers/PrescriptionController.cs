@@ -54,10 +54,10 @@ namespace KIDS.API.Controllers
         // Xóa đơn thuốc Master
         // <param name="PrescriptionId"></param>
         [Route("Delete")]
-        [HttpDelete]
-        public IHttpActionResult DeletePrescription(PrescriptionModel update)
+        [HttpPost]
+        public IHttpActionResult DeletePrescription([FromBody]Guid update)
         {
-            var data = _db.sp_Student_Prescription_Del(update.ID);
+            var data = _db.sp_Student_Prescription_Del(update);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
@@ -68,10 +68,10 @@ namespace KIDS.API.Controllers
         // Xóa đơn thuốc Detail
         // <param name="Id"></param>
         [Route("DeleteDetail")]
-        [HttpDelete]
-        public IHttpActionResult DeletePrescriptionDetail(PrescriptionModel update)
+        [HttpPost]
+        public IHttpActionResult DeletePrescriptionDetail([FromBody]Guid update)
         {
-            var data = _db.sp_Student_Prescription_Detail_Del(update.ID);
+            var data = _db.sp_Student_Prescription_Detail_Del(update);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,

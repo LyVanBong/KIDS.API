@@ -138,9 +138,9 @@ namespace KIDS.API.Controllers
         [Route("DeleteTeacher")]
         [HttpPost]
         //public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
-        public IHttpActionResult DeleteTeacherCommunication(CommunicationModel update)
+        public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid update)
         {
-            var data = _db.sp_Student_Communications_Del(update.CommunicationID);
+            var data = _db.sp_Student_Communications_Del(update);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
