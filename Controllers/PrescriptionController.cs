@@ -55,9 +55,9 @@ namespace KIDS.API.Controllers
         // <param name="PrescriptionId"></param>
         [Route("Delete")]
         [HttpDelete]
-        public IHttpActionResult DeletePrescription([FromBody]Guid ID)
+        public IHttpActionResult DeletePrescription(PrescriptionModel update)
         {
-            var data = _db.sp_Student_Prescription_Del(ID);
+            var data = _db.sp_Student_Prescription_Del(update.ID);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
@@ -69,9 +69,9 @@ namespace KIDS.API.Controllers
         // <param name="Id"></param>
         [Route("DeleteDetail")]
         [HttpDelete]
-        public IHttpActionResult DeletePrescriptionDetail([FromBody] Guid ID)
+        public IHttpActionResult DeletePrescriptionDetail(PrescriptionModel update)
         {
-            var data = _db.sp_Student_Prescription_Detail_Del(ID);
+            var data = _db.sp_Student_Prescription_Detail_Del(update.ID);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,

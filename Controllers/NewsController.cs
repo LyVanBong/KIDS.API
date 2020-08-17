@@ -57,9 +57,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("DeleteNews")]
         [HttpDelete]
-        public IHttpActionResult DeleteNews([FromBody] Guid newsId)
+        public IHttpActionResult DeleteNews(UpdateNewsModel update)
         {
-            var data = _db.sp_News_Del(newsId);
+            var data = _db.sp_News_Del(update.NewsId);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,

@@ -48,9 +48,9 @@ namespace KIDS.API.Controllers
         // Xóa tin
         [Route("Delete")]
         [HttpDelete]
-        public IHttpActionResult DeleteCommunication([FromBody]Guid CommunicationID)
+        public IHttpActionResult DeleteCommunication(CommunicationModel update)
         {
-            var data = _db.sp_Student_Communications_Del(CommunicationID);
+            var data = _db.sp_Student_Communications_Del(update.CommunicationID);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
@@ -137,9 +137,10 @@ namespace KIDS.API.Controllers
         // Giáo viên Xóa tin
         [Route("DeleteTeacher")]
         [HttpDelete]
-        public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
+        //public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
+        public IHttpActionResult DeleteTeacherCommunication(CommunicationModel update)
         {
-            var data = _db.sp_Student_Communications_Del(CommunicationID);
+            var data = _db.sp_Student_Communications_Del(update.CommunicationID);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
