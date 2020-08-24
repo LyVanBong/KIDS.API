@@ -11,7 +11,7 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Teacher_Communications_sel_Result
+    public partial class sp_Student_Communications_sel_TeacherToStudent_Result
     {
         public System.Guid CommunicationID { get; set; }
         public string StudentID { get; set; }

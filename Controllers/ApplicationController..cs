@@ -57,10 +57,10 @@ namespace KIDS.API.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [Route("Delete")]
-        [HttpDelete]
-        public IHttpActionResult DeleteApplication([FromBody]Guid ID)
+        [HttpPost]
+        public IHttpActionResult DeleteApplication([FromBody]Guid update)
         {
-            var data = _db.sp_Student_Application_Del(ID);
+            var data = _db.sp_Student_Application_Del(update);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,

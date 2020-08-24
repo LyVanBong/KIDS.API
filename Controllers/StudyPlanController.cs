@@ -14,14 +14,12 @@ namespace KIDS.API.Controllers
 
         public StudyPlanController()
         {
-            _db=new H_KIDSEntities();
+            _db = new H_KIDSEntities();
         }
-        /// <summary>
-        /// bài học buổi sáng theo lớp, ngày
-        /// </summary>
-        /// <param name="date"></param>
-        /// <param name="classId"></param>
-        /// <returns></returns>
+     
+
+        //GIÁO VIÊN
+        //bài học buổi sáng theo lớp, ngày
         [Route("Morning")]
         [HttpGet]
         public IHttpActionResult Morning(DateTime date, Guid classId)
@@ -76,5 +74,6 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+   
     }
 }

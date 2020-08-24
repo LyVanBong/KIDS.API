@@ -57,9 +57,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("DeleteAlbum")]
         [HttpPost]
-        public IHttpActionResult DeleteAlbum(Guid albumId)
+        public IHttpActionResult DeleteAlbum([FromBody]Guid update)
         {
-            var data = _db.sp_Album_Del(albumId);
+            var data = _db.sp_Album_Del(update);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
@@ -222,9 +222,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("DeleteAlbumImage")]
         [HttpPost]
-        public IHttpActionResult DeleteAlbumImage(Guid imageId)
+        public IHttpActionResult DeleteAlbumImage([FromBody]Guid update)
         {
-            var data = _db.sp_AlbumImage_Del(imageId);
+            var data = _db.sp_AlbumImage_Del(update);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,

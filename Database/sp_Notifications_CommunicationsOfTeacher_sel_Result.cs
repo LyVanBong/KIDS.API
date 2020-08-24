@@ -11,7 +11,7 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Teacher_Communications_sel_Result
+    public partial class sp_Notifications_CommunicationsOfTeacher_sel_Result
     {
         public System.Guid CommunicationID { get; set; }
         public string StudentID { get; set; }
@@ -24,6 +24,5 @@ namespace KIDS.API.Database
         public string Picture { get; set; }
         public string Approver { get; set; }
         public Nullable<System.DateTime> ApproverDate { get; set; }
-        public Nullable<System.Guid> ClassID { get; set; }
     }
 }

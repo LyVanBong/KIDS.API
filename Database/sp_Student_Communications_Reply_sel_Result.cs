@@ -11,19 +11,21 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Teacher_Communications_sel_Result
+    public partial class sp_Student_Communications_Reply_sel_Result
     {
         public System.Guid CommunicationID { get; set; }
+        public Nullable<System.Guid> Parent { get; set; }
+        public Nullable<System.Guid> ClassID { get; set; }
         public string StudentID { get; set; }
         public Nullable<System.Guid> TeacherID { get; set; }
         public Nullable<System.DateTime> DateCreate { get; set; }
         public Nullable<int> Type { get; set; }
-        public string Content { get; set; }
         public Nullable<bool> IsConfirmed { get; set; }
+        public Nullable<System.Guid> Approver { get; set; }
+        public Nullable<System.DateTime> ApproverDate { get; set; }
+        public string Content { get; set; }
+        public Nullable<int> Views { get; set; }
         public string NguoiGui { get; set; }
         public string Picture { get; set; }
-        public string Approver { get; set; }
-        public Nullable<System.DateTime> ApproverDate { get; set; }
-        public Nullable<System.Guid> ClassID { get; set; }
     }
 }

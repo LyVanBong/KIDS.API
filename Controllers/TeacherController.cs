@@ -74,5 +74,31 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+        /// Danh sách giáo viên trong lớp
+
+        [Route("Select/Teacher")]
+        [HttpGet]
+        public IHttpActionResult TeacherOfClass(Guid ClassID)
+        {
+            var data = _db.sp_Teacher_Assign_sel(ClassID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Teacher_Assign_sel_Result>>()
+                {
+                    Code = 16,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Teacher_Assign_sel_Result>>()
+                {
+                    Code = -17,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
     }
 }
