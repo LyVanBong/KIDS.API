@@ -2579,5 +2579,54 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_AssessPlan_sel_Result>("sp_Student_AssessPlan_sel", schoolIDParameter, classIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Notifications_Application_sel_Result> sp_Notifications_Application_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Application_sel_Result>("sp_Notifications_Application_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_Communications_sel_Result> sp_Notifications_Communications_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Communications_sel_Result>("sp_Notifications_Communications_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_CommunicationsOfTeacher_sel_Result> sp_Notifications_CommunicationsOfTeacher_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_CommunicationsOfTeacher_sel_Result>("sp_Notifications_CommunicationsOfTeacher_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_Prescription_sel_Result> sp_Notifications_Prescription_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Prescription_sel_Result>("sp_Notifications_Prescription_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Teachers_Notifications_Count(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Teachers_Notifications_Count", classIDParameter, schoolIDParameter);
+        }
     }
 }

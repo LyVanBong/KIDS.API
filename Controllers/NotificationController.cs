@@ -18,6 +18,46 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
+        [Route("Count")]
+        [HttpGet]
+        public IHttpActionResult GetCountNotification(Guid classId, Guid shoolId)
+        {
+            var noti = _db.sp_Teachers_Notifications(classId, shoolId).ToList();
+            if (noti.Any())
+            {
+                var notiCount = noti.Where(x => x.Views == 0);
+                if (notiCount.Any())
+                {
+                    return Ok(new ResponseModel<int>()
+                    {
+                        Code = 155,
+                        Message = "SUCCESSFULLY",
+                        Data = notiCount.Count(),
+                    });
+                }
+                else
+                {
+                    return Ok(new ResponseModel<string>()
+                    {
+                        Code = 155,
+                        Message = "SUCCESSFULLY",
+                        Data = "",
+                    });
+                }
+
+            }
+            else
+            {
+                return Ok(new ResponseModel<string>()
+                {
+                    Code = -155,
+                    Message = "FAILED",
+                    Data = "",
+                });
+            }
+        }
+
         /// <summary>
         /// lay danh sach thong bao
         /// </summary>
