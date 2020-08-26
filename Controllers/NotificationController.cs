@@ -21,31 +21,17 @@ namespace KIDS.API.Controllers
 
         [Route("Count")]
         [HttpGet]
-        public IHttpActionResult GetCountNotification(Guid classId, Guid shoolId)
+        public IHttpActionResult GetCountNotification(string classId, string shoolId)
         {
-            var noti = _db.sp_Teachers_Notifications(classId, shoolId).ToList();
-            if (noti.Any())
+            var noti = _db.sp_Teachers_Notifications_Count(classId, shoolId).FirstOrDefault();
+            if (noti != null)
             {
-                var notiCount = noti.Where(x => x.Views == 0);
-                if (notiCount.Any())
+                return Ok(new ResponseModel<string>()
                 {
-                    return Ok(new ResponseModel<int>()
-                    {
-                        Code = 155,
-                        Message = "SUCCESSFULLY",
-                        Data = notiCount.Count(),
-                    });
-                }
-                else
-                {
-                    return Ok(new ResponseModel<string>()
-                    {
-                        Code = 155,
-                        Message = "SUCCESSFULLY",
-                        Data = "",
-                    });
-                }
-
+                    Code = 155,
+                    Message = "SUCCESSFULLY",
+                    Data = noti + "",
+                });
             }
             else
             {
