@@ -2628,5 +2628,39 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Teachers_Notifications_Count", classIDParameter, schoolIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Students_Notifications_Result> sp_Students_Notifications(Nullable<System.Guid> classID, Nullable<System.Guid> schoolID, Nullable<System.Guid> studentID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Notifications_Result>("sp_Students_Notifications", classIDParameter, schoolIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Students_Notifications_Count(string classID, string schoolID, string studentID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            var studentIDParameter = studentID != null ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Students_Notifications_Count", classIDParameter, schoolIDParameter, studentIDParameter);
+        }
     }
 }

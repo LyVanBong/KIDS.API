@@ -219,6 +219,9 @@
     <Compile Include="Database\sp_StudentParent_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Students_Notifications_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Students_Parents_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>

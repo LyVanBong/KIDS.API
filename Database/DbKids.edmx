@@ -509,6 +509,16 @@
         <Function Name="sp_StudentParent_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_Students_Notifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Students_Notifications_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+          <Parameter Name="StudentID" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_Students_Parents_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -1439,6 +1449,16 @@
           <FunctionImport Name="sp_Teachers_Notifications_Count" ReturnType="Collection(Int32)">
             <Parameter Name="ClassID" Mode="In" Type="String" />
             <Parameter Name="SchoolID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Students_Notifications" ReturnType="Collection(H_KIDSModel.sp_Students_Notifications_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="SchoolID" Mode="In" Type="Guid" />
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Students_Notifications_Count" ReturnType="Collection(Int32)">
+            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="SchoolID" Mode="In" Type="String" />
+            <Parameter Name="StudentID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -2706,6 +2726,15 @@
           <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="StatusName" Nullable="false" MaxLength="12" />
         </ComplexType>
+        <ComplexType Name="sp_Students_Notifications_Result">
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Content" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="75" />
+          <Property Type="Int32" Name="Type" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3949,6 +3978,20 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Teachers_Notifications_Count" FunctionName="H_KIDSModel.Store.sp_Teachers_Notifications_Count" />
+          <FunctionImportMapping FunctionImportName="sp_Students_Notifications" FunctionName="H_KIDSModel.Store.sp_Students_Notifications">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Students_Notifications_Result">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Students_Notifications_Count" FunctionName="H_KIDSModel.Store.sp_Students_Notifications_Count" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
