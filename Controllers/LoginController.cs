@@ -8,6 +8,40 @@ namespace KIDS.API.Controllers
     [RoutePrefix("api/v1")]
     public class LoginController : ApiController
     {
+        private H_KIDSEntities _db;
+        public LoginController()
+        {
+            _db = new H_KIDSEntities();
+        }
+        /// <summary>
+        /// login app parent
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        [Route("LoginParent")]
+        [HttpPost]
+        public IHttpActionResult LoginParent([FromBody] LoginModel login)
+        {
+            if (login != null)
+            {
+                var data = _db.sp_Login_Parent(login.UserName, login.Password).FirstOrDefault();
+                if (data != null)
+                {
+                    return Ok(new ResponseModel<sp_Login_Parent_Result>()
+                    {
+                        Code = 0,
+                        Message = "Logged in successfully",
+                        Data = data,
+                    });
+                }
+            }
+            return Ok(new ResponseModel<string>()
+            {
+                Code = -1,
+                Message = "Login failed",
+                Data = null,
+            });
+        }
         /// <summary>
         /// Api đăng nhập ứng dụng
         /// </summary>
@@ -19,8 +53,7 @@ namespace KIDS.API.Controllers
         {
             if (login != null)
             {
-                var db = new H_KIDSEntities();
-                var data = db.sp_Login(login.UserName, login.Password).FirstOrDefault();
+                var data = _db.sp_Login(login.UserName, login.Password).FirstOrDefault();
                 if (data != null)
                 {
                     return Ok(new ResponseModel<sp_Login_Result>()

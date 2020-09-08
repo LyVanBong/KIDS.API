@@ -2662,5 +2662,18 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Students_Notifications_Count", classIDParameter, schoolIDParameter, studentIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Login_Parent_Result> sp_Login_Parent(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_Result>("sp_Login_Parent", usernameParameter, passwordParameter);
+        }
     }
 }
