@@ -46,5 +46,49 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
         }
+        //[Route("CountAll")]
+        //[HttpGet]
+        //public IHttpActionResult CountAllNotification(Guid ClassId, Guid SchoolId)
+        //{
+        //    var data = _db.sp_Teachers_Notifications_Count(ClassId, SchoolId).ToList();
+        //    if (data.Any())
+        //    {
+        //        return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notifications_Count_Result>>()
+        //        {
+        //            Code = 15,
+        //            Message = "SUCCESSFULLY",
+        //            Data = data,
+        //        });
+        //    }
+        //    else
+        //        return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notifications__Result>>()
+        //        {
+        //            Code = -16,
+        //            Message = "FAILED",
+        //            Data = null,
+        //        });
+        //}
+        [Route("Student")]
+        [HttpGet]
+        public IHttpActionResult GetStudentNotification(Guid ClassId, Guid SchoolId, Guid StudentId)
+        {
+            var data = _db.sp_Students_Notifications(ClassId, SchoolId, StudentId).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Students_Notifications_Result>>()
+                {
+                    Code = 15,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+                return Ok(new ResponseModel<IEnumerable<sp_Students_Notifications_Result>>()
+                {
+                    Code = -16,
+                    Message = "FAILED",
+                    Data = null,
+                });
+        }
     }
 }

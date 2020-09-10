@@ -2579,5 +2579,150 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_AssessPlan_sel_Result>("sp_Student_AssessPlan_sel", schoolIDParameter, classIDParameter);
         }
+    
+        public virtual ObjectResult<sp_Login_Parent_Result> sp_Login_Parent(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_Result>("sp_Login_Parent", usernameParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_Application_sel_Result> sp_Notifications_Application_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Application_sel_Result>("sp_Notifications_Application_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_Communications_sel_Result> sp_Notifications_Communications_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Communications_sel_Result>("sp_Notifications_Communications_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_CommunicationsOfTeacher_sel_Result> sp_Notifications_CommunicationsOfTeacher_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_CommunicationsOfTeacher_sel_Result>("sp_Notifications_CommunicationsOfTeacher_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Notifications_Prescription_sel_Result> sp_Notifications_Prescription_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Prescription_sel_Result>("sp_Notifications_Prescription_sel", iDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Students_Notifications_Result> sp_Students_Notifications(Nullable<System.Guid> classID, Nullable<System.Guid> schoolID, Nullable<System.Guid> studentID)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Notifications_Result>("sp_Students_Notifications", classIDParameter, schoolIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Students_Notifications_Count(string classID, string schoolID, string studentID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            var studentIDParameter = studentID != null ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Students_Notifications_Count", classIDParameter, schoolIDParameter, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_Teachers_Notifications_Count(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Teachers_Notifications_Count", classIDParameter, schoolIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Parent_GetStudentID_Result> sp_Login_Parent_GetStudentID(string studentID)
+        {
+            var studentIDParameter = studentID != null ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_GetStudentID_Result>("sp_Login_Parent_GetStudentID", studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Parent_ShowStudents_Result> sp_Login_Parent_ShowStudents(string username)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_ShowStudents_Result>("sp_Login_Parent_ShowStudents", usernameParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Parent_GetStudent_Result> sp_Login_Parent_GetStudent(string studentID)
+        {
+            var studentIDParameter = studentID != null ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_GetStudent_Result>("sp_Login_Parent_GetStudent", studentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Parent_ShowStudents_2_Result> sp_Login_Parent_ShowStudents_2(string username)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_ShowStudents_2_Result>("sp_Login_Parent_ShowStudents_2", usernameParameter);
+        }
+    
+        public virtual ObjectResult<sp_Login_Parent_2_Result> sp_Login_Parent_2(string username, string password)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_2_Result>("sp_Login_Parent_2", usernameParameter, passwordParameter);
+        }
     }
 }
