@@ -9,7 +9,12 @@ namespace KIDS.API.Controllers
 {
     [RoutePrefix("api/v1")]
     public class LoginController : ApiController
-   
+    {
+        private H_KIDSEntities _db;
+        public LoginController()
+        {
+            _db = new H_KIDSEntities();
+        }
         /// <summary>
         /// Api đăng nhập ứng dụng Giáo viên + Nhân viên
         /// </summary>
@@ -21,8 +26,7 @@ namespace KIDS.API.Controllers
         {
             if (login != null)
             {
-                var db = new H_KIDSEntities();
-                var data = db.sp_Login(login.UserName, login.Password).FirstOrDefault();
+                var data = _db.sp_Login(login.UserName, login.Password).FirstOrDefault();
                 if (data != null)
                 {
                     return Ok(new ResponseModel<sp_Login_Result>()
@@ -46,8 +50,7 @@ namespace KIDS.API.Controllers
         //public IHttpActionResult ParentLogin([FromBody] LoginModel login)
         public IHttpActionResult ParentLogin(string UserName, string Password)
         {
-            var db = new H_KIDSEntities();
-            var data = db.sp_Login_Parent_2(UserName, Password).ToList();
+            var data = _db.sp_Login_Parent_2(UserName, Password).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Login_Parent_2_Result>>()
@@ -90,8 +93,7 @@ namespace KIDS.API.Controllers
         [HttpGet]
         public IHttpActionResult ParentShowStudentsLogin(string UserName)
         {
-            var db = new H_KIDSEntities();
-            var data = db.sp_Login_Parent_ShowStudents_2(UserName).ToList();
+            var data = _db.sp_Login_Parent_ShowStudents_2(UserName).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Login_Parent_ShowStudents_2_Result>>()
@@ -114,8 +116,7 @@ namespace KIDS.API.Controllers
         [HttpGet]
         public IHttpActionResult ParentGetStudentIDLogin(string StudentId)
         {
-            var db = new H_KIDSEntities();
-            var data = db.sp_Login_Parent_GetStudent(StudentId).ToList();
+            var data = _db.sp_Login_Parent_GetStudent(StudentId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Login_Parent_GetStudent_Result>>()
@@ -137,7 +138,6 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult ChangePass([FromBody] LoginModel login)
         {
-            
             var data = _db.sp_ChangePassWord(login.UserName, login.Password);
             return Ok(new ResponseModel<int>
             {
