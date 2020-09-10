@@ -274,6 +274,10 @@
           <Parameter Name="AssessID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_ChangePassWord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NickName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -303,19 +307,12 @@
           <Parameter Name="NickName" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="sp_Login_Parent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="username" Type="nvarchar" Mode="In" />
-          <Parameter Name="password" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="sp_Login_Parent_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Login_Parent_GetStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_Login_Parent_ShowStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="username" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Login_Parent_ShowStudents_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
@@ -1493,6 +1490,10 @@
           <FunctionImport Name="sp_Login_Parent_2" ReturnType="Collection(H_KIDSModel.sp_Login_Parent_2_Result)">
             <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChangePassWord">
+            <Parameter Name="NickName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -3997,28 +3998,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Login_Parent" FunctionName="H_KIDSModel.Store.sp_Login_Parent">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Login_Parent_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DonVi" ColumnName="DonVi" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="NguoiSuDung" ColumnName="NguoiSuDung" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
-                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-                <ScalarProperty Name="IsTeacher" ColumnName="IsTeacher" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
-                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Notifications_Application_sel" FunctionName="H_KIDSModel.Store.sp_Notifications_Application_sel">
             <ResultMapping>
               <ComplexTypeMapping TypeName="H_KIDSModel.sp_Notifications_Application_sel_Result">
@@ -4110,15 +4089,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Students_Notifications_Count" FunctionName="H_KIDSModel.Store.sp_Students_Notifications_Count" />
           <FunctionImportMapping FunctionImportName="sp_Teachers_Notifications_Count" FunctionName="H_KIDSModel.Store.sp_Teachers_Notifications_Count" />
-          <FunctionImportMapping FunctionImportName="sp_Login_Parent_ShowStudents" FunctionName="H_KIDSModel.Store.sp_Login_Parent_ShowStudents">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Login_Parent_ShowStudents_Result">
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Login_Parent_GetStudent" FunctionName="H_KIDSModel.Store.sp_Login_Parent_GetStudent">
             <ResultMapping>
               <ComplexTypeMapping TypeName="H_KIDSModel.sp_Login_Parent_GetStudent_Result">
@@ -4171,6 +4141,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ChangePassWord" FunctionName="H_KIDSModel.Store.sp_ChangePassWord" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

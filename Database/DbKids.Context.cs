@@ -2724,5 +2724,18 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Login_Parent_2_Result>("sp_Login_Parent_2", usernameParameter, passwordParameter);
         }
+    
+        public virtual int sp_ChangePassWord(string nickName, string password)
+        {
+            var nickNameParameter = nickName != null ?
+                new ObjectParameter("NickName", nickName) :
+                new ObjectParameter("NickName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChangePassWord", nickNameParameter, passwordParameter);
+        }
     }
 }

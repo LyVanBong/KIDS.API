@@ -10,6 +10,7 @@ namespace KIDS.API.Controllers
     [RoutePrefix("api/v1")]
     public class LoginController : ApiController
     {
+        private H_KIDSEntities _db;
         /// <summary>
         /// Api đăng nhập ứng dụng Giáo viên + Nhân viên
         /// </summary>
@@ -133,6 +134,18 @@ namespace KIDS.API.Controllers
             });
         }
 
-
+        [Route("ChangePassWord")]
+        [HttpPost]
+        public IHttpActionResult ChangePass([FromBody] LoginModel login)
+        {
+            
+            var data = _db.sp_ChangePassWord(login.UserName, login.Password);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 30,
+                Message = "SUCCESSFULLY",
+                Data = data,
+            });
+        }
     }
 }
