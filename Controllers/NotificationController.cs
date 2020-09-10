@@ -18,6 +18,32 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
+        [Route("Count")]
+        [HttpGet]
+        public IHttpActionResult GetCountNotification(string classId, string shoolId)
+        {
+            var noti = _db.sp_Teachers_Notifications_Count(classId, shoolId).FirstOrDefault();
+            if (noti != null)
+            {
+                return Ok(new ResponseModel<string>()
+                {
+                    Code = 155,
+                    Message = "SUCCESSFULLY",
+                    Data = noti + "",
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<string>()
+                {
+                    Code = -155,
+                    Message = "FAILED",
+                    Data = "",
+                });
+            }
+        }
+
         /// <summary>
         /// lay danh sach thong bao
         /// </summary>
