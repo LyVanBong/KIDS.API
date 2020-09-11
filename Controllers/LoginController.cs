@@ -46,44 +46,46 @@ namespace KIDS.API.Controllers
         }
         //PHỤ HUYNH login
         [Route("ParentLogin")]
-        [HttpGet]
-        //public IHttpActionResult ParentLogin([FromBody] LoginModel login)
-        public IHttpActionResult ParentLogin(string UserName, string Password)
+        [HttpPost]
+        public IHttpActionResult ParentLogin([FromBody] LoginModel login)
+        //public IHttpActionResult ParentLogin(string UserName, string Password)
         {
-            var data = _db.sp_Login_Parent_2(UserName, Password).ToList();
-            if (data.Any())
+            if (login != null)
             {
-                return Ok(new ResponseModel<List<sp_Login_Parent_2_Result>>()
+                
+                var data = _db.sp_Login_Parent_2(login.UserName, login.Password).FirstOrDefault();
+                if (data != null)
                 {
-                    Code = 2,
-                    Message = "successfully",
-                    Data = data,
-                });
+                    return Ok(new ResponseModel<sp_Login_Parent_2_Result>()
+                    {
+                        Code = 0,
+                        Message = "Logged in successfully",
+                        Data = data,
+                    });
+                }
             }
-            return Ok(new ResponseModel<List<sp_Login_Parent_2_Result>>()
+            return Ok(new ResponseModel<sp_Login_Parent_2_Result>()
             {
-                Code = -3,
-                Message = "error",
+                Code = -1,
+                Message = "Login failed",
                 Data = null,
             });
-            //if (login != null)
+
+
+            //var data = _db.sp_Login_Parent_2(UserName, Password).ToList();
+            //if (data.Any())
             //{
-            //    var db = new H_KIDSEntities();
-            //    var data = db.sp_Login_Parent_2(login.UserName, login.Password).FirstOrDefault();
-            //    if (data != null)
+            //    return Ok(new ResponseModel<List<sp_Login_Parent_2_Result>>()
             //    {
-            //        return Ok(new ResponseModel<sp_Login_Parent_2_Result>()
-            //        {
-            //            Code = 0,
-            //            Message = "Logged in successfully",
-            //            Data = data,
-            //        });
-            //    }
+            //        Code = 2,
+            //        Message = "successfully",
+            //        Data = data,
+            //    });
             //}
-            //return Ok(new ResponseModel<sp_Login_Parent_2_Result>()
+            //return Ok(new ResponseModel<List<sp_Login_Parent_2_Result>>()
             //{
-            //    Code = -1,
-            //    Message = "Login failed",
+            //    Code = -3,
+            //    Message = "error",
             //    Data = null,
             //});
         }
