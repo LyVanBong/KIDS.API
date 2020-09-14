@@ -124,15 +124,15 @@ namespace KIDS.API.Controllers
             }
         }
         /// <summary>
-        /// Lấy danh sách album ảnh trong một lớp học
+        ///GIÁO VIÊN Lấy danh sách album ảnh trong một lớp học
         /// </summary>
         /// <param name="ClassID"></param>
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult AlbumSel(string ClassID)
+        public IHttpActionResult AlbumSel(string ClassID,String SchoolID)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(ClassID, ClassID).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(ClassID, SchoolID).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -145,6 +145,35 @@ namespace KIDS.API.Controllers
             else
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
+                {
+                    Code = -7,
+                    Message = "FAILED",
+                    Data = null
+                });
+            }
+        }
+        /// <summary>
+        ///HỌC SINH Lấy danh sách album ảnh trong một lớp học THEO PHỤ HUYNH ID
+        /// </summary>
+        /// <param name="ClassID"></param>
+        /// <returns></returns>
+        [Route("SelectParent")]
+        [HttpGet]
+        public IHttpActionResult AlbumSelByParent(string ClassID,string SchoolID)
+        {
+            var data = _db.sp_Album_sel_ClassAndSchoolForParent(ClassID, SchoolID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchoolForParent_Result>>()
+                {
+                    Code = 6,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchoolForParent_Result>>()
                 {
                     Code = -7,
                     Message = "FAILED",

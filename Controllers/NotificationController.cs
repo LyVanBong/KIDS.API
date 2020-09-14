@@ -96,9 +96,9 @@ namespace KIDS.API.Controllers
         //}
         [Route("Student")]
         [HttpGet]
-        public IHttpActionResult GetStudentNotification(Guid ClassId, Guid SchoolId, Guid StudentId)
+        public IHttpActionResult GetStudentNotification(Guid SchoolId, Guid StudentId)
         {
-            var data = _db.sp_Students_Notifications(ClassId, SchoolId, StudentId).ToList();
+            var data = _db.sp_Students_Notifications(SchoolId, StudentId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Students_Notifications_Result>>()

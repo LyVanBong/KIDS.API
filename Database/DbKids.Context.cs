@@ -2629,12 +2629,8 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Notifications_Prescription_sel_Result>("sp_Notifications_Prescription_sel", iDParameter);
         }
     
-        public virtual ObjectResult<sp_Students_Notifications_Result> sp_Students_Notifications(Nullable<System.Guid> classID, Nullable<System.Guid> schoolID, Nullable<System.Guid> studentID)
+        public virtual ObjectResult<sp_Students_Notifications_Result> sp_Students_Notifications(Nullable<System.Guid> schoolID, Nullable<System.Guid> studentID)
         {
-            var classIDParameter = classID.HasValue ?
-                new ObjectParameter("ClassID", classID) :
-                new ObjectParameter("ClassID", typeof(System.Guid));
-    
             var schoolIDParameter = schoolID.HasValue ?
                 new ObjectParameter("SchoolID", schoolID) :
                 new ObjectParameter("SchoolID", typeof(System.Guid));
@@ -2643,7 +2639,7 @@ namespace KIDS.API.Database
                 new ObjectParameter("StudentID", studentID) :
                 new ObjectParameter("StudentID", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Notifications_Result>("sp_Students_Notifications", classIDParameter, schoolIDParameter, studentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Notifications_Result>("sp_Students_Notifications", schoolIDParameter, studentIDParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> sp_Students_Notifications_Count(string classID, string schoolID, string studentID)
@@ -2736,6 +2732,32 @@ namespace KIDS.API.Database
                 new ObjectParameter("Password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ChangePassWord", nickNameParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<sp_Album_sel_ClassAndSchoolForParent_Result> sp_Album_sel_ClassAndSchoolForParent(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_ClassAndSchoolForParent_Result>("sp_Album_sel_ClassAndSchoolForParent", classIDParameter, schoolIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_News_sel_ClassAndSchoolForParent_Result> sp_News_sel_ClassAndSchoolForParent(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchoolForParent_Result>("sp_News_sel_ClassAndSchoolForParent", classIDParameter, schoolIDParameter);
         }
     }
 }

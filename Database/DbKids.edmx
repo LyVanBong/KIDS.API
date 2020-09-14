@@ -232,6 +232,10 @@
           <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Album_sel_ClassAndSchoolForParent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_Album_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AlbumID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Thumbnail" Type="nvarchar" Mode="In" />
@@ -317,10 +321,6 @@
         <Function Name="sp_Login_Parent_ShowStudents_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="sp_Login_Teacher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="username" Type="nvarchar" Mode="In" />
-          <Parameter Name="password" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="sp_News_Del" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -333,6 +333,10 @@
           <Parameter Name="UserCreate" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_News_sel_ClassAndSchool" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_News_sel_ClassAndSchoolForParent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
@@ -521,7 +525,6 @@
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Students_Notifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -1462,7 +1465,6 @@
           <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Students_Notifications" ReturnType="Collection(H_KIDSModel.sp_Students_Notifications_Result)">
-            <Parameter Name="ClassID" Mode="In" Type="Guid" />
             <Parameter Name="SchoolID" Mode="In" Type="Guid" />
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
@@ -1494,6 +1496,14 @@
           <FunctionImport Name="sp_ChangePassWord">
             <Parameter Name="NickName" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Album_sel_ClassAndSchoolForParent" ReturnType="Collection(H_KIDSModel.sp_Album_sel_ClassAndSchoolForParent_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="SchoolID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_News_sel_ClassAndSchoolForParent" ReturnType="Collection(H_KIDSModel.sp_News_sel_ClassAndSchoolForParent_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="SchoolID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -2851,6 +2861,33 @@
           <Property Type="Guid" Name="ClassID" Nullable="false" />
           <Property Type="Guid" Name="GradeID" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_Album_sel_ClassAndSchoolForParent_Result">
+          <Property Type="Guid" Name="AlbumID" Nullable="false" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Thumbnail" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_News_sel_ClassAndSchoolForParent_Result">
+          <Property Type="Guid" Name="NewsID" Nullable="false" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Content" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Guid" Name="Approve" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3601,23 +3638,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Login_Teacher" FunctionName="H_KIDSModel.Store.sp_Login_Teacher">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Login_Teacher_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="NguoiSuDung" ColumnName="NguoiSuDung" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
-                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-                <ScalarProperty Name="IsTeacher" ColumnName="IsTeacher" />
-                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="H_KIDSModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="H_KIDSModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="sp_Student_Communications_Reply_sel" FunctionName="H_KIDSModel.Store.sp_Student_Communications_Reply_sel">
@@ -4142,6 +4162,41 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ChangePassWord" FunctionName="H_KIDSModel.Store.sp_ChangePassWord" />
+          <FunctionImportMapping FunctionImportName="sp_Album_sel_ClassAndSchoolForParent" FunctionName="H_KIDSModel.Store.sp_Album_sel_ClassAndSchoolForParent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Album_sel_ClassAndSchoolForParent_Result">
+                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
+                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_News_sel_ClassAndSchoolForParent" FunctionName="H_KIDSModel.Store.sp_News_sel_ClassAndSchoolForParent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_News_sel_ClassAndSchoolForParent_Result">
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Approve" ColumnName="Approve" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
+                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
