@@ -2642,12 +2642,8 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Notifications_Result>("sp_Students_Notifications", schoolIDParameter, studentIDParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> sp_Students_Notifications_Count(string classID, string schoolID, string studentID)
+        public virtual ObjectResult<Nullable<int>> sp_Students_Notifications_Count(string schoolID, string studentID)
         {
-            var classIDParameter = classID != null ?
-                new ObjectParameter("ClassID", classID) :
-                new ObjectParameter("ClassID", typeof(string));
-    
             var schoolIDParameter = schoolID != null ?
                 new ObjectParameter("SchoolID", schoolID) :
                 new ObjectParameter("SchoolID", typeof(string));
@@ -2656,7 +2652,7 @@ namespace KIDS.API.Database
                 new ObjectParameter("StudentID", studentID) :
                 new ObjectParameter("StudentID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Students_Notifications_Count", classIDParameter, schoolIDParameter, studentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Students_Notifications_Count", schoolIDParameter, studentIDParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> sp_Teachers_Notifications_Count(string classID, string schoolID)

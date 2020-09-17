@@ -529,7 +529,6 @@
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Students_Notifications_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
           <Parameter Name="StudentID" Type="nvarchar" Mode="In" />
         </Function>
@@ -1469,7 +1468,6 @@
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Students_Notifications_Count" ReturnType="Collection(Int32)">
-            <Parameter Name="ClassID" Mode="In" Type="String" />
             <Parameter Name="SchoolID" Mode="In" Type="String" />
             <Parameter Name="StudentID" Mode="In" Type="String" />
           </FunctionImport>
