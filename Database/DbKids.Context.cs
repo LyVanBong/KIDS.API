@@ -2755,5 +2755,51 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchoolForParent_Result>("sp_News_sel_ClassAndSchoolForParent", classIDParameter, schoolIDParameter);
         }
+    
+        public virtual int sp_Student_ParentProfile_Upd(Nullable<System.Guid> parentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture)
+        {
+            var parentIDParameter = parentID.HasValue ?
+                new ObjectParameter("ParentID", parentID) :
+                new ObjectParameter("ParentID", typeof(System.Guid));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var sexParameter = sex.HasValue ?
+                new ObjectParameter("Sex", sex) :
+                new ObjectParameter("Sex", typeof(int));
+    
+            var dOBParameter = dOB.HasValue ?
+                new ObjectParameter("DOB", dOB) :
+                new ObjectParameter("DOB", typeof(System.DateTime));
+    
+            var mobileParameter = mobile != null ?
+                new ObjectParameter("Mobile", mobile) :
+                new ObjectParameter("Mobile", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var pictureParameter = picture != null ?
+                new ObjectParameter("Picture", picture) :
+                new ObjectParameter("Picture", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_ParentProfile_Upd", parentIDParameter, nameParameter, sexParameter, dOBParameter, mobileParameter, emailParameter, addressParameter, pictureParameter);
+        }
+    
+        public virtual ObjectResult<sp_Students_Parents_Detail_sel_Result> sp_Students_Parents_Detail_sel(string parentID)
+        {
+            var parentIDParameter = parentID != null ?
+                new ObjectParameter("ParentID", parentID) :
+                new ObjectParameter("ParentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Parents_Detail_sel_Result>("sp_Students_Parents_Detail_sel", parentIDParameter);
+        }
     }
 }

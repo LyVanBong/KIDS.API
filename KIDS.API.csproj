@@ -246,6 +246,9 @@
     <Compile Include="Database\sp_Students_Notifications_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Students_Parents_Detail_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Students_Parents_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -410,6 +413,7 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\AssessModel.cs" />
+    <Compile Include="Models\ParentModel.cs" />
     <Compile Include="Models\StudyPlanModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
