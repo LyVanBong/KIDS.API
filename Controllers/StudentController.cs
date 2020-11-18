@@ -99,7 +99,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-        // Danh sách phụ hunh của học sinh
+        // Danh sách phụ hunh 
         [Route("Select/Parent")]
         [HttpGet]
         public IHttpActionResult Parent(Guid StudentID)
@@ -121,6 +121,64 @@ namespace KIDS.API.Controllers
                     Code = -17,
                     Message = "FAILED",
                     Data = null,
+                });
+            }
+        }
+        /// <summary>
+        /// lấy thông tin chi tiết của phụ huynh
+        /// </summary>
+        /// <param name="StudentID"></param>
+        /// <returns></returns>
+        [Route("ParentProfile")]
+        [HttpGet]
+        public IHttpActionResult ParentProfile(String ParentID)
+        {
+            var data = _db.sp_Students_Parents_Detail_sel(ParentID).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Students_Parents_Detail_sel_Result>>()
+                {
+                    Code = 16,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Students_Parents_Detail_sel_Result>>()
+                {
+                    Code = -17,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
+        /// <summary>
+        /// Cập nhật lại thông tin Phụ huynh
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        [Route("ParentUpdate")]
+        [HttpPost]
+        public IHttpActionResult ParentUpdate(ParentModel student)
+        {
+            var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, student.Picture);
+            if (data > 0)
+            {
+                return Ok(new ResponseModel<int>()
+                {
+                    Code = 18,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<int>()
+                {
+                    Code = -19,
+                    Message = "FAILED",
+                    Data = data,
                 });
             }
         }

@@ -72,5 +72,51 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
         }
+        [Route("CountForStudent")]
+        [HttpGet]
+        public IHttpActionResult CountForStudent(String StudentID, String SchoolId)
+        {
+            var noti = _db.sp_Students_Notifications_Count(StudentID, SchoolId).FirstOrDefault();
+            if (noti != null)
+            {
+                return Ok(new ResponseModel<string>()
+                {
+                    Code = 155,
+                    Message = "SUCCESSFULLY",
+                    Data = noti + "",
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<string>()
+                {
+                    Code = -155,
+                    Message = "FAILED",
+                    Data = "",
+                });
+            }
+        }
+        [Route("Student")]
+        [HttpGet]
+        public IHttpActionResult GetStudentNotification(Guid SchoolId, Guid StudentId)
+        {
+            var data = _db.sp_Students_Notifications(SchoolId, StudentId).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Students_Notifications_Result>>()
+                {
+                    Code = 15,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+                return Ok(new ResponseModel<IEnumerable<sp_Students_Notifications_Result>>()
+                {
+                    Code = -16,
+                    Message = "FAILED",
+                    Data = null,
+                });
+        }
     }
 }

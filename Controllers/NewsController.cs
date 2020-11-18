@@ -68,7 +68,7 @@ namespace KIDS.API.Controllers
             });
         }
         /// <summary>
-        /// lấy danh sách thông báo do trường và lợp tạo ra
+        ///GIÁO VIÊN lấy danh sách thông báo do trường và lợp tạo ra
         /// </summary>
         /// <returns></returns>
         [Route("Select/All")]
@@ -95,6 +95,36 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
+        /// <summary>
+        ///PHỤ HUYNH lấy danh sách thông báo do trường và lợp tạo ra THEO PHU HUYNH ID
+        /// </summary>
+        /// <returns></returns>
+        [Route("SelectParent")]
+        [HttpGet]
+        public IHttpActionResult NewsSelByParent(string ClassId, string SchoolId)
+        {
+            var data = _db.sp_News_sel_ClassAndSchoolForParent(ClassId, SchoolId).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassAndSchoolForParent_Result>>()
+                {
+                    Code = 11,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassAndSchoolForParent_Result>>()
+                {
+                    Code = -12,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
+
         /// <summary>
         /// lấy all news theo trường tạo ra
         /// </summary>

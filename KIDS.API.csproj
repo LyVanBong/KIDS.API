@@ -141,6 +141,9 @@
     <Compile Include="Database\sp_Album_sel_all_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Album_sel_ClassAndSchoolForParent_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Album_sel_ClassAndSchool_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -174,6 +177,24 @@
     <Compile Include="Database\sp_KhoanThu_DotThu_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Login_Parent_2_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Login_Parent_GetStudentID_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Login_Parent_GetStudent_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Login_Parent_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Login_Parent_ShowStudents_2_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Login_Parent_ShowStudents_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Login_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -184,6 +205,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_News_sel_all_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_News_sel_ClassAndSchoolForParent_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_News_sel_ClassAndSchool_Result.cs">
@@ -217,6 +241,12 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_StudentParent_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Students_Notifications_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Students_Parents_Detail_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Students_Parents_sel_Result.cs">
@@ -383,6 +413,7 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\AssessModel.cs" />
+    <Compile Include="Models\ParentModel.cs" />
     <Compile Include="Models\StudyPlanModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
