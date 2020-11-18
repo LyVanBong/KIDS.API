@@ -1527,7 +1527,7 @@
             <Parameter Name="Picture" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Students_Parents_Detail_sel" ReturnType="Collection(H_KIDSModel.sp_Students_Parents_Detail_sel_Result)">
-            <Parameter Name="ParentID" Mode="In" Type="String" />
+          <Parameter Name="ParentID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
