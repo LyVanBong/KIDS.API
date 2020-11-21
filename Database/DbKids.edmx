@@ -2119,10 +2119,15 @@
           <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
           <Property Type="Guid" Name="UserCreate" Nullable="true" />
-          <Property Type="Guid" Name="Approve" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
           <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
           <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Boolean" Name="Ghim" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_Student_Communications_sel_Result">
           <Property Type="Guid" Name="CommunicationID" Nullable="false" />
@@ -3390,6 +3395,11 @@
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Ghim" ColumnName="Ghim" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
