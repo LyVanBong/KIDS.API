@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using KIDS.API.Helpers;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.IO;
+
 namespace KIDS.API.Controllers
 {
     [RoutePrefix("api/v1/Communication")]
@@ -22,8 +26,26 @@ namespace KIDS.API.Controllers
         // Học sinh Tạo mới tin nhắn
         [Route("Insert")]
         [HttpPost]
-        public IHttpActionResult InsertCommunication(CommunicationModel insert)
+        public async Task<IHttpActionResult> InsertCommunication(CommunicationModel insert)
         {
+            var provider = new RestrictiveMultipartMemoryStreamProvider();
+
+            //READ CONTENTS OF REQUEST TO MEMORY WITHOUT FLUSHING TO DISK
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            foreach (HttpContent ctnt in provider.Contents)
+            {
+                //now read individual part into STREAM
+                var stream = await ctnt.ReadAsStreamAsync();
+
+                if (stream.Length != 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        //TODO : Save Image
+                    }
+                }
+            }
             var data = _db.sp_Student_Communications_Ins(insert.ClassID, insert.TeacherID, insert.Parent, insert.Content, insert.DateCreate, insert.StudentID, 2);
             return Ok(new ResponseModel<int>
             {
