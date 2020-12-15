@@ -131,9 +131,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select/School")]
         [HttpGet]
-        public IHttpActionResult NewsSelSchool(string SchoolId)
+        public IHttpActionResult NewsSelSchool(string ClassId,string SchoolId)
         {
-            var data = _db.sp_News_sel_ClassAndSchool(SchoolId, SchoolId).ToList();
+            var data = _db.sp_News_sel_ClassAndSchool(ClassId, SchoolId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassAndSchool_Result>>()
@@ -160,12 +160,12 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult NewsSel(string ClassID)
+        public IHttpActionResult NewsSel(string ClassID,string SchoolID)
         {
-            var data = _db.sp_News_sel_ClassAndSchool(ClassID, ClassID).ToList();
+            var data = _db.sp_News_sel_ClassID(ClassID,SchoolID).ToList();
             if (data.Any())
             {
-                return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassAndSchool_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassID_Result>>()
                 {
                     Code = 7,
                     Message = "SUCCESSFULLY",
@@ -174,7 +174,7 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassAndSchool_Result>>()
+                return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassID_Result>>()
                 {
                     Code = -8,
                     Message = "FAILED",
@@ -189,9 +189,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Detail")]
         [HttpGet]
-        public IHttpActionResult NewsDetail(Guid NewsID)
+        public IHttpActionResult NewsDetail(Guid NewsID,Guid GiaoVien_PhuHuynhClick)
         {
-            var data = _db.sp_NewsDetail_sel(NewsID).ToList();
+            var data = _db.sp_NewsDetail_sel(NewsID, GiaoVien_PhuHuynhClick).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_NewsDetail_sel_Result>>()

@@ -19,6 +19,6 @@ namespace KIDS.API.Database
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> Views { get; set; }
         public string Status { get; set; }
-        public int Type { get; set; }
+        public Nullable<int> Type { get; set; }
     }
 }

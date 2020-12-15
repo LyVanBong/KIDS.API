@@ -73,9 +73,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select/All")]
         [HttpGet]
-        public IHttpActionResult AlbumSelAll(string SchoolId, string ClassId)
+        public IHttpActionResult AlbumSelAll(string SchoolId,string ClassId)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(ClassId, SchoolId).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -101,9 +101,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select/School")]
         [HttpGet]
-        public IHttpActionResult AlbumSelSchool(string SchoolId)
+        public IHttpActionResult AlbumSelSchool(string SchoolId,string ClassId)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, SchoolId).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -130,9 +130,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult AlbumSel(string ClassID,String SchoolID)
+        public IHttpActionResult AlbumSel(String SchoolID,string ClassId)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(ClassID, SchoolID).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolID, ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -159,9 +159,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("SelectParent")]
         [HttpGet]
-        public IHttpActionResult AlbumSelByParent(string ClassID,string SchoolID)
+        public IHttpActionResult AlbumSelByParent(string ParentId, string SchoolID)
         {
-            var data = _db.sp_Album_sel_ClassAndSchoolForParent(ClassID, SchoolID).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchoolForParent(ParentId, SchoolID).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchoolForParent_Result>>()
@@ -188,9 +188,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Detail")]
         [HttpGet]
-        public IHttpActionResult AlbumDetailSel(Guid AlbumID)
+        public IHttpActionResult AlbumDetailSel(Guid AlbumID,Guid GiaoVien_PhuHuynhClick)
         {
-            var data = _db.sp_AlbumDetail_sel(AlbumID).ToList();
+            var data = _db.sp_AlbumDetail_sel(AlbumID, GiaoVien_PhuHuynhClick).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_AlbumDetail_sel_Result>>()
