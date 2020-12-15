@@ -229,11 +229,11 @@
           <Parameter Name="UserCreate" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Album_sel_ClassAndSchool" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Album_sel_ClassAndSchoolForParent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParentID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Album_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -245,6 +245,7 @@
         </Function>
         <Function Name="sp_AlbumDetail_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AlbumID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="GiaoVien_PhuHuynhClick" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_AlbumImage_Del" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ImageID" Type="uniqueidentifier" Mode="In" />
@@ -292,6 +293,16 @@
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetIdDeviceAllUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetIdDeviceClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdClass" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_GetIdDeviceSchool" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSchool" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_GetIdDeviceUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUser" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -350,6 +361,7 @@
         </Function>
         <Function Name="sp_NewsDetail_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="GiaoVien_PhuHuynhClick" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Notifications_Application_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
@@ -542,11 +554,11 @@
         </Function>
         <Function Name="sp_Students_Notifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ParentID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Students_Notifications_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
-          <Parameter Name="StudentID" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParentID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Students_Parents_Detail_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ParentID" Type="nvarchar" Mode="In" />
@@ -727,11 +739,18 @@
         </Function>
         <Function Name="sp_Teachers_Notifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Teachers_Notifications_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeacherID" Type="nvarchar" Mode="In" />
           <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
-          <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateIdDevice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSchool" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdClass" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdUser" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdDevice" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Note" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="udfNetSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
@@ -829,6 +848,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_NewsDetail_sel" ReturnType="Collection(H_KIDSModel.sp_NewsDetail_sel_Result)">
           <Parameter Name="NewsID" Mode="In" Type="Guid" />
+            <Parameter Name="GiaoVien_PhuHuynhClick" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Application_Del">
           <Parameter Name="ID" Mode="In" Type="Guid" />
@@ -1033,6 +1053,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_AlbumDetail_sel" ReturnType="Collection(H_KIDSModel.sp_AlbumDetail_sel_Result)">
           <Parameter Name="AlbumID" Mode="In" Type="Guid" />
+            <Parameter Name="GiaoVien_PhuHuynhClick" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Teacher_Student_Daily_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Student_Daily_sel_Result)">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
@@ -1049,8 +1070,8 @@
           </FunctionImport>
           <FunctionImport Name="sp_News_sel_School" ReturnType="Collection(H_KIDSModel.sp_News_sel_School_Result)" />
           <FunctionImport Name="sp_Album_sel_ClassAndSchool" ReturnType="Collection(H_KIDSModel.sp_Album_sel_ClassAndSchool_Result)">
-            <Parameter Name="ClassID" Mode="In" Type="String" />
             <Parameter Name="SchoolID" Mode="In" Type="String" />
+            <Parameter Name="ClassID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_News_sel_ClassAndSchool" ReturnType="Collection(H_KIDSModel.sp_News_sel_ClassAndSchool_Result)">
             <Parameter Name="ClassID" Mode="In" Type="String" />
@@ -1071,7 +1092,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_Teachers_Notifications" ReturnType="Collection(H_KIDSModel.sp_Teachers_Notifications_Result)">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
-            <Parameter Name="SchoolID" Mode="In" Type="Guid" />
+            <Parameter Name="TeacherID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Profile_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Profile_sel_Result)">
           <Parameter Name="StudentID" Mode="In" Type="Guid" />
@@ -1486,15 +1507,15 @@
           </FunctionImport>
           <FunctionImport Name="sp_Students_Notifications" ReturnType="Collection(H_KIDSModel.sp_Students_Notifications_Result)">
             <Parameter Name="SchoolID" Mode="In" Type="Guid" />
-            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="ParentID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Students_Notifications_Count" ReturnType="Collection(Int32)">
             <Parameter Name="SchoolID" Mode="In" Type="String" />
-            <Parameter Name="StudentID" Mode="In" Type="String" />
+            <Parameter Name="ParentID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Teachers_Notifications_Count" ReturnType="Collection(Int32)">
+            <Parameter Name="TeacherID" Mode="In" Type="String" />
             <Parameter Name="ClassID" Mode="In" Type="String" />
-            <Parameter Name="SchoolID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Login_Parent_GetStudentID" ReturnType="Collection(H_KIDSModel.sp_Login_Parent_GetStudentID_Result)">
           <Parameter Name="StudentID" Mode="In" Type="String" />
@@ -1517,7 +1538,7 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Album_sel_ClassAndSchoolForParent" ReturnType="Collection(H_KIDSModel.sp_Album_sel_ClassAndSchoolForParent_Result)">
-            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="ParentID" Mode="In" Type="String" />
             <Parameter Name="SchoolID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_News_sel_ClassAndSchoolForParent" ReturnType="Collection(H_KIDSModel.sp_News_sel_ClassAndSchoolForParent_Result)">
@@ -1542,6 +1563,23 @@
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetIdDeviceAllUser" ReturnType="Collection(H_KIDSModel.sp_GetIdDeviceAllUser_Result)" />
+          <FunctionImport Name="sp_GetIdDeviceClass" ReturnType="Collection(String)">
+            <Parameter Name="IdClass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetIdDeviceSchool" ReturnType="Collection(String)">
+            <Parameter Name="IdSchool" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetIdDeviceUser" ReturnType="Collection(H_KIDSModel.sp_GetIdDeviceUser_Result)">
+            <Parameter Name="IdUser" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateIdDevice">
+            <Parameter Name="IdSchool" Mode="In" Type="String" />
+            <Parameter Name="IdClass" Mode="In" Type="String" />
+            <Parameter Name="IdUser" Mode="In" Type="String" />
+            <Parameter Name="IdDevice" Mode="In" Type="String" />
+            <Parameter Name="Note" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -2971,6 +3009,22 @@
           <Property Type="Int32" Name="NghiKhongPhep" Nullable="true" />
           <Property Type="Int32" Name="DiMuon" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_GetIdDeviceAllUser_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="IDSchool" Nullable="true" />
+          <Property Type="String" Name="IDClass" Nullable="true" />
+          <Property Type="String" Name="IDUser" Nullable="true" />
+          <Property Type="String" Name="IDDevice" Nullable="true" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="sp_GetIdDeviceUser_Result">
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="IDSchool" Nullable="true" />
+          <Property Type="String" Name="IDClass" Nullable="true" />
+          <Property Type="String" Name="IDUser" Nullable="true" />
+          <Property Type="String" Name="IDDevice" Nullable="true" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4334,6 +4388,33 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetIdDeviceAllUser" FunctionName="H_KIDSModel.Store.sp_GetIdDeviceAllUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_GetIdDeviceAllUser_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDSchool" ColumnName="IDSchool" />
+                <ScalarProperty Name="IDClass" ColumnName="IDClass" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDDevice" ColumnName="IDDevice" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetIdDeviceClass" FunctionName="H_KIDSModel.Store.sp_GetIdDeviceClass" />
+          <FunctionImportMapping FunctionImportName="sp_GetIdDeviceSchool" FunctionName="H_KIDSModel.Store.sp_GetIdDeviceSchool" />
+          <FunctionImportMapping FunctionImportName="sp_GetIdDeviceUser" FunctionName="H_KIDSModel.Store.sp_GetIdDeviceUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_GetIdDeviceUser_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDSchool" ColumnName="IDSchool" />
+                <ScalarProperty Name="IDClass" ColumnName="IDClass" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDDevice" ColumnName="IDDevice" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_UpdateIdDevice" FunctionName="H_KIDSModel.Store.sp_UpdateIdDevice" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

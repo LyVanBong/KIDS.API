@@ -165,6 +165,12 @@
     <Compile Include="Database\sp_DinhDuong_BuaAn_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_GetIdDeviceAllUser_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_GetIdDeviceUser_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
