@@ -134,19 +134,46 @@ namespace KIDS.API.Controllers
         }
 
         /// <summary>
-        /// đếm tổng số HS, có mặt, nghỉ phép.. của lớp trong ngay
+        /// đếm tổng số HS, có mặt, nghỉ phép.. của lớp trong khoản thời gian
         /// </summary>
         /// <param name="ClassId"></param>
         /// <param name="Date"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("Count")]
-        public IHttpActionResult AttendanceCount(Guid ClassId, DateTime Date)
+        public IHttpActionResult AttendanceCount(Guid ClassId, DateTime FromDate, DateTime ToDate)
         {
-            var data = _db.sp_Teacher_Attendance_Count_sel(ClassId, Date).ToList();
+            var data = _db.sp_Teacher_Attendance_Count_sel(ClassId, FromDate,ToDate).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Teacher_Attendance_Count_sel_Result>>()
+                {
+                    Code = 4,
+                    Message = "Get data attendance count successfully",
+                    Data = data,
+                });
+            }
+            return Ok(new ResponseModel<List<sp_Teacher_Application_sel_Result>>()
+            {
+                Code = -5,
+                Message = "Get data attendance count error",
+                Data = null,
+            });
+        }
+        /// <summary>
+        /// đếm tổng số HS, có mặt, nghỉ phép.. của 1 học sinh trong khoản thời gian
+        /// </summary>
+        /// <param name="ClassId"></param>
+        /// <param name="Date"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("StudentCount")]
+        public IHttpActionResult AttendanceStudentCount(Guid ClassId, Guid StudentId, DateTime FromDate, DateTime ToDate)
+        {
+            var data = _db.sp_Student_Attendance_sel(ClassId, StudentId, FromDate, ToDate).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<List<sp_Student_Attendance_sel_Result>>()
                 {
                     Code = 4,
                     Message = "Get data attendance count successfully",

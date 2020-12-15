@@ -23,5 +23,8 @@ namespace KIDS.API.Database
         public string NgayTao { get; set; }
         public string TenNguoiTao { get; set; }
         public string TenLop { get; set; }
+        public Nullable<System.Guid> Approver { get; set; }
+        public Nullable<bool> Approve { get; set; }
+        public Nullable<System.Guid> SchoolID { get; set; }
     }
 }

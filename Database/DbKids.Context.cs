@@ -59,17 +59,21 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Application_sel_Result>("sp_Teacher_Application_sel", classIDParameter);
         }
     
-        public virtual ObjectResult<sp_Teacher_Attendance_Count_sel_Result> sp_Teacher_Attendance_Count_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
+        public virtual ObjectResult<sp_Teacher_Attendance_Count_sel_Result> sp_Teacher_Attendance_Count_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
         {
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
     
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("Date", date) :
-                new ObjectParameter("Date", typeof(System.DateTime));
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Attendance_Count_sel_Result>("sp_Teacher_Attendance_Count_sel", classIDParameter, dateParameter);
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Attendance_Count_sel_Result>("sp_Teacher_Attendance_Count_sel", classIDParameter, fromDateParameter, toDateParameter);
         }
     
         public virtual ObjectResult<sp_Teacher_Attendance_sel_Result> sp_Teacher_Attendance_sel(Nullable<System.Guid> classID, Nullable<System.DateTime> date)
@@ -2743,17 +2747,17 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Album_sel_ClassAndSchoolForParent_Result>("sp_Album_sel_ClassAndSchoolForParent", classIDParameter, schoolIDParameter);
         }
     
-        public virtual ObjectResult<sp_News_sel_ClassAndSchoolForParent_Result> sp_News_sel_ClassAndSchoolForParent(string classID, string schoolID)
+        public virtual ObjectResult<sp_News_sel_ClassAndSchoolForParent_Result> sp_News_sel_ClassAndSchoolForParent(string parentID, string schoolID)
         {
-            var classIDParameter = classID != null ?
-                new ObjectParameter("ClassID", classID) :
-                new ObjectParameter("ClassID", typeof(string));
+            var parentIDParameter = parentID != null ?
+                new ObjectParameter("ParentID", parentID) :
+                new ObjectParameter("ParentID", typeof(string));
     
             var schoolIDParameter = schoolID != null ?
                 new ObjectParameter("SchoolID", schoolID) :
                 new ObjectParameter("SchoolID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchoolForParent_Result>("sp_News_sel_ClassAndSchoolForParent", classIDParameter, schoolIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchoolForParent_Result>("sp_News_sel_ClassAndSchoolForParent", parentIDParameter, schoolIDParameter);
         }
     
         public virtual int sp_Student_ParentProfile_Upd(Nullable<System.Guid> parentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture)
@@ -2800,6 +2804,27 @@ namespace KIDS.API.Database
                 new ObjectParameter("ParentID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Students_Parents_Detail_sel_Result>("sp_Students_Parents_Detail_sel", parentIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Attendance_sel_Result> sp_Student_Attendance_sel(Nullable<System.Guid> classID, Nullable<System.Guid> studentID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Attendance_sel_Result>("sp_Student_Attendance_sel", classIDParameter, studentIDParameter, fromDateParameter, toDateParameter);
         }
     }
 }

@@ -337,7 +337,7 @@
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_News_sel_ClassAndSchoolForParent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
+          <Parameter Name="ParentID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_News_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -408,6 +408,12 @@
         <Function Name="sp_Student_AssessPlan_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Student_Attendance_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
         </Function>
         <Function Name="sp_Student_Communications_Del" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CommunicationID" Type="uniqueidentifier" Mode="In" />
@@ -595,7 +601,8 @@
         </Function>
         <Function Name="sp_Teacher_Attendance_Count_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="FromDate" Type="datetime" Mode="In" />
+          <Parameter Name="ToDate" Type="datetime" Mode="In" />
         </Function>
         <Function Name="sp_Teacher_AttendanceArrive_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
@@ -750,7 +757,8 @@
           </FunctionImport>
           <FunctionImport Name="sp_Teacher_Attendance_Count_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Attendance_Count_sel_Result)">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_Teacher_Attendance_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Attendance_sel_Result)">
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
@@ -1513,7 +1521,7 @@
             <Parameter Name="SchoolID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_News_sel_ClassAndSchoolForParent" ReturnType="Collection(H_KIDSModel.sp_News_sel_ClassAndSchoolForParent_Result)">
-            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="ParentID" Mode="In" Type="String" />
             <Parameter Name="SchoolID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_ParentProfile_Upd">
@@ -1528,6 +1536,12 @@
           </FunctionImport>
           <FunctionImport Name="sp_Students_Parents_Detail_sel" ReturnType="Collection(H_KIDSModel.sp_Students_Parents_Detail_sel_Result)">
           <Parameter Name="ParentID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Attendance_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Attendance_sel_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -1687,7 +1701,12 @@
           <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
           <Property Type="Guid" Name="UserCreate" Nullable="true" />
-          <Property Type="Guid" Name="Approve" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Boolean" Name="Ghim" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_Student_Application_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
@@ -2119,10 +2138,15 @@
           <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
           <Property Type="Guid" Name="UserCreate" Nullable="true" />
-          <Property Type="Guid" Name="Approve" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
           <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
           <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Boolean" Name="Ghim" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_Student_Communications_sel_Result">
           <Property Type="Guid" Name="CommunicationID" Nullable="false" />
@@ -2819,8 +2843,9 @@
           <Property Type="String" Name="Content" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Views" Nullable="true" />
-          <Property Type="String" Name="Status" Nullable="true" MaxLength="75" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="71" />
           <Property Type="Int32" Name="Type" Nullable="false" />
+          <Property Type="String" Name="TeacherName" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="sp_Login_Parent_GetStudentID_Result">
           <Property Type="Guid" Name="DonViUser" Nullable="true" />
@@ -2884,6 +2909,9 @@
           <Property Type="String" Name="StudentName" Nullable="true" MaxLength="50" />
           <Property Type="Guid" Name="ClassID" Nullable="false" />
           <Property Type="Guid" Name="GradeID" Nullable="true" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GradeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_Album_sel_ClassAndSchoolForParent_Result">
           <Property Type="Guid" Name="AlbumID" Nullable="false" />
@@ -2896,6 +2924,9 @@
           <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
           <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_News_sel_ClassAndSchoolForParent_Result">
           <Property Type="Guid" Name="NewsID" Nullable="false" />
@@ -2906,11 +2937,15 @@
           <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
           <Property Type="Guid" Name="UserCreate" Nullable="true" />
-          <Property Type="Guid" Name="Approve" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
           <Property Type="Int32" Name="Views" Nullable="true" />
           <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
           <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Boolean" Name="Ghim" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_Students_Parents_Detail_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
@@ -2928,6 +2963,13 @@
           <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="Picture" Nullable="true" MaxLength="50" />
           <Property Type="Guid" Name="StudentID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Student_Attendance_sel_Result">
+          <Property Type="Int32" Name="STT" Nullable="true" />
+          <Property Type="Int32" Name="CoMat" Nullable="true" />
+          <Property Type="Int32" Name="NghiCoPhep" Nullable="true" />
+          <Property Type="Int32" Name="NghiKhongPhep" Nullable="true" />
+          <Property Type="Int32" Name="DiMuon" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3058,6 +3100,11 @@
                 <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
                 <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
                 <ScalarProperty Name="Approve" ColumnName="Approve" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Ghim" ColumnName="Ghim" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3390,6 +3437,11 @@
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Ghim" ColumnName="Ghim" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4145,6 +4197,7 @@
                 <ScalarProperty Name="Views" ColumnName="Views" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4199,6 +4252,9 @@
                 <ScalarProperty Name="StudentName" ColumnName="StudentName" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4216,6 +4272,9 @@
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Approve" ColumnName="Approve" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4235,6 +4294,10 @@
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Ghim" ColumnName="Ghim" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4257,6 +4320,17 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Student_Attendance_sel" FunctionName="H_KIDSModel.Store.sp_Student_Attendance_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Attendance_sel_Result">
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="CoMat" ColumnName="CoMat" />
+                <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
+                <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
+                <ScalarProperty Name="DiMuon" ColumnName="DiMuon" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

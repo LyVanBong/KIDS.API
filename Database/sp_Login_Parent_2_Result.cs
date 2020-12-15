@@ -25,5 +25,8 @@ namespace KIDS.API.Database
         public string StudentName { get; set; }
         public System.Guid ClassID { get; set; }
         public Nullable<System.Guid> GradeID { get; set; }
+        public string ClassName { get; set; }
+        public string GradeName { get; set; }
+        public string Picture { get; set; }
     }
 }

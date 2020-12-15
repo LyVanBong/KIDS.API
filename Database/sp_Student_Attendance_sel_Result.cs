@@ -11,15 +11,12 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Students_Notifications_Result
+    public partial class sp_Student_Attendance_sel_Result
     {
-        public string Picture { get; set; }
-        public System.Guid ID { get; set; }
-        public string Content { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> Views { get; set; }
-        public string Status { get; set; }
-        public int Type { get; set; }
-        public string TeacherName { get; set; }
+        public Nullable<int> STT { get; set; }
+        public Nullable<int> CoMat { get; set; }
+        public Nullable<int> NghiCoPhep { get; set; }
+        public Nullable<int> NghiKhongPhep { get; set; }
+        public Nullable<int> DiMuon { get; set; }
     }
 }

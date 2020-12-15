@@ -102,9 +102,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("SelectParent")]
         [HttpGet]
-        public IHttpActionResult NewsSelByParent(string ClassId, string SchoolId)
+        public IHttpActionResult NewsSelByParent(string ParentId, string SchoolId)
         {
-            var data = _db.sp_News_sel_ClassAndSchoolForParent(ClassId, SchoolId).ToList();
+            var data = _db.sp_News_sel_ClassAndSchoolForParent(ParentId, SchoolId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassAndSchoolForParent_Result>>()
