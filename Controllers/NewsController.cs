@@ -17,6 +17,7 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
         /// <summary>
         /// Tạo mới tin tức
         /// </summary>
@@ -25,7 +26,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult InsertNews(UpdateNewsModel insert)
         {
-            var data = _db.sp_News_Ins(insert.Title, insert.Content, insert.ClassId, insert.ImageUrl,  insert.DateCreate, insert.UserCreate);
+            var data = _db.sp_News_Ins(insert.Title, insert.Content, insert.ClassId, insert.ImageUrl, insert.DateCreate, insert.UserCreate);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,
@@ -33,6 +34,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// Cập nhân tin tức
         /// </summaryNews/Update
@@ -50,6 +52,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// Xóa tin tức
         /// </summary>
@@ -57,7 +60,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("DeleteNews")]
         [HttpPost]
-        public IHttpActionResult DeleteNews([FromBody]Guid update)
+        public IHttpActionResult DeleteNews([FromBody] Guid update)
         {
             var data = _db.sp_News_Del(update);
             return Ok(new ResponseModel<int>
@@ -67,6 +70,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         ///GIÁO VIÊN lấy danh sách thông báo do trường và lợp tạo ra
         /// </summary>
@@ -153,6 +157,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy danh sách các tin tức theo lớp
         /// </summary>
@@ -182,6 +187,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy chi tiết tin tức
         /// </summary>

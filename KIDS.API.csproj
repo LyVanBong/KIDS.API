@@ -56,6 +56,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -117,6 +120,7 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\DailyController.cs" />
+    <Compile Include="Controllers\PushNotificationController.cs" />
     <Compile Include="Controllers\StudyPlanController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
@@ -163,6 +167,12 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_DinhDuong_BuaAn_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_GetIdDeviceAllUser_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_GetIdDeviceUser_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_helpdiagramdefinition_Result.cs">
@@ -416,9 +426,11 @@
     <Compile Include="Models\AlbumModel.cs" />
     <Compile Include="Models\ApplicationModel.cs" />
     <Compile Include="Models\CommunicationModel.cs" />
+    <Compile Include="Models\CreateNotificationModel.cs" />
     <Compile Include="Models\DeleteMessageModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PrescriptionModel.cs" />
+    <Compile Include="Models\PushNotificationModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\AssessModel.cs" />

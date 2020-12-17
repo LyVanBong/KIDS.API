@@ -1,11 +1,12 @@
 ﻿using KIDS.API.Configurations;
 using KIDS.API.Database;
+using KIDS.API.Helpers;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Helpers;
+
 namespace KIDS.API.Controllers
 {
     [RoutePrefix("api/v1/Application")]
@@ -35,6 +36,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         ///Học sinh Sửa đơn xin nghỉ
         /// </summaryApplication/Update
@@ -51,6 +53,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// Xóa đơn
         /// </summary>
@@ -58,7 +61,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Delete")]
         [HttpPost]
-        public IHttpActionResult DeleteApplication([FromBody]Guid update)
+        public IHttpActionResult DeleteApplication([FromBody] Guid update)
         {
             var data = _db.sp_Student_Application_Del(update);
             return Ok(new ResponseModel<int>
@@ -92,6 +95,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //GIÁO VIÊN
 
         //Giáo viên: lấy danh sách đơn xin nghỉ theo lớp
@@ -117,8 +121,9 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //--Giáo viên Xác nhận đơn xin nghỉ
-        //--Status: false: chưa xác nhận, true: đã XN 
+        //--Status: false: chưa xác nhận, true: đã XN
         //--Approver: TeacherID
         //--Description: giáo viên mô tả
 
