@@ -16,13 +16,14 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
         /// <summary>
         /// lớp trông học sinh về muộn, lấy danh sách điểm danh về có cột LeaveLate = true
         /// </summary>
         /// <returns></returns>
         [Route("LeaveLate")]
         [HttpGet]
-        public IHttpActionResult AttendanceLeaveLate(Guid classId,DateTime date)
+        public IHttpActionResult AttendanceLeaveLate(Guid classId, DateTime date)
         {
             var data = _db.sp_Teacher_AttendanceLeaveLate_sel(classId, date).ToList();
             if (data.Any())
@@ -44,6 +45,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// cập nhật điểm danh về, ghi chú trong danh sách học sinh lớp trong ngày
         /// </summary>
@@ -62,6 +64,7 @@ namespace KIDS.API.Controllers
                 Data = data
             });
         }
+
         /// <summary>
         /// điểm danh về, lây danh sách học sinh có mặt trong danh sách điểm danh sáng
         /// </summary>
@@ -89,6 +92,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         /// <summary>
         /// cập nhật điểm danh đến, ghi chú trong danh sách học sinh lớp trong ngày
         /// </summary>
@@ -105,6 +109,7 @@ namespace KIDS.API.Controllers
                 Data = data
             });
         }
+
         /// <summary>
         /// Điểm danh đến lớp, sau khi tạo điểm danh theo ngày, mặc định lấy toàn bộ số học sinh trong lớp
         /// </summary>
@@ -143,7 +148,7 @@ namespace KIDS.API.Controllers
         [Route("Count")]
         public IHttpActionResult AttendanceCount(Guid ClassId, DateTime FromDate, DateTime ToDate)
         {
-            var data = _db.sp_Teacher_Attendance_Count_sel(ClassId, FromDate,ToDate).ToList();
+            var data = _db.sp_Teacher_Attendance_Count_sel(ClassId, FromDate, ToDate).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Teacher_Attendance_Count_sel_Result>>()
@@ -160,6 +165,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         /// <summary>
         /// đếm tổng số HS, có mặt, nghỉ phép.. của 1 học sinh trong khoản thời gian
         /// </summary>

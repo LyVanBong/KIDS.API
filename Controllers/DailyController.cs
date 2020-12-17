@@ -16,6 +16,7 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
         // HỌC SINH
         //bài học buổi sáng theo học sinh, ngày
         [Route("Morning/Student")]
@@ -42,6 +43,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         //bài học buổi chiểu theo học sinh, ngày
         [Route("Afternoon/Student")]
         [HttpGet]
@@ -93,6 +95,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         // Học sinh ăn trong ngày
         [Route("SelectMeal/Student")]
         [HttpGet]
@@ -117,8 +120,8 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
             }
-
         }
+
         // Học sinh vệ sinh trong ngày
         [Route("SelectHygiene/Student")]
         [HttpGet]
@@ -144,7 +147,6 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-
 
         //GIÁO VIÊN
 
@@ -173,6 +175,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         // Cập nhật học buổi sáng
         [Route("UpdateStudyMorning")]
         [HttpPost]
@@ -186,6 +189,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Cập nhật học buổi chiều
         [Route("UpdateStudyAfternoon")]
         [HttpPost]
@@ -199,6 +203,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Cập nhật nhận xét Ăn
         [Route("UpdateMeal")]
         [HttpPost]
@@ -213,6 +218,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Cập nhật nhận xét ngủ
         [Route("UpdateSleep")]
         [HttpPost]
@@ -226,6 +232,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Cập nhật nhận vệ sinh
         [Route("UpdateHygiene")]
         [HttpPost]
@@ -239,12 +246,13 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Cập nhật nhận xét ngày
         [Route("UpdateAssessment_Day")]
         [HttpPost]
         public IHttpActionResult UpdateAssessment_Day(DailyModel update)
         {
-            var data = _db.sp_Teacher_Daily_Assessment_Day_Upd(update.ID,update.DayComment, update.PhieuBeNgoan, update.UserCreate);
+            var data = _db.sp_Teacher_Daily_Assessment_Day_Upd(update.ID, update.DayComment, update.PhieuBeNgoan, update.UserCreate);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,
@@ -252,6 +260,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Cập nhật nhận xét tuần
         [Route("UpdateAssessment_Week")]
         [HttpPost]

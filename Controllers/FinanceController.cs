@@ -1,5 +1,4 @@
-﻿using KIDS.API.Configurations;
-using KIDS.API.Database;
+﻿using KIDS.API.Database;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
@@ -17,9 +16,9 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-       
+
         //Thông báo thu tiền
-      
+
         [Route("Select/Student")]
         [HttpGet]
         public IHttpActionResult FinanceSel(Guid StudentID)
@@ -44,9 +43,9 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-       
+
         // Chi tiết các khoản thu
-       
+
         [Route("Select/Detail")]
         [HttpGet]
         public IHttpActionResult FinanceDetail(Guid DotThu_HocSinhID)

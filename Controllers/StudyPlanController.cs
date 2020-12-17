@@ -16,7 +16,6 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-     
 
         //GIÁO VIÊN
         //bài học buổi sáng theo lớp, ngày
@@ -44,6 +43,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// select bài học buổi chiều theo lớp, ngày
         /// </summary>
@@ -74,6 +74,5 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-   
     }
 }
