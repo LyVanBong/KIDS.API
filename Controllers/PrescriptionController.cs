@@ -1,11 +1,12 @@
 ﻿using KIDS.API.Configurations;
 using KIDS.API.Database;
+using KIDS.API.Helpers;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Helpers;
+
 namespace KIDS.API.Controllers
 {
     [RoutePrefix("api/v1/Prescription")]
@@ -35,6 +36,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         ///Học sinh Sửa đơn thuốc
         /// </summaryPrescription/Update
@@ -51,11 +53,12 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Xóa đơn thuốc Master
         // <param name="PrescriptionId"></param>
         [Route("Delete")]
         [HttpPost]
-        public IHttpActionResult DeletePrescription([FromBody]Guid update)
+        public IHttpActionResult DeletePrescription([FromBody] Guid update)
         {
             var data = _db.sp_Student_Prescription_Del(update);
             return Ok(new ResponseModel<int>
@@ -65,11 +68,12 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Xóa đơn thuốc Detail
         // <param name="Id"></param>
         [Route("DeleteDetail")]
         [HttpPost]
-        public IHttpActionResult DeletePrescriptionDetail([FromBody]Guid update)
+        public IHttpActionResult DeletePrescriptionDetail([FromBody] Guid update)
         {
             var data = _db.sp_Student_Prescription_Detail_Del(update);
             return Ok(new ResponseModel<int>
@@ -103,6 +107,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //GIÁO VIÊN
 
         //Giáo viên: lấy danh sách đơn thuốc theo lớp
@@ -128,8 +133,9 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //--Giáo viên Xác nhận đơn thuốc
-        //--Status: false: chưa xác nhận, true: đã XN 
+        //--Status: false: chưa xác nhận, true: đã XN
         //--Approver: TeacherID
         //--Description: giáo viên mô tả
 
@@ -145,6 +151,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         //HỌC SINH VÀ GIÁO VIÊN
         /// <summary>
         /// Chi tiết đơn thuốc

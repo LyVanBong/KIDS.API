@@ -16,6 +16,7 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
         /// <summary>
         /// Cập nhật lại thông tin giao viên
         /// </summary>
@@ -26,7 +27,7 @@ namespace KIDS.API.Controllers
         public IHttpActionResult Update(TeacherModel teacher)
         {
             var data = _db.sp_Teacher_Profile_Upd(teacher.TeacherId, teacher.Name, teacher.Sex, teacher.Dob, teacher.Phone, teacher.Email, teacher.Address, teacher.Picture);
-            if(data>0)
+            if (data > 0)
             {
                 return Ok(new ResponseModel<int>()
                 {
@@ -45,6 +46,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy thông tin chi tiết của giáo viên
         /// </summary>
@@ -74,6 +76,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// Danh sách giáo viên trong lớp
 
         [Route("Select/Teacher")]

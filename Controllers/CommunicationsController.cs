@@ -1,11 +1,12 @@
 ﻿using KIDS.API.Configurations;
 using KIDS.API.Database;
+using KIDS.API.Helpers;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Helpers;
+
 namespace KIDS.API.Controllers
 {
     [RoutePrefix("api/v1/Communication")]
@@ -32,6 +33,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         //Học sinh Sửa tin
         [Route("Update")]
         [HttpPost]
@@ -45,6 +47,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Xóa tin
         [Route("Delete")]
         [HttpPost]
@@ -82,6 +85,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //Học sinh: lấy danh sách tin nhắn giáo viên gửi
         [Route("Select/TeacherToStudent")]
         [HttpGet]
@@ -106,7 +110,6 @@ namespace KIDS.API.Controllers
             });
         }
 
-
         //GIÁO VIÊN
         // Giáo viên Tạo mới tin nhắn
         [Route("InsertTeacher")]
@@ -121,6 +124,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         //Giáo viên Sửa tin
         [Route("UpdateTeacher")]
         [HttpPost]
@@ -134,6 +138,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Giáo viên Xóa tin
         [Route("DeleteTeacher")]
         [HttpPost]
@@ -148,8 +153,6 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
-
-
 
         //Giáo viên: lấy danh sách tin nhắn theo lớp
         [Route("Select/Class")]
@@ -174,6 +177,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //Giáo viên: lấy danh sách tin nhắn của giáo viên
         [Route("Select/Teacher")]
         [HttpGet]
@@ -197,6 +201,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //Hiển thị bình luận của tin nhắn
         [Route("Select/Reply")]
         [HttpGet]
@@ -220,6 +225,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //--Giáo viên Xác nhận tin nhắn của học sinh
 
         [Route("Approve")]

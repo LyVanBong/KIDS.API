@@ -1,11 +1,9 @@
-﻿using System;
+﻿using KIDS.API.Database;
+using KIDS.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using KIDS.API.Database;
-using KIDS.API.Models;
 
 namespace KIDS.API.Controllers
 {
@@ -72,6 +70,7 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
         }
+
         [Route("CountForStudent")]
         [HttpGet]
         public IHttpActionResult CountForStudent(String StudentID, String SchoolId)
@@ -96,6 +95,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         [Route("Student")]
         [HttpGet]
         public IHttpActionResult GetStudentNotification(Guid SchoolId, Guid StudentId)

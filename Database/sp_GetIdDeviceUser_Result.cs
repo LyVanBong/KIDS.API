@@ -13,11 +13,6 @@ namespace KIDS.API.Database
     
     public partial class sp_GetIdDeviceUser_Result
     {
-        public System.Guid ID { get; set; }
-        public string IDSchool { get; set; }
-        public string IDClass { get; set; }
-        public string IDUser { get; set; }
         public string IDDevice { get; set; }
-        public string Note { get; set; }
     }
 }

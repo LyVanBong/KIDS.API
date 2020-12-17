@@ -343,12 +343,20 @@
           <Parameter Name="DateCreate" Type="datetime" Mode="In" />
           <Parameter Name="UserCreate" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_News_sel_Class" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_News_sel_ClassAndSchool" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_News_sel_ClassAndSchoolForParent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ParentID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_News_sel_ClassID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="nvarchar" Mode="In" />
           <Parameter Name="SchoolID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_News_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -362,6 +370,15 @@
         <Function Name="sp_NewsDetail_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="GiaoVien_PhuHuynhClick" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Notice_Ins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NoticeID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ParentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Type" Type="int" Mode="In" />
+          <Parameter Name="Approve" Type="bit" Mode="In" />
         </Function>
         <Function Name="sp_Notifications_Application_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
@@ -750,7 +767,7 @@
           <Parameter Name="IdClass" Type="varchar(max)" Mode="In" />
           <Parameter Name="IdUser" Type="varchar(max)" Mode="In" />
           <Parameter Name="IdDevice" Type="varchar(max)" Mode="In" />
-          <Parameter Name="Note" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Note" Type="text" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="udfNetSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
@@ -847,7 +864,7 @@
             <Parameter Name="UserCreate" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_NewsDetail_sel" ReturnType="Collection(H_KIDSModel.sp_NewsDetail_sel_Result)">
-          <Parameter Name="NewsID" Mode="In" Type="Guid" />
+            <Parameter Name="NewsID" Mode="In" Type="Guid" />
             <Parameter Name="GiaoVien_PhuHuynhClick" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Application_Del">
@@ -1052,7 +1069,7 @@
             <Parameter Name="Description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_AlbumDetail_sel" ReturnType="Collection(H_KIDSModel.sp_AlbumDetail_sel_Result)">
-          <Parameter Name="AlbumID" Mode="In" Type="Guid" />
+            <Parameter Name="AlbumID" Mode="In" Type="Guid" />
             <Parameter Name="GiaoVien_PhuHuynhClick" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Teacher_Student_Daily_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Student_Daily_sel_Result)">
@@ -1566,13 +1583,13 @@
           </FunctionImport>
           <FunctionImport Name="sp_GetIdDeviceAllUser" ReturnType="Collection(H_KIDSModel.sp_GetIdDeviceAllUser_Result)" />
           <FunctionImport Name="sp_GetIdDeviceClass" ReturnType="Collection(String)">
-            <Parameter Name="IdClass" Mode="In" Type="String" />
+          <Parameter Name="IdClass" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetIdDeviceSchool" ReturnType="Collection(String)">
-            <Parameter Name="IdSchool" Mode="In" Type="String" />
+          <Parameter Name="IdSchool" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetIdDeviceUser" ReturnType="Collection(H_KIDSModel.sp_GetIdDeviceUser_Result)">
-            <Parameter Name="IdUser" Mode="In" Type="String" />
+          <Parameter Name="IdUser" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_UpdateIdDevice">
             <Parameter Name="IdSchool" Mode="In" Type="String" />
@@ -1580,6 +1597,23 @@
             <Parameter Name="IdUser" Mode="In" Type="String" />
             <Parameter Name="IdDevice" Mode="In" Type="String" />
             <Parameter Name="Note" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_News_sel_Class1" ReturnType="Collection(H_KIDSModel.sp_News_sel_Class1_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="SchoolID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_News_sel_ClassID" ReturnType="Collection(H_KIDSModel.sp_News_sel_ClassID_Result)">
+            <Parameter Name="ClassID" Mode="In" Type="String" />
+            <Parameter Name="SchoolID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Notice_Ins">
+            <Parameter Name="NoticeID" Mode="In" Type="Guid" />
+            <Parameter Name="SchoolID" Mode="In" Type="Guid" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="ParentID" Mode="In" Type="Guid" />
+            <Parameter Name="Type" Mode="In" Type="Int32" />
+            <Parameter Name="Approve" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -3010,20 +3044,48 @@
           <Property Type="Int32" Name="DiMuon" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_GetIdDeviceAllUser_Result">
-          <Property Type="Guid" Name="ID" Nullable="false" />
-          <Property Type="String" Name="IDSchool" Nullable="true" />
-          <Property Type="String" Name="IDClass" Nullable="true" />
-          <Property Type="String" Name="IDUser" Nullable="true" />
           <Property Type="String" Name="IDDevice" Nullable="true" />
-          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
         </ComplexType>
         <ComplexType Name="sp_GetIdDeviceUser_Result">
-          <Property Type="Guid" Name="ID" Nullable="false" />
-          <Property Type="String" Name="IDSchool" Nullable="true" />
-          <Property Type="String" Name="IDClass" Nullable="true" />
-          <Property Type="String" Name="IDUser" Nullable="true" />
           <Property Type="String" Name="IDDevice" Nullable="true" />
-          <Property Type="String" Name="Note" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="sp_News_sel_Class1_Result">
+          <Property Type="Guid" Name="NewsID" Nullable="false" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Content" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Boolean" Name="Ghim" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
+          <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_News_sel_ClassID_Result">
+          <Property Type="Guid" Name="NewsID" Nullable="false" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Content" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="DateCreate" Nullable="true" Precision="23" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+          <Property Type="Guid" Name="Approver" Nullable="true" />
+          <Property Type="Int32" Name="Views" Nullable="true" />
+          <Property Type="Boolean" Name="Approve" Nullable="true" />
+          <Property Type="Int32" Name="Sort" Nullable="true" />
+          <Property Type="Boolean" Name="Ghim" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
+          <Property Type="String" Name="NgayTao" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="TenNguoiTao" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenLop" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4391,12 +4453,7 @@
           <FunctionImportMapping FunctionImportName="sp_GetIdDeviceAllUser" FunctionName="H_KIDSModel.Store.sp_GetIdDeviceAllUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="H_KIDSModel.sp_GetIdDeviceAllUser_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDSchool" ColumnName="IDSchool" />
-                <ScalarProperty Name="IDClass" ColumnName="IDClass" />
-                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
                 <ScalarProperty Name="IDDevice" ColumnName="IDDevice" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4405,16 +4462,58 @@
           <FunctionImportMapping FunctionImportName="sp_GetIdDeviceUser" FunctionName="H_KIDSModel.Store.sp_GetIdDeviceUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="H_KIDSModel.sp_GetIdDeviceUser_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDSchool" ColumnName="IDSchool" />
-                <ScalarProperty Name="IDClass" ColumnName="IDClass" />
-                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
                 <ScalarProperty Name="IDDevice" ColumnName="IDDevice" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_UpdateIdDevice" FunctionName="H_KIDSModel.Store.sp_UpdateIdDevice" />
+          <FunctionImportMapping FunctionImportName="sp_News_sel_Class1" FunctionName="H_KIDSModel.Store.sp_News_sel_Class">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_News_sel_Class1_Result">
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Approve" ColumnName="Approve" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Ghim" ColumnName="Ghim" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
+                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_News_sel_ClassID" FunctionName="H_KIDSModel.Store.sp_News_sel_ClassID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_News_sel_ClassID_Result">
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Approve" ColumnName="Approve" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Ghim" ColumnName="Ghim" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="TenNguoiTao" ColumnName="TenNguoiTao" />
+                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Notice_Ins" FunctionName="H_KIDSModel.Store.sp_Notice_Ins" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -2891,5 +2891,64 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateIdDevice", idSchoolParameter, idClassParameter, idUserParameter, idDeviceParameter, noteParameter);
         }
+    
+        public virtual ObjectResult<sp_News_sel_Class1_Result> sp_News_sel_Class1(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_Class1_Result>("sp_News_sel_Class1", classIDParameter, schoolIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_News_sel_ClassID_Result> sp_News_sel_ClassID(string classID, string schoolID)
+        {
+            var classIDParameter = classID != null ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(string));
+    
+            var schoolIDParameter = schoolID != null ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassID_Result>("sp_News_sel_ClassID", classIDParameter, schoolIDParameter);
+        }
+    
+        public virtual int sp_Notice_Ins(Nullable<System.Guid> noticeID, Nullable<System.Guid> schoolID, Nullable<System.Guid> classID, Nullable<System.Guid> studentID, Nullable<System.Guid> parentID, Nullable<int> type, Nullable<bool> approve)
+        {
+            var noticeIDParameter = noticeID.HasValue ?
+                new ObjectParameter("NoticeID", noticeID) :
+                new ObjectParameter("NoticeID", typeof(System.Guid));
+    
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var parentIDParameter = parentID.HasValue ?
+                new ObjectParameter("ParentID", parentID) :
+                new ObjectParameter("ParentID", typeof(System.Guid));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var approveParameter = approve.HasValue ?
+                new ObjectParameter("Approve", approve) :
+                new ObjectParameter("Approve", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Notice_Ins", noticeIDParameter, schoolIDParameter, classIDParameter, studentIDParameter, parentIDParameter, typeParameter, approveParameter);
+        }
     }
 }
