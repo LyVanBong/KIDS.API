@@ -124,6 +124,7 @@ namespace KIDS.API.Controllers
             }
         }
         /// <summary>
+        /// // hiện tại không dùng
         ///GIÁO VIÊN Lấy danh sách album ảnh trong một lớp học
         /// </summary>
         /// <param name="ClassID"></param>
