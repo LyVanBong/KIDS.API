@@ -139,20 +139,20 @@ namespace KIDS.API.Controllers
             });
         }
 
-        // Giáo viên Xóa tin
-        [Route("DeleteTeacher")]
-        [HttpPost]
-        //public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
-        public IHttpActionResult DeleteTeacherCommunication([FromBody] DeleteMessageModel update)
-        {
-            var data = _db.sp_Student_Communications_Del(update.CommunicationID);
-            return Ok(new ResponseModel<int>
-            {
-                Code = 24,
-                Message = AppConstants.Successfully,
-                Data = data,
-            });
-        }
+        //// Giáo viên Xóa tin
+        //[Route("DeleteTeacher")]
+        //[HttpPost]
+        ////public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
+        //public IHttpActionResult DeleteTeacherCommunication([FromBody] DeleteMessageModel update)
+        //{
+        //    var data = _db.sp_Student_Communications_Del(update.CommunicationID);
+        //    return Ok(new ResponseModel<int>
+        //    {
+        //        Code = 24,
+        //        Message = AppConstants.Successfully,
+        //        Data = data,
+        //    });
+        //}
 
         //Giáo viên: lấy danh sách tin nhắn theo lớp
         [Route("Select/Class")]

@@ -429,6 +429,7 @@
     <Compile Include="Models\CreateNotificationModel.cs" />
     <Compile Include="Models\DeleteMessageModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PrescriptionDetailModel.cs" />
     <Compile Include="Models\PrescriptionModel.cs" />
     <Compile Include="Models\PushNotificationModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />

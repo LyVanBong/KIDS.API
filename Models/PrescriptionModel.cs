@@ -5,7 +5,6 @@ namespace KIDS.API.Models
     public class PrescriptionModel
     {
         public Guid ID { get; set; }
-        public Guid PrescriptionID { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public DateTime Date { get; set; }
