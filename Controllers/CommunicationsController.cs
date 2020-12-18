@@ -54,6 +54,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         //Học sinh Sửa tin
         [Route("Update")]
         [HttpPost]
