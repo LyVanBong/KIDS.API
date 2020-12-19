@@ -7,6 +7,8 @@
         public string ContentEn { get; set; }
         public string data1 { get; set; }
         public string data2 { get; set; }
+        public string TitleVi { get; set; }
+        public string TitleEn { get; set; }
     }
 
     public class CreateNotificationModel

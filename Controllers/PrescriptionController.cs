@@ -58,9 +58,61 @@ namespace KIDS.API.Controllers
         // <param name="PrescriptionId"></param>
         [Route("Delete")]
         [HttpPost]
-        public IHttpActionResult DeletePrescription([FromBody] Guid update)
+        public IHttpActionResult DeletePrescription(PrescriptionModel update)
         {
-            var data = _db.sp_Student_Prescription_Del(update);
+            var data = _db.sp_Student_Prescription_Del(update.ID);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 24,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+        // CHI TIẾT
+        /// <summary>
+        /// Thêm Detail mới
+        /// </summary>
+        /// <param name="albumDetail"></param>
+        /// <returns></returns>
+        [Route("InsertDetail")]
+        [HttpPost]
+        public IHttpActionResult InsertDetail(PrescriptionDetailModel Prescription)
+        {
+            var data = _db.sp_Student_Prescription_Detail_Ins(Prescription.Picture, Prescription.PrescriptionID, Prescription.Name, Prescription.Unit, Prescription.Description);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 27,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+
+        /// <summary>
+        /// update album
+        /// </summary>
+        /// <param name="imageId"></param>
+        /// <returns></returns>
+        [Route("UpdateDetail")]
+        [HttpPost]
+        public IHttpActionResult UpdateDetail(PrescriptionDetailModel Prescription)
+        {
+            var data = _db.sp_Student_Prescription_Detail_Upd(Prescription.ID, Prescription.Picture, Prescription.Name, Prescription.Unit, Prescription.Description);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 27,
+                Message = AppConstants.Successfully,
+                Data = data,
+            });
+        }
+
+
+        // Xóa đơn thuốc Detail
+        // <param name="Id"></param>
+        [Route("DeleteDetail")]
+        [HttpPost]
+        public IHttpActionResult DeletePrescriptionDetail(PrescriptionDetailModel Prescription)
+        {
+            var data = _db.sp_Student_Prescription_Detail_Del(Prescription.ID);
             return Ok(new ResponseModel<int>
             {
                 Code = 24,
@@ -69,20 +121,10 @@ namespace KIDS.API.Controllers
             });
         }
 
-        // Xóa đơn thuốc Detail
-        // <param name="Id"></param>
-        [Route("DeleteDetail")]
-        [HttpPost]
-        public IHttpActionResult DeletePrescriptionDetail([FromBody] Guid update)
-        {
-            var data = _db.sp_Student_Prescription_Detail_Del(update);
-            return Ok(new ResponseModel<int>
-            {
-                Code = 24,
-                Message = AppConstants.Successfully,
-                Data = data,
-            });
-        }
+
+
+
+
 
         //Hochj sinh: lấy danh sách đơn thuốc theo học sinh
         [Route("Select/Student")]
