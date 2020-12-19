@@ -16,7 +16,32 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-
+        // Học sinh - Điểm danh đến và về
+        [Route("StudentAttendance")]
+        [HttpGet]
+        public IHttpActionResult StudentAttendance(Guid ClassID, Guid StudentID, DateTime FromDate, DateTime ToDate)
+        {
+            var data = _db.sp_Student_Attendance_DiemDanhVe_sel(ClassID, StudentID, FromDate, ToDate).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Student_Attendance_DiemDanhVe_sel_Result>>
+                {
+                    Code = 24,
+                    Message = "SUCCESSFULLY",
+                    Data = data
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Student_Attendance_DiemDanhVe_sel_Result>>
+                {
+                    Code = -25,
+                    Message = "FAILED",
+                    Data = null
+                });
+            }
+        }
+        
         /// <summary>
         /// lớp trông học sinh về muộn, lấy danh sách điểm danh về có cột LeaveLate = true
         /// </summary>

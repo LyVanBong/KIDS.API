@@ -2941,5 +2941,26 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Notice_Ins", noticeIDParameter, schoolIDParameter, classIDParameter, studentIDParameter, parentIDParameter, typeParameter, approveParameter);
         }
+    
+        public virtual ObjectResult<sp_Student_Attendance_DiemDanhVe_sel_Result> sp_Student_Attendance_DiemDanhVe_sel(Nullable<System.Guid> classID, Nullable<System.Guid> studentID, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Attendance_DiemDanhVe_sel_Result>("sp_Student_Attendance_DiemDanhVe_sel", classIDParameter, studentIDParameter, fromDateParameter, toDateParameter);
+        }
     }
 }
