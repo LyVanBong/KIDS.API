@@ -36,8 +36,8 @@ namespace KIDS.API.Controllers
                 include_player_ids = new[] { pushNotification.IdDevice },
                 headings = new Headings
                 {
-                    vi = "Thông báo mới",
-                    en = "Notification"
+                    vi = pushNotification.TitleVi,
+                    en = pushNotification.TitleEn
                 },
                 contents = new Contents
                 {
