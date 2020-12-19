@@ -652,6 +652,13 @@
           <Parameter Name="ArriveComment" Type="nvarchar" Mode="In" />
           <Parameter Name="TeacherID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_Teacher_AttendanceCrete_Ins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SchoolID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="UserCreate" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_Teacher_AttendanceLeave_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Leave" Type="datetime" Mode="In" />
@@ -1623,6 +1630,13 @@
             <Parameter Name="StudentID" Mode="In" Type="Guid" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_AttendanceCrete_Ins">
+            <Parameter Name="SchoolID" Mode="In" Type="Guid" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="UserCreate" Mode="In" Type="Guid" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -4623,6 +4637,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Teacher_AttendanceCrete_Ins" FunctionName="H_KIDSModel.Store.sp_Teacher_AttendanceCrete_Ins" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

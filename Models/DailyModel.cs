@@ -5,6 +5,7 @@ namespace KIDS.API.Models
     public class DailyModel
     {
         public Guid ID { get; set; }
+        public Guid SchoolID { get; set; }
         public Guid UserCreate { get; set; }
         public Guid StudentID { get; set; }
         public DateTime Date { get; set; }

@@ -16,6 +16,19 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+        //tạo mới điểm danh
+        [Route("CreateAttendance")]
+        [HttpPost]
+        public IHttpActionResult CreateAttendance(DailyModel update)
+        {
+            var data = _db.sp_Teacher_AttendanceCrete_Ins(update.SchoolID, update.ClassID, update.StudentID, update.UserCreate,update.Date);
+            return Ok(new ResponseModel<int>()
+            {
+                Code = 23,
+                Message = "SUCCESSFULLY",
+                Data = data
+            });
+        }
         // Học sinh - Điểm danh đến và về
         [Route("StudentAttendance")]
         [HttpGet]

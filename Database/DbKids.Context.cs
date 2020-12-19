@@ -2962,5 +2962,30 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Attendance_DiemDanhVe_sel_Result>("sp_Student_Attendance_DiemDanhVe_sel", classIDParameter, studentIDParameter, fromDateParameter, toDateParameter);
         }
+    
+        public virtual int sp_Teacher_AttendanceCrete_Ins(Nullable<System.Guid> schoolID, Nullable<System.Guid> classID, Nullable<System.Guid> studentID, Nullable<System.Guid> userCreate, Nullable<System.DateTime> date)
+        {
+            var schoolIDParameter = schoolID.HasValue ?
+                new ObjectParameter("SchoolID", schoolID) :
+                new ObjectParameter("SchoolID", typeof(System.Guid));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var userCreateParameter = userCreate.HasValue ?
+                new ObjectParameter("UserCreate", userCreate) :
+                new ObjectParameter("UserCreate", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_AttendanceCrete_Ins", schoolIDParameter, classIDParameter, studentIDParameter, userCreateParameter, dateParameter);
+        }
     }
 }
