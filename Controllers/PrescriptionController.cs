@@ -24,6 +24,19 @@ namespace KIDS.API.Controllers
         /// Học sinh Tạo mới đơn thuốc
         /// </summary>
         /// <returns></returns>
+        [Route("Create")]
+        [HttpPost]
+        public IHttpActionResult CreatePrescription(MedicineTicketModel insert)
+        {
+            //TODO
+            return Ok();
+        }
+
+        // HỌC SINH
+        /// <summary>
+        /// Học sinh Tạo mới đơn thuốc
+        /// </summary>
+        /// <returns></returns>
         [Route("Insert")]
         [HttpPost]
         public IHttpActionResult InsertPrescription(PrescriptionModel insert)
