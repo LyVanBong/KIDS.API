@@ -29,6 +29,38 @@ namespace KIDS.API.Controllers
                 Data = data
             });
         }
+        /// <summary>
+        /// Điểm danh đến lớp, sau khi tạo điểm danh theo ngày, mặc định lấy toàn bộ số học sinh trong lớp
+        /// </summary>
+        /// <param name="ClassId"></param>
+        /// <param name="Date"></param>
+        /// <returns></returns>
+        [Route("Morning")]
+        [HttpGet]
+        public IHttpActionResult Attendance(Guid ClassId, DateTime Date)
+        {
+
+            var data = _db.sp_Teacher_AttendanceArrive_sel(ClassId, Date).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<List<sp_Teacher_AttendanceArrive_sel_Result>>()
+                {
+                    Code = 3,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            return Ok(new ResponseModel<List<sp_Teacher_AttendanceArrive_sel_Result>>()
+            {
+                Code = -4,
+                Message = "Get data attendance student error",
+                Data = null,
+            });
+        }
+
+
+
+
         // Học sinh - Điểm danh đến và về
         [Route("StudentAttendance")]
         [HttpGet]
@@ -148,33 +180,7 @@ namespace KIDS.API.Controllers
             });
         }
 
-        /// <summary>
-        /// Điểm danh đến lớp, sau khi tạo điểm danh theo ngày, mặc định lấy toàn bộ số học sinh trong lớp
-        /// </summary>
-        /// <param name="ClassId"></param>
-        /// <param name="Date"></param>
-        /// <returns></returns>
-        [Route("Morning")]
-        [HttpGet]
-        public IHttpActionResult Attendance(Guid ClassId, DateTime Date)
-        {
-            var data = _db.sp_Teacher_AttendanceArrive_sel(ClassId, Date).ToList();
-            if (data.Any())
-            {
-                return Ok(new ResponseModel<List<sp_Teacher_AttendanceArrive_sel_Result>>()
-                {
-                    Code = 3,
-                    Message = "SUCCESSFULLY",
-                    Data = data,
-                });
-            }
-            return Ok(new ResponseModel<List<sp_Teacher_AttendanceArrive_sel_Result>>()
-            {
-                Code = -4,
-                Message = "Get data attendance student error",
-                Data = null,
-            });
-        }
+      
 
         /// <summary>
         /// đếm tổng số HS, có mặt, nghỉ phép.. của lớp trong khoản thời gian

@@ -614,8 +614,12 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Detail_Upd", iDParameter, pictureParameter, nameParameter, unitParameter, descriptionParameter);
         }
     
-        public virtual int sp_Student_Prescription_Ins(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content, Nullable<System.Guid> studentID, Nullable<System.Guid> classID)
+        public virtual int sp_Student_Prescription_Ins(Nullable<System.Guid> iD, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content, Nullable<System.Guid> studentID, Nullable<System.Guid> classID)
         {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
             var fromDateParameter = fromDate.HasValue ?
                 new ObjectParameter("FromDate", fromDate) :
                 new ObjectParameter("FromDate", typeof(System.DateTime));
@@ -640,7 +644,7 @@ namespace KIDS.API.Database
                 new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Ins", fromDateParameter, toDateParameter, dateParameter, contentParameter, studentIDParameter, classIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Prescription_Ins", iDParameter, fromDateParameter, toDateParameter, dateParameter, contentParameter, studentIDParameter, classIDParameter);
         }
     
         public virtual int sp_Student_Prescription_Upd(Nullable<System.Guid> iD, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<System.DateTime> date, string content)
