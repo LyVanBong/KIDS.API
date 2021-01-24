@@ -27,7 +27,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult InsertAlbum(AlbumModel album)
         {
-            var list = Request.Forms
+            
             var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate, album.UserCreate);
             return Ok(new ResponseModel<int>
             {
