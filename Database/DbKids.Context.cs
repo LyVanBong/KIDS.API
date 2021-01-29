@@ -2991,5 +2991,14 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_AttendanceCrete_Ins", schoolIDParameter, classIDParameter, studentIDParameter, userCreateParameter, dateParameter);
         }
+    
+        public virtual ObjectResult<sp_Student_Teacher_Prescription_sel_Result> sp_Student_Teacher_Prescription_sel(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Teacher_Prescription_sel_Result>("sp_Student_Teacher_Prescription_sel", iDParameter);
+        }
     }
 }

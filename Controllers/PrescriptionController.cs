@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Drawing;
+using System.IO;
 
 namespace KIDS.API.Controllers
 {
@@ -19,6 +21,7 @@ namespace KIDS.API.Controllers
             _db = new H_KIDSEntities();
         }
 
+
         // HỌC SINH
         /// <summary>
         /// Học sinh Tạo mới đơn thuốc
@@ -26,16 +29,26 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Create")]
         [HttpPost]
-        public IHttpActionResult CreatePrescription(MedicineTicketModel insert)
+        public IHttpActionResult CreatePrescription([FromBody] MedicineTicketModel insert)
         {
 
             Guid MasterID = Guid.NewGuid();
             var data = _db.sp_Student_Prescription_Ins(MasterID, insert.FromDate, insert.ToDate, insert.Date, insert.Content, insert.StudentID, insert.ClassID);
             if (insert.MedicineList?.Any() == true)
             {
+
                 foreach (var item in insert.MedicineList)
                 {
-                    var data1 = _db.sp_Student_Prescription_Detail_Ins(item.Picture, MasterID, item.Name, item.Unit, item.Note);
+                    var myfilename = string.Format(@"{0}", Guid.NewGuid());
+                    string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
+                    string strm = item.Picture;
+                    var bytess = Convert.FromBase64String(strm);
+                    using (var imageFile = new FileStream(filepath, FileMode.Create))
+                    {
+                        imageFile.Write(bytess, 0, bytess.Length);
+                        imageFile.Flush();
+                    }
+                    var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
                 }
             }
 
@@ -47,26 +60,72 @@ namespace KIDS.API.Controllers
             });
         }
         //HỌC SINH VÀ GIÁO VIÊN
-        /// <summary>
-        /// Chi tiết đơn thuốc
-        /// </summary>
-        /// <param name="PrescriptionID Key Parent"></param>
-        /// <returns></returns>
+
         [HttpGet]
         [Route("PrescriptionDetail")]
-        public IHttpActionResult PrescriptionDetail(Guid PrescriptionID)
+        public IHttpActionResult PrescriptionDetail([FromBody] MedicineTicketModel pres)
         {
             var db = new H_KIDSEntities();
-            var data = db.sp_Teacher_Prescription_Detail_sel(PrescriptionID).ToList();
-            if (data.Any())
+            var masterData = db.sp_Student_Teacher_Prescription_sel(pres.Id).ToList();
+            var detaildata = db.sp_Teacher_Prescription_Detail_sel(pres.Id).ToList();
+            var masterDataItem = masterData.FirstOrDefault();
+            if (masterDataItem != null)
             {
-                return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
+                var result = new MedicineTicketModel
                 {
-                    Code = 5,
-                    Message = "Get data prescription detail successfully",
-                    Data = data,
-                });
+                    Id = masterDataItem.ID,
+                    FromDate = masterDataItem.FromDate,
+                    ToDate = masterDataItem.ToDate,
+                    Date = masterDataItem.Date,
+                    Content = masterDataItem.Content,
+                    StudentID = masterDataItem.StudentID,
+                    ClassID = masterDataItem.ClassID,
+                    Status = masterDataItem.Status,
+                    Approver = masterDataItem.Approver,
+                    Description = masterDataItem.Description,
+                    MedicineList = new List<MedicineDetailTicketModel>()
+                };
+
+                if (detaildata?.Any() == true)
+                {
+
+                    foreach (var item in detaildata)
+                    {
+                        result.MedicineList.Add(new MedicineDetailTicketModel
+                        {
+                            Id = item.ID,
+                            //Picture = item.Picture,
+                            Note = item.Description,
+                            Unit = item.Unit
+                        });
+                    }
+                }
             }
+            else
+            {
+                return null;
+            }
+
+
+
+            //var masterData = db.sp_Student_Teacher_Prescription_sel(pres.Id).ToList();
+            //var detaildata = db.sp_Teacher_Prescription_Detail_sel(pres.Id).ToList();
+            //if (detaildata.Any())
+            //{
+            //    return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
+            //    {
+            //        Code = 5,
+            //        Message = "Get data prescription detail successfully",
+            //        Data = detaildata,
+            //    });
+
+            //    //return Ok(new ResponseModel<List<sp_Student_Teacher_Prescription_sel_Result>>()
+            //    //{
+            //    //    Code = 7,
+            //    //    Message = "Get data prescription master successfully",
+            //    //    Data = masterData,
+            //    //});
+            //}
             return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
             {
                 Code = -6,
@@ -74,6 +133,31 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
+        ////HỌC SINH VÀ GIÁO VIÊN
+        //[HttpGet]
+        //[Route("PrescriptionDetail")]
+        //public IHttpActionResult PrescriptionDetail(Guid PrescriptionID)
+        //{
+        //    var db = new H_KIDSEntities();
+        //    var data = db.sp_Teacher_Prescription_Detail_sel(PrescriptionID).ToList();
+
+        //    if (data.Any())
+        //    {
+        //        return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
+        //        {
+        //            Code = 5,
+        //            Message = "Get data prescription detail successfully",
+        //            Data = data,
+        //        });
+        //    }
+        //    return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
+        //    {
+        //        Code = -6,
+        //        Message = "Get data prescription detail error",
+        //        Data = null,
+        //    });
+        //}
         // CHI TIẾT
         /// <summary>
         /// Thêm Detail mới
@@ -183,7 +267,7 @@ namespace KIDS.API.Controllers
 
         [Route("UpdatePrescription")]
         [HttpPost]
-        public IHttpActionResult UpdatePrescription(MedicineTicketModel data)
+        public IHttpActionResult UpdatePrescription([FromBody] MedicineTicketModel data)
         {
             var dataMaster = _db.sp_Student_Prescription_Upd(data.Id, data.FromDate, data.ToDate, data.Date, data.Content);
 

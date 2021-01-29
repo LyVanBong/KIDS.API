@@ -354,6 +354,9 @@
     <Compile Include="Database\sp_Student_Study_Morning_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Student_Teacher_Prescription_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Study_Plan_Afternoon_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
