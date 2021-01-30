@@ -61,77 +61,70 @@ namespace KIDS.API.Controllers
         }
         //HỌC SINH VÀ GIÁO VIÊN
 
-        [HttpGet]
+        [HttpGet()]
         [Route("PrescriptionDetail")]
-        public IHttpActionResult PrescriptionDetail([FromBody] MedicineTicketModel pres)
+        public IHttpActionResult PrescriptionDetail(Guid id)
         {
-            var db = new H_KIDSEntities();
-            var masterData = db.sp_Student_Teacher_Prescription_sel(pres.Id).ToList();
-            var detaildata = db.sp_Teacher_Prescription_Detail_sel(pres.Id).ToList();
-            var masterDataItem = masterData.FirstOrDefault();
-            if (masterDataItem != null)
+            try
             {
-                var result = new MedicineTicketModel
+                var db = new H_KIDSEntities();
+                var masterData = db.sp_Student_Teacher_Prescription_sel(id).ToList();
+                var detaildata = db.sp_Teacher_Prescription_Detail_sel(id).ToList();
+                var masterDataItem = masterData.FirstOrDefault();
+                if (masterDataItem != null)
                 {
-                    Id = masterDataItem.ID,
-                    FromDate = masterDataItem.FromDate,
-                    ToDate = masterDataItem.ToDate,
-                    Date = masterDataItem.Date,
-                    Content = masterDataItem.Content,
-                    StudentID = masterDataItem.StudentID,
-                    ClassID = masterDataItem.ClassID,
-                    Status = masterDataItem.Status,
-                    Approver = masterDataItem.Approver,
-                    Description = masterDataItem.Description,
-                    MedicineList = new List<MedicineDetailTicketModel>()
-                };
-
-                if (detaildata?.Any() == true)
-                {
-
-                    foreach (var item in detaildata)
+                    var result = new MedicineTicketModel
                     {
-                        result.MedicineList.Add(new MedicineDetailTicketModel
+                        Id = masterDataItem.ID,
+                        FromDate = masterDataItem.FromDate,
+                        ToDate = masterDataItem.ToDate,
+                        Date = masterDataItem.Date,
+                        Content = masterDataItem.Content,
+                        StudentID = masterDataItem.StudentID,
+                        ClassID = masterDataItem.ClassID,
+                        Status = masterDataItem.Status,
+                        Approver = masterDataItem.Approver,
+                        Description = masterDataItem.Description,
+                        MedicineList = new List<MedicineDetailTicketModel>()
+                    };
+
+                    if (detaildata?.Any() == true)
+                    {
+                        foreach (var item in detaildata)
                         {
-                            Id = item.ID,
-                            //Picture = item.Picture,
-                            Note = item.Description,
-                            Unit = item.Unit
-                        });
+                            result.MedicineList.Add(new MedicineDetailTicketModel
+                            {
+                                Id = item.ID,
+                                Picture = item.Picture,
+                                Note = item.Description,
+                                Unit = item.Unit
+                            });
+                        }
                     }
+
+                    return Ok(new ResponseModel<MedicineTicketModel>()
+                    {
+                        Code = 26,
+                        Message = "SUCCESSFULLY",
+                        Data = result,
+                    });
                 }
+                return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
+                {
+                    Code = -6,
+                    Message = "Get data prescription detail error",
+                    Data = null,
+                });
             }
-            else
+            catch (Exception ex)
             {
-                return null;
+                return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
+                {
+                    Code = -6,
+                    Message = "Get data prescription detail error",
+                    Data = null,
+                });
             }
-
-
-
-            //var masterData = db.sp_Student_Teacher_Prescription_sel(pres.Id).ToList();
-            //var detaildata = db.sp_Teacher_Prescription_Detail_sel(pres.Id).ToList();
-            //if (detaildata.Any())
-            //{
-            //    return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
-            //    {
-            //        Code = 5,
-            //        Message = "Get data prescription detail successfully",
-            //        Data = detaildata,
-            //    });
-
-            //    //return Ok(new ResponseModel<List<sp_Student_Teacher_Prescription_sel_Result>>()
-            //    //{
-            //    //    Code = 7,
-            //    //    Message = "Get data prescription master successfully",
-            //    //    Data = masterData,
-            //    //});
-            //}
-            return Ok(new ResponseModel<List<sp_Teacher_Prescription_Detail_sel_Result>>()
-            {
-                Code = -6,
-                Message = "Get data prescription detail error",
-                Data = null,
-            });
         }
 
         ////HỌC SINH VÀ GIÁO VIÊN
