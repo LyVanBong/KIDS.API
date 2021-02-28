@@ -1644,7 +1644,7 @@
             <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Teacher_Prescription_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Teacher_Prescription_sel_Result)">
-            <Parameter Name="ID" Mode="In" Type="Guid" />
+          <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -1769,6 +1769,7 @@
           <Property Type="String" Name="Unit" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
           <Property Type="Int32" Name="Sort" Nullable="false" />
+          <Property Type="String" Name="Picture" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_Album_sel_Result">
           <Property Type="Guid" Name="AlbumID" Nullable="false" />
@@ -1922,6 +1923,7 @@
           <Property Type="String" Name="TenDotThu" Nullable="true" MaxLength="75" />
           <Property Type="Decimal" Name="TongCong" Nullable="true" Precision="38" Scale="0" />
           <Property Type="String" Name="TrangThai" Nullable="false" MaxLength="9" />
+          <Property Type="Guid" Name="DotThu_HocSinhID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_Student_Prescription_Detail_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
@@ -3288,6 +3290,7 @@
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3403,6 +3406,7 @@
                 <ScalarProperty Name="TenDotThu" ColumnName="TenDotThu" />
                 <ScalarProperty Name="TongCong" ColumnName="TongCong" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="DotThu_HocSinhID" ColumnName="DotThu_HocSinhID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
