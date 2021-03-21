@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web.Http;
 using System.Drawing;
 using System.IO;
+using System.Web;
+using Newtonsoft.Json;
 
 namespace KIDS.API.Controllers
 {
@@ -29,25 +31,56 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Create")]
         [HttpPost]
-        public IHttpActionResult CreatePrescription([FromBody] MedicineTicketModel insert)
+        public IHttpActionResult CreatePrescription()
         {
-
             Guid MasterID = Guid.NewGuid();
+            var insert = new MedicineTicketModel();
+
+            var httpRequest = HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key) 
+                    {
+                        case "FromDate":
+                            insert.FromDate = DateTime.Parse(val);
+                            break;
+                        case "ToDate":
+                            insert.ToDate = DateTime.Parse(val);
+                            break;
+                        case "Date":
+                            insert.Date = DateTime.Parse(val);
+                            break;
+                        case "Content":
+                            insert.Content = val;
+                            break;
+                        case "StudentID":
+                            insert.StudentID = Guid.Parse(val);
+                            break;
+                        case "ClassID":
+                            insert.ClassID = Guid.Parse(val);
+                            break;
+                        case "MedicineList":
+                            insert.MedicineList = string.IsNullOrEmpty(val) ? new List<MedicineDetailTicketModel>() : JsonConvert.DeserializeObject< List<MedicineDetailTicketModel>>(val);
+                            break;
+                    }
+                        
+                }
+            }
+
             var data = _db.sp_Student_Prescription_Ins(MasterID, insert.FromDate, insert.ToDate, insert.Date, insert.Content, insert.StudentID, insert.ClassID);
             if (insert.MedicineList?.Any() == true)
             {
-
-                foreach (var item in insert.MedicineList)
+                for(int i=0; i< insert.MedicineList.Count; i++)
                 {
+                    var item = insert.MedicineList[i];
                     var myfilename = string.Format(@"{0}", Guid.NewGuid());
                     string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
-                    string strm = item.Picture;
-                    var bytess = Convert.FromBase64String(strm);
-                    using (var imageFile = new FileStream(filepath, FileMode.Create))
-                    {
-                        imageFile.Write(bytess, 0, bytess.Length);
-                        imageFile.Flush();
-                    }
+                    var file = files[i];
+                    file.SaveAs(filepath);
                     var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
                 }
             }
