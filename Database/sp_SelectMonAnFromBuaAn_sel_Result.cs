@@ -21,5 +21,8 @@ namespace KIDS.API.Database
         public Nullable<System.Guid> ThucDonTuan { get; set; }
         public Nullable<System.Guid> BuaAn { get; set; }
         public string MonAn { get; set; }
+        public Nullable<System.Guid> SchoolID { get; set; }
+        public string TenMonAn { get; set; }
+        public string TenBuaAn { get; set; }
     }
 }

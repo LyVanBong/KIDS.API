@@ -398,7 +398,6 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_SelectMonAnFromBuaAn_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="BuaAn" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Khoi" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Ngay" Type="datetime" Mode="In" />
         </Function>
@@ -1499,7 +1498,6 @@
           </FunctionImport>
           <FunctionImport Name="sp_DinhDuong_BuaAn_sel" ReturnType="Collection(H_KIDSModel.sp_DinhDuong_BuaAn_sel_Result)" />
           <FunctionImport Name="sp_SelectMonAnFromBuaAn_sel" ReturnType="Collection(H_KIDSModel.sp_SelectMonAnFromBuaAn_sel_Result)">
-            <Parameter Name="BuaAn" Mode="In" Type="Guid" />
             <Parameter Name="Khoi" Mode="In" Type="Guid" />
             <Parameter Name="Ngay" Mode="In" Type="DateTime" />
           </FunctionImport>
@@ -1938,11 +1936,13 @@
           <Property Type="Guid" Name="ID" Nullable="true" />
           <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_Study_Plan_Morning_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
           <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_Teacher_AlbumDetail_sel_Result">
           <Property Type="Guid" Name="ImageID" Nullable="false" />
@@ -2795,6 +2795,9 @@
           <Property Type="Guid" Name="ThucDonTuan" Nullable="true" />
           <Property Type="Guid" Name="BuaAn" Nullable="true" />
           <Property Type="String" Name="MonAn" Nullable="true" MaxLength="500" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
+          <Property Type="String" Name="TenMonAn" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TenBuaAn" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="sp_SelectTenMonAn_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
@@ -3435,6 +3438,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3444,6 +3448,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4239,6 +4244,9 @@
                 <ScalarProperty Name="ThucDonTuan" ColumnName="ThucDonTuan" />
                 <ScalarProperty Name="BuaAn" ColumnName="BuaAn" />
                 <ScalarProperty Name="MonAn" ColumnName="MonAn" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="TenMonAn" ColumnName="TenMonAn" />
+                <ScalarProperty Name="TenBuaAn" ColumnName="TenBuaAn" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

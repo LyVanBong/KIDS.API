@@ -2,6 +2,7 @@
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Http;
 
@@ -26,15 +27,46 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult Update(StudentModel student)
         {
-            var data = _db.sp_Student_Profile_Upd(student.StudentId, student.Name, student.Sex, student.Dob, student.Email, student.Address, student.Picture);
-            if (data > 0)
+            var data1 = _db.sp_Student_Profile_sel(student.StudentId).ToList();
+
+            if (data1.Any())
             {
-                return Ok(new ResponseModel<int>()
+                var studentRecord = data1.FirstOrDefault();
+                var fileName = string.IsNullOrEmpty(studentRecord.Picture) ? student.StudentId.ToString() : studentRecord.Picture;
+
+                string strm = student.Picture;
+                var bytess = Convert.FromBase64String(strm);
+
+                var myfilename = string.Format(@"{0}", Guid.NewGuid());
+                string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
+                //string filepath = @"C:/Software/SchoolKids/Main";
+
+
+                using (var imageFile = new FileStream(filepath + fileName, FileMode.OpenOrCreate))
                 {
-                    Code = 18,
-                    Message = "SUCCESSFULLY",
-                    Data = data,
-                });
+                    imageFile.Write(bytess, 0, bytess.Length);
+                    imageFile.Flush();
+                }
+
+                var data = _db.sp_Student_Profile_Upd(student.StudentId, student.Name, student.Sex, student.Dob, student.Email, student.Address, fileName);
+                if (data > 0)
+                {
+                    return Ok(new ResponseModel<int>()
+                    {
+                        Code = 18,
+                        Message = "SUCCESSFULLY",
+                        Data = data,
+                    });
+                }
+                else
+                {
+                    return Ok(new ResponseModel<int>()
+                    {
+                        Code = -19,
+                        Message = "FAILED",
+                        Data = data,
+                    });
+                }
             }
             else
             {
@@ -42,7 +74,7 @@ namespace KIDS.API.Controllers
                 {
                     Code = -19,
                     Message = "FAILED",
-                    Data = data,
+                    Data = -1,
                 });
             }
         }
@@ -168,15 +200,48 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult ParentUpdate(ParentModel student)
         {
-            var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, student.Picture);
-            if (data > 0)
+
+            var data1 = _db.sp_Students_Parents_Detail_sel(student.ID.ToString()).ToList();
+
+            if (data1.Any())
             {
-                return Ok(new ResponseModel<int>()
+                var studentRecord = data1.FirstOrDefault();
+                var fileName = string.IsNullOrEmpty(studentRecord.Picture) ? student.ID.ToString() : studentRecord.Picture;
+
+                string strm = student.Picture;
+                var bytess = Convert.FromBase64String(strm);
+
+                var myfilename = string.Format(@"{0}", Guid.NewGuid());
+                string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
+                //string filepath = @"C:/Software/SchoolKids/Main";
+
+
+                using (var imageFile = new FileStream(filepath + fileName, FileMode.OpenOrCreate))
                 {
-                    Code = 18,
-                    Message = "SUCCESSFULLY",
-                    Data = data,
-                });
+                    imageFile.Write(bytess, 0, bytess.Length);
+                    imageFile.Flush();
+                }
+
+
+                var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, fileName);
+                if (data > 0)
+                {
+                    return Ok(new ResponseModel<int>()
+                    {
+                        Code = 18,
+                        Message = "SUCCESSFULLY",
+                        Data = data,
+                    });
+                }
+                else
+                {
+                    return Ok(new ResponseModel<int>()
+                    {
+                        Code = -19,
+                        Message = "FAILED",
+                        Data = data,
+                    });
+                }
             }
             else
             {
@@ -184,7 +249,7 @@ namespace KIDS.API.Controllers
                 {
                     Code = -19,
                     Message = "FAILED",
-                    Data = data,
+                    Data = -1,
                 });
             }
         }

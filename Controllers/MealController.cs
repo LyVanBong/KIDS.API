@@ -46,9 +46,9 @@ namespace KIDS.API.Controllers
         //danh sách các món ăn (cháo, cơm..) từ bữa ăn (sáng. chiều...)
         [Route("Select/MonAn")]
         [HttpGet]
-        public IHttpActionResult MonAnSel(Guid BuaAn, Guid Khoi, DateTime Ngay)
+        public IHttpActionResult MonAnSel(Guid Khoi, DateTime Ngay)
         {
-            var data = _db.sp_SelectMonAnFromBuaAn_sel(BuaAn, Khoi, Ngay).ToList();
+            var data = _db.sp_SelectMonAnFromBuaAn_sel(Khoi, Ngay).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_SelectMonAnFromBuaAn_sel_Result>>()
