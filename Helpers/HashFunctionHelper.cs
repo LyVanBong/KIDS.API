@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
-using System;
 
 namespace KIDS.API.Helpers
 {
@@ -30,6 +30,7 @@ namespace KIDS.API.Helpers
             }
             return output;
         }
+
         public static String GetValueOrDBNull(String aGuid)
         {
             return (aGuid != Guid.Empty.ToString()) ? (String)aGuid : Guid.Empty.ToString();

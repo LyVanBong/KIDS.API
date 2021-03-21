@@ -19,5 +19,6 @@ namespace KIDS.API.Database
         public string Unit { get; set; }
         public string Description { get; set; }
         public int Sort { get; set; }
+        public string Picture { get; set; }
     }
 }

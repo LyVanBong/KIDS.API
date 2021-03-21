@@ -16,6 +16,7 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
+
         /// <summary>
         /// Cập nhật lại thông tin học sinh
         /// </summary>
@@ -45,6 +46,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy thông tin chi tiết của học sinh
         /// </summary>
@@ -74,6 +76,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         // Danh sách học sinh của lớp
         [Route("Select/Student")]
         [HttpGet]
@@ -99,7 +102,8 @@ namespace KIDS.API.Controllers
                 });
             }
         }
-        // Danh sách phụ hunh 
+
+        // Danh sách phụ hunh
         [Route("Select/Parent")]
         [HttpGet]
         public IHttpActionResult Parent(Guid StudentID)
@@ -124,6 +128,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy thông tin chi tiết của phụ huynh
         /// </summary>
@@ -153,6 +158,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// Cập nhật lại thông tin Phụ huynh
         /// </summary>

@@ -1,14 +1,11 @@
 ﻿using KIDS.API.Configurations;
 using KIDS.API.Database;
+using KIDS.API.Helpers;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Helpers;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.IO;
 
 namespace KIDS.API.Controllers
 {
@@ -26,26 +23,8 @@ namespace KIDS.API.Controllers
         // Học sinh Tạo mới tin nhắn
         [Route("Insert")]
         [HttpPost]
-        public async Task<IHttpActionResult> InsertCommunication(CommunicationModel insert)
+        public IHttpActionResult InsertCommunication(CommunicationModel insert)
         {
-            var provider = new RestrictiveMultipartMemoryStreamProvider();
-
-            //READ CONTENTS OF REQUEST TO MEMORY WITHOUT FLUSHING TO DISK
-            await Request.Content.ReadAsMultipartAsync(provider);
-
-            foreach (HttpContent ctnt in provider.Contents)
-            {
-                //now read individual part into STREAM
-                var stream = await ctnt.ReadAsStreamAsync();
-
-                if (stream.Length != 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        //TODO : Save Image
-                    }
-                }
-            }
             var data = _db.sp_Student_Communications_Ins(insert.ClassID, insert.TeacherID, insert.Parent, insert.Content, insert.DateCreate, insert.StudentID, 2);
             return Ok(new ResponseModel<int>
             {
@@ -68,6 +47,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         // Xóa tin
         [Route("Delete")]
         [HttpPost]
@@ -105,6 +85,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //Học sinh: lấy danh sách tin nhắn giáo viên gửi
         [Route("Select/TeacherToStudent")]
         [HttpGet]
@@ -129,7 +110,6 @@ namespace KIDS.API.Controllers
             });
         }
 
-
         //GIÁO VIÊN
         // Giáo viên Tạo mới tin nhắn
         [Route("InsertTeacher")]
@@ -144,6 +124,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         //Giáo viên Sửa tin
         [Route("UpdateTeacher")]
         [HttpPost]
@@ -157,22 +138,21 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
-        // Giáo viên Xóa tin
-        [Route("DeleteTeacher")]
-        [HttpPost]
-        //public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
-        public IHttpActionResult DeleteTeacherCommunication([FromBody] DeleteMessageModel update)
-        {
-            var data = _db.sp_Student_Communications_Del(update.CommunicationID);
-            return Ok(new ResponseModel<int>
-            {
-                Code = 24,
-                Message = AppConstants.Successfully,
-                Data = data,
-            });
-        }
 
-
+        //// Giáo viên Xóa tin
+        //[Route("DeleteTeacher")]
+        //[HttpPost]
+        ////public IHttpActionResult DeleteTeacherCommunication([FromBody]Guid CommunicationID)
+        //public IHttpActionResult DeleteTeacherCommunication([FromBody] DeleteMessageModel update)
+        //{
+        //    var data = _db.sp_Student_Communications_Del(update.CommunicationID);
+        //    return Ok(new ResponseModel<int>
+        //    {
+        //        Code = 24,
+        //        Message = AppConstants.Successfully,
+        //        Data = data,
+        //    });
+        //}
 
         //Giáo viên: lấy danh sách tin nhắn theo lớp
         [Route("Select/Class")]
@@ -197,6 +177,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //Giáo viên: lấy danh sách tin nhắn của giáo viên
         [Route("Select/Teacher")]
         [HttpGet]
@@ -220,6 +201,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //Hiển thị bình luận của tin nhắn
         [Route("Select/Reply")]
         [HttpGet]
@@ -243,6 +225,7 @@ namespace KIDS.API.Controllers
                 Data = null,
             });
         }
+
         //--Giáo viên Xác nhận tin nhắn của học sinh
 
         [Route("Approve")]

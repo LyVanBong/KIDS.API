@@ -13,13 +13,11 @@ namespace KIDS.API.Database
     
     public partial class sp_Students_Notifications_Result
     {
-        public string Picture { get; set; }
         public System.Guid ID { get; set; }
         public string Content { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> Views { get; set; }
         public string Status { get; set; }
-        public int Type { get; set; }
-        public string TeacherName { get; set; }
+        public Nullable<int> Type { get; set; }
     }
 }

@@ -16,6 +16,5 @@ namespace KIDS.API.Models
         public bool Result { get; set; }
         public DateTime CreateDate { get; set; }
         public Guid UserCreate { get; set; }
-
     }
 }

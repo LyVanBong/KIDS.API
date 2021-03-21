@@ -11,14 +11,22 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Teachers_Notifications_Result
+    public partial class sp_Student_Teacher_Prescription_sel_Result
     {
-        public string Picture { get; set; }
         public Nullable<System.Guid> ID { get; set; }
+        public Nullable<System.Guid> ClassID { get; set; }
+        public Nullable<System.Guid> StudentID { get; set; }
+        public Nullable<System.DateTime> FromDate { get; set; }
+        public Nullable<System.DateTime> ToDate { get; set; }
         public string Content { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<System.Guid> Approver { get; set; }
+        public Nullable<System.DateTime> DateApprove { get; set; }
+        public string Description { get; set; }
         public Nullable<int> Views { get; set; }
-        public string Status { get; set; }
-        public Nullable<int> Type { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
     }
 }

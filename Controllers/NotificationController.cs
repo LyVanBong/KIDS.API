@@ -1,11 +1,9 @@
-﻿using System;
+﻿using KIDS.API.Database;
+using KIDS.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using KIDS.API.Database;
-using KIDS.API.Models;
 
 namespace KIDS.API.Controllers
 {
@@ -18,12 +16,25 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-
+        //Insert thông báo t_Notice
+        [Route("InsertNotice")]
+        [HttpPost]
+        public IHttpActionResult InsertNotice(NoticeModel insert)
+        {
+            var data = _db.sp_Notice_Ins(insert.NoticeID, insert.SchoolID, insert.ClassID, insert.StudentID, insert.ParentID, insert.Type, insert.Approve);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 30,
+                Message = "SUCCESSFULLY",
+                Data = data,
+            });
+        }
+        // giáo viên, nhân viên VP
         [Route("Count")]
         [HttpGet]
-        public IHttpActionResult GetCountNotification(string classId, string shoolId)
+        public IHttpActionResult GetCountNotification(string teacherId, string classId)
         {
-            var noti = _db.sp_Teachers_Notifications_Count(classId, shoolId).FirstOrDefault();
+            var noti = _db.sp_Teachers_Notifications_Count(teacherId, classId).FirstOrDefault();
             if (noti != null)
             {
                 return Ok(new ResponseModel<string>()
@@ -52,9 +63,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("All")]
         [HttpGet]
-        public IHttpActionResult GetAllNotification(Guid ClassId, Guid SchoolId)
+        public IHttpActionResult GetAllNotification(Guid ClassId, Guid TeacherId)
         {
-            var data = _db.sp_Teachers_Notifications(ClassId, SchoolId).ToList();
+            var data = _db.sp_Teachers_Notifications(ClassId, TeacherId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Teachers_Notifications_Result>>()
@@ -72,11 +83,12 @@ namespace KIDS.API.Controllers
                     Data = null,
                 });
         }
+        // phụ huỵnh
         [Route("CountForStudent")]
         [HttpGet]
-        public IHttpActionResult CountForStudent(String StudentID, String SchoolId)
+        public IHttpActionResult CountForStudent(String SchoolId, String ParentID)
         {
-            var noti = _db.sp_Students_Notifications_Count(StudentID, SchoolId).FirstOrDefault();
+            var noti = _db.sp_Students_Notifications_Count(SchoolId, ParentID).FirstOrDefault();
             if (noti != null)
             {
                 return Ok(new ResponseModel<string>()
@@ -96,11 +108,12 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         [Route("Student")]
         [HttpGet]
-        public IHttpActionResult GetStudentNotification(Guid SchoolId, Guid StudentId)
+        public IHttpActionResult GetStudentNotification(Guid SchoolId, Guid ParentID)
         {
-            var data = _db.sp_Students_Notifications(SchoolId, StudentId).ToList();
+            var data = _db.sp_Students_Notifications(SchoolId, ParentID).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Students_Notifications_Result>>()

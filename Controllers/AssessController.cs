@@ -1,5 +1,4 @@
-﻿using KIDS.API.Configurations;
-using KIDS.API.Database;
+﻿using KIDS.API.Database;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
@@ -98,6 +97,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         // Cập nhật kết quả đánh giá của mỗi học sinh
         [Route("UpdateAssess")]
         [HttpPost]

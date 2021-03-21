@@ -1,5 +1,4 @@
-﻿using KIDS.API.Configurations;
-using KIDS.API.Database;
+﻿using KIDS.API.Database;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
@@ -43,6 +42,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         //danh sách các món ăn (cháo, cơm..) từ bữa ăn (sáng. chiều...)
         [Route("Select/MonAn")]
         [HttpGet]
@@ -68,6 +68,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         //Lấy tên món ăn từ ID món ăn
         [Route("Select/TenMonAn")]
         [HttpGet]

@@ -60,6 +60,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
@@ -128,6 +131,7 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\DailyController.cs" />
+    <Compile Include="Controllers\PushNotificationController.cs" />
     <Compile Include="Controllers\StudyPlanController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
@@ -176,6 +180,12 @@
     <Compile Include="Database\sp_DinhDuong_BuaAn_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_GetIdDeviceAllUser_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_GetIdDeviceUser_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -218,10 +228,16 @@
     <Compile Include="Database\sp_News_sel_all_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_News_sel_Class1_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_News_sel_ClassAndSchoolForParent_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_News_sel_ClassAndSchool_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_News_sel_ClassID_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_News_sel_Class_Result.cs">
@@ -273,6 +289,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Assess_Student_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Attendance_DiemDanhVe_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Attendance_sel_Result.cs">
@@ -333,6 +352,9 @@
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Student_Study_Morning_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\sp_Student_Teacher_Prescription_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\sp_Study_Plan_Afternoon_sel_Result.cs">
@@ -417,14 +439,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HashFunctionHelper.cs" />
-    <Compile Include="Helpers\RestrictiveMultipartMemoryStreamProvider.cs" />
     <Compile Include="Models\AlbumImageModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />
     <Compile Include="Models\ApplicationModel.cs" />
     <Compile Include="Models\CommunicationModel.cs" />
+    <Compile Include="Models\CreateNotificationModel.cs" />
     <Compile Include="Models\DeleteMessageModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\NoticeModel.cs" />
+    <Compile Include="Models\PrescriptionDetailModel.cs" />
     <Compile Include="Models\PrescriptionModel.cs" />
+    <Compile Include="Models\PushNotificationModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\AssessModel.cs" />
@@ -433,6 +458,7 @@
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UpdateAttendance.cs" />
+    <Compile Include="Models\NoticeModel.cs" />
     <Compile Include="Models\UpdateNewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

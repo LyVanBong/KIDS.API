@@ -1,10 +1,10 @@
-﻿using KIDS.API.Database;
+﻿using KIDS.API.Configurations;
+using KIDS.API.Database;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using KIDS.API.Configurations;
 
 namespace KIDS.API.Controllers
 {
@@ -12,10 +12,12 @@ namespace KIDS.API.Controllers
     public class AlbumController : ApiController
     {
         private H_KIDSEntities _db;
+
         public AlbumController()
         {
             _db = new H_KIDSEntities();
         }
+
         /// <summary>
         /// Thêm album mới
         /// </summary>
@@ -25,6 +27,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult InsertAlbum(AlbumModel album)
         {
+            
             var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate, album.UserCreate);
             return Ok(new ResponseModel<int>
             {
@@ -33,6 +36,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// update album
         /// </summary>
@@ -50,6 +54,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// xao mot album anh
         /// </summary>
@@ -57,7 +62,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("DeleteAlbum")]
         [HttpPost]
-        public IHttpActionResult DeleteAlbum([FromBody]Guid update)
+        public IHttpActionResult DeleteAlbum([FromBody] Guid update)
         {
             var data = _db.sp_Album_Del(update);
             return Ok(new ResponseModel<int>
@@ -67,15 +72,16 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// lấy danh sách album do class + school tạo
         /// </summary>
         /// <returns></returns>
         [Route("Select/All")]
         [HttpGet]
-        public IHttpActionResult AlbumSelAll(string SchoolId, string ClassId)
+        public IHttpActionResult AlbumSelAll(string SchoolId,string ClassId)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(ClassId, SchoolId).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -95,15 +101,16 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy danh sách album do trường tạo
         /// </summary>
         /// <returns></returns>
         [Route("Select/School")]
         [HttpGet]
-        public IHttpActionResult AlbumSelSchool(string SchoolId)
+        public IHttpActionResult AlbumSelSchool(string SchoolId,string ClassId)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, SchoolId).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -123,16 +130,18 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
+        /// // hiện tại không dùng
         ///GIÁO VIÊN Lấy danh sách album ảnh trong một lớp học
         /// </summary>
         /// <param name="ClassID"></param>
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult AlbumSel(string ClassID,String SchoolID)
+        public IHttpActionResult AlbumSel(String SchoolID,string ClassId)
         {
-            var data = _db.sp_Album_sel_ClassAndSchool(ClassID, SchoolID).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchool(SchoolID, ClassId).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchool_Result>>()
@@ -152,6 +161,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         ///HỌC SINH Lấy danh sách album ảnh trong một lớp học THEO PHỤ HUYNH ID
         /// </summary>
@@ -159,9 +169,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("SelectParent")]
         [HttpGet]
-        public IHttpActionResult AlbumSelByParent(string ClassID,string SchoolID)
+        public IHttpActionResult AlbumSelByParent(string ParentId, string SchoolID)
         {
-            var data = _db.sp_Album_sel_ClassAndSchoolForParent(ClassID, SchoolID).ToList();
+            var data = _db.sp_Album_sel_ClassAndSchoolForParent(ParentId, SchoolID).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_Album_sel_ClassAndSchoolForParent_Result>>()
@@ -181,6 +191,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// lấy danh sách ảnh trong album ảnh
         /// </summary>
@@ -188,9 +199,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Detail")]
         [HttpGet]
-        public IHttpActionResult AlbumDetailSel(Guid AlbumID)
+        public IHttpActionResult AlbumDetailSel(Guid AlbumID,Guid GiaoVien_PhuHuynhClick)
         {
-            var data = _db.sp_AlbumDetail_sel(AlbumID).ToList();
+            var data = _db.sp_AlbumDetail_sel(AlbumID, GiaoVien_PhuHuynhClick).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_AlbumDetail_sel_Result>>()
@@ -210,6 +221,7 @@ namespace KIDS.API.Controllers
                 });
             }
         }
+
         /// <summary>
         /// Thêm album Detail mới
         /// </summary>
@@ -227,6 +239,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// update album
         /// </summary>
@@ -244,6 +257,7 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
         /// <summary>
         /// xao mot album anh
         /// </summary>
@@ -251,7 +265,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("DeleteAlbumImage")]
         [HttpPost]
-        public IHttpActionResult DeleteAlbumImage([FromBody]Guid update)
+        public IHttpActionResult DeleteAlbumImage([FromBody] Guid update)
         {
             var data = _db.sp_AlbumImage_Del(update);
             return Ok(new ResponseModel<int>

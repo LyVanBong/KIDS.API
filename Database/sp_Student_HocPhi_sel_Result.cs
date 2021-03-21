@@ -19,5 +19,6 @@ namespace KIDS.API.Database
         public string TenDotThu { get; set; }
         public Nullable<decimal> TongCong { get; set; }
         public string TrangThai { get; set; }
+        public System.Guid DotThu_HocSinhID { get; set; }
     }
 }

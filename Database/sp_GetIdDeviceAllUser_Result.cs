@@ -11,14 +11,8 @@ namespace KIDS.API.Database
 {
     using System;
     
-    public partial class sp_Teachers_Notifications_Result
+    public partial class sp_GetIdDeviceAllUser_Result
     {
-        public string Picture { get; set; }
-        public Nullable<System.Guid> ID { get; set; }
-        public string Content { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> Views { get; set; }
-        public string Status { get; set; }
-        public Nullable<int> Type { get; set; }
+        public string IDDevice { get; set; }
     }
 }

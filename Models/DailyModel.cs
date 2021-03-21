@@ -5,6 +5,7 @@ namespace KIDS.API.Models
     public class DailyModel
     {
         public Guid ID { get; set; }
+        public Guid SchoolID { get; set; }
         public Guid UserCreate { get; set; }
         public Guid StudentID { get; set; }
         public DateTime Date { get; set; }
@@ -19,7 +20,7 @@ namespace KIDS.API.Models
         public DateTime SleepFrom { get; set; }
         public DateTime SleepTo { get; set; }
         public string Description { get; set; }
-    
+
         public string MealComment0 { get; set; }
         public string MealComment1 { get; set; }
         public string MealComment2 { get; set; }
@@ -50,6 +51,5 @@ namespace KIDS.API.Models
         public string Name { get; set; }
         public string Picture { get; set; }
         public string ClassName { get; set; }
-
     }
 }
