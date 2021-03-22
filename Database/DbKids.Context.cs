@@ -2996,5 +2996,99 @@ namespace KIDS.API.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Teacher_Prescription_sel_Result>("sp_Student_Teacher_Prescription_sel", iDParameter);
         }
+    
+        public virtual ObjectResult<sp_Teacher_CommentDefault_sel_Result> sp_Teacher_CommentDefault_sel(Nullable<System.Guid> schooID, Nullable<int> cate)
+        {
+            var schooIDParameter = schooID.HasValue ?
+                new ObjectParameter("SchooID", schooID) :
+                new ObjectParameter("SchooID", typeof(System.Guid));
+    
+            var cateParameter = cate.HasValue ?
+                new ObjectParameter("Cate", cate) :
+                new ObjectParameter("Cate", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_CommentDefault_sel_Result>("sp_Teacher_CommentDefault_sel", schooIDParameter, cateParameter);
+        }
+    
+        public virtual int sp_Teacher_Daily_Study_All_Upd(Nullable<System.Guid> classID, Nullable<System.DateTime> date, string studyCommentAM)
+        {
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var studyCommentAMParameter = studyCommentAM != null ?
+                new ObjectParameter("StudyCommentAM", studyCommentAM) :
+                new ObjectParameter("StudyCommentAM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Study_All_Upd", classIDParameter, dateParameter, studyCommentAMParameter);
+        }
+    
+        public virtual int sp_Student_Health_Ins(Nullable<System.Guid> studentID, Nullable<System.Guid> classID, Nullable<System.DateTime> date, Nullable<double> monthAge, Nullable<double> height, Nullable<double> width)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var monthAgeParameter = monthAge.HasValue ?
+                new ObjectParameter("MonthAge", monthAge) :
+                new ObjectParameter("MonthAge", typeof(double));
+    
+            var heightParameter = height.HasValue ?
+                new ObjectParameter("Height", height) :
+                new ObjectParameter("Height", typeof(double));
+    
+            var widthParameter = width.HasValue ?
+                new ObjectParameter("Width", width) :
+                new ObjectParameter("Width", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Ins", studentIDParameter, classIDParameter, dateParameter, monthAgeParameter, heightParameter, widthParameter);
+        }
+    
+        public virtual ObjectResult<sp_Student_Health_sel_Result> sp_Student_Health_sel(Nullable<System.Guid> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Health_sel_Result>("sp_Student_Health_sel", studentIDParameter);
+        }
+    
+        public virtual int sp_Student_Health_Upd(Nullable<System.Guid> iD, Nullable<double> height, Nullable<double> width)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            var heightParameter = height.HasValue ?
+                new ObjectParameter("Height", height) :
+                new ObjectParameter("Height", typeof(double));
+    
+            var widthParameter = width.HasValue ?
+                new ObjectParameter("Width", width) :
+                new ObjectParameter("Width", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Upd", iDParameter, heightParameter, widthParameter);
+        }
+    
+        public virtual int sp_Student_Health_Del(Nullable<System.Guid> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Del", iDParameter);
+        }
     }
 }

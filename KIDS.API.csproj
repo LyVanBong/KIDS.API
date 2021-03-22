@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\CommunicationsController.cs" />
     <Compile Include="Controllers\AssessController.cs" />
+    <Compile Include="Controllers\HealthController.cs" />
     <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -330,6 +331,9 @@
     <Compile Include="Database\sp_Student_Daily_Study_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Student_Health_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Student_HocPhi_ChiTiet_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -408,6 +412,9 @@
     <Compile Include="Database\sp_Teacher_Attendance_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\sp_Teacher_CommentDefault_sel_Result.cs">
+      <DependentUpon>DbKids.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\sp_Teacher_CommunicationsClass_sel_Result.cs">
       <DependentUpon>DbKids.tt</DependentUpon>
     </Compile>
@@ -447,6 +454,7 @@
     <Compile Include="Models\DeleteMessageModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\NoticeModel.cs" />
+    <Compile Include="Models\HealthModel.cs" />
     <Compile Include="Models\PrescriptionDetailModel.cs" />
     <Compile Include="Models\PrescriptionModel.cs" />
     <Compile Include="Models\PushNotificationModel.cs" />

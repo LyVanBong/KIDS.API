@@ -274,5 +274,45 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
+        // Cập nhật HỌC nhanh nhận xét cho cả lớp
+        [Route("UpdateStudyAll")]
+        [HttpPost]
+        public IHttpActionResult UpdateStudyAll(DailyModel update)
+        {
+            var data = _db.sp_Teacher_Daily_Study_All_Upd(update.ClassID, update.Date, update.StudyCommentAM);
+            return Ok(new ResponseModel<int>
+            {
+                Code = 30,
+                Message = "SUCCESSFULLY",
+                Data = data,
+            });
+        }
+
+        // danh sách nhận xét mẫu
+        [Route("SelectCommentDefault")]
+        [HttpGet]
+        public IHttpActionResult SelectCommentDefault(Guid SchoolID, int Cate)
+        {
+            var data = _db.sp_Teacher_CommentDefault_sel(SchoolID, Cate).ToList();
+            if (data.Any())
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Teacher_CommentDefault_sel_Result>>()
+                {
+                    Code = 7,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+            }
+            else
+            {
+                return Ok(new ResponseModel<IEnumerable<sp_Teacher_CommentDefault_sel_Result>>()
+                {
+                    Code = -8,
+                    Message = "FAILED",
+                    Data = null,
+                });
+            }
+        }
     }
 }

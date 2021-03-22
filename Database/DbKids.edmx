@@ -491,6 +491,25 @@
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_Student_Health_Del" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Student_Health_Ins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="MonthAge" Type="float" Mode="In" />
+          <Parameter Name="Height" Type="float" Mode="In" />
+          <Parameter Name="Width" Type="float" Mode="In" />
+        </Function>
+        <Function Name="sp_Student_Health_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="sp_Student_Health_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Height" Type="float" Mode="In" />
+          <Parameter Name="Width" Type="float" Mode="In" />
+        </Function>
         <Function Name="sp_Student_HocPhi_ChiTiet_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DotThuID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
@@ -678,6 +697,10 @@
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Date" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="sp_Teacher_CommentDefault_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SchooID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Cate" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Teacher_CommunicationAprove_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CommunicationID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsConfirmed" Type="bit" Mode="In" />
@@ -724,6 +747,11 @@
           <Parameter Name="SleepFrom" Type="datetime" Mode="In" />
           <Parameter Name="SleepTo" Type="datetime" Mode="In" />
           <Parameter Name="SleepComment" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Teacher_Daily_Study_All_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="StudyCommentAM" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Teacher_Daily_StudyAM_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
@@ -1643,6 +1671,34 @@
           </FunctionImport>
           <FunctionImport Name="sp_Student_Teacher_Prescription_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Teacher_Prescription_sel_Result)">
           <Parameter Name="ID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_CommentDefault_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_CommentDefault_sel_Result)">
+            <Parameter Name="SchooID" Mode="In" Type="Guid" />
+            <Parameter Name="Cate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Teacher_Daily_Study_All_Upd">
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="StudyCommentAM" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Health_Ins">
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="MonthAge" Mode="In" Type="Double" />
+            <Parameter Name="Height" Mode="In" Type="Double" />
+            <Parameter Name="Width" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Health_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Health_sel_Result)">
+          <Parameter Name="StudentID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Health_Upd">
+            <Parameter Name="ID" Mode="In" Type="Guid" />
+            <Parameter Name="Height" Mode="In" Type="Double" />
+            <Parameter Name="Width" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_Health_Del">
+            <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -3188,6 +3244,25 @@
           <Property Type="String" Name="Image2" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Image3" Nullable="true" MaxLength="200" />
         </ComplexType>
+        <ComplexType Name="sp_Teacher_CommentDefault_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Guid" Name="SchoolID" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Cate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Student_Health_sel_Result">
+          <Property Type="Guid" Name="ID" Nullable="true" />
+          <Property Type="Guid" Name="StudentID" Nullable="true" />
+          <Property Type="Guid" Name="ClassID" Nullable="true" />
+          <Property Type="Double" Name="BMI" Nullable="true" />
+          <Property Type="Int32" Name="MonthAge" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="Double" Name="Height" Nullable="true" />
+          <Property Type="Guid" Name="HeightStatus" Nullable="true" />
+          <Property Type="Double" Name="Width" Nullable="true" />
+          <Property Type="Guid" Name="WidthStatus" Nullable="true" />
+          <Property Type="Guid" Name="UserCreate" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4696,6 +4771,37 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Teacher_CommentDefault_sel" FunctionName="H_KIDSModel.Store.sp_Teacher_CommentDefault_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Teacher_CommentDefault_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Cate" ColumnName="Cate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Teacher_Daily_Study_All_Upd" FunctionName="H_KIDSModel.Store.sp_Teacher_Daily_Study_All_Upd" />
+          <FunctionImportMapping FunctionImportName="sp_Student_Health_Ins" FunctionName="H_KIDSModel.Store.sp_Student_Health_Ins" />
+          <FunctionImportMapping FunctionImportName="sp_Student_Health_sel" FunctionName="H_KIDSModel.Store.sp_Student_Health_sel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H_KIDSModel.sp_Student_Health_sel_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="BMI" ColumnName="BMI" />
+                <ScalarProperty Name="MonthAge" ColumnName="MonthAge" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="HeightStatus" ColumnName="HeightStatus" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="WidthStatus" ColumnName="WidthStatus" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Student_Health_Upd" FunctionName="H_KIDSModel.Store.sp_Student_Health_Upd" />
+          <FunctionImportMapping FunctionImportName="sp_Student_Health_Del" FunctionName="H_KIDSModel.Store.sp_Student_Health_Del" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -31,6 +31,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Create")]
         [HttpPost]
+
         public IHttpActionResult CreatePrescription()
         {
             Guid MasterID = Guid.NewGuid();
@@ -43,7 +44,7 @@ namespace KIDS.API.Controllers
             {
                 foreach (var val in formData.GetValues(key))
                 {
-                    switch (key) 
+                    switch (key)
                     {
                         case "FromDate":
                             insert.FromDate = DateTime.Parse(val);
@@ -64,17 +65,17 @@ namespace KIDS.API.Controllers
                             insert.ClassID = Guid.Parse(val);
                             break;
                         case "MedicineList":
-                            insert.MedicineList = string.IsNullOrEmpty(val) ? new List<MedicineDetailTicketModel>() : JsonConvert.DeserializeObject< List<MedicineDetailTicketModel>>(val);
+                            insert.MedicineList = string.IsNullOrEmpty(val) ? new List<MedicineDetailTicketModel>() : JsonConvert.DeserializeObject<List<MedicineDetailTicketModel>>(val);
                             break;
                     }
-                        
+
                 }
             }
 
             var data = _db.sp_Student_Prescription_Ins(MasterID, insert.FromDate, insert.ToDate, insert.Date, insert.Content, insert.StudentID, insert.ClassID);
             if (insert.MedicineList?.Any() == true)
             {
-                for(int i=0; i< insert.MedicineList.Count; i++)
+                for (int i = 0; i < insert.MedicineList.Count; i++)
                 {
                     var item = insert.MedicineList[i];
                     var myfilename = string.Format(@"{0}", Guid.NewGuid());
