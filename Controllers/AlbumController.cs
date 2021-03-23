@@ -1,9 +1,11 @@
 ﻿using KIDS.API.Configurations;
 using KIDS.API.Database;
 using KIDS.API.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace KIDS.API.Controllers
@@ -17,18 +19,59 @@ namespace KIDS.API.Controllers
         {
             _db = new H_KIDSEntities();
         }
-
-        /// <summary>
-        /// Thêm album mới
-        /// </summary>
-        /// <param name="album"></param>
-        /// <returns></returns>
-        [Route("InsertAlbum")]
-        [HttpPost]
-        public IHttpActionResult InsertAlbum(AlbumModel album)
+        public IHttpActionResult CreateAlbum()
         {
-            
-            var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate, album.UserCreate);
+            Guid MasterID = Guid.NewGuid();
+            var insert = new AlbumTicketModel();
+
+            var httpRequest = HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key)
+                    {
+                        case "ClassID":
+                            insert.ClassID = Guid.Parse(val);
+                            break;
+                        case "Thumbnail":
+                            insert.Thumbnail = val;
+                            break;
+                        case "Description":
+                            insert.Description = val;
+                            break;
+                        case "DateCreate":
+                            insert.DateCreate = DateTime.Parse(val); ;
+                            break;
+                        case "UserCreate":
+                            insert.UserCreate = Guid.Parse(val);
+                            break;
+
+                        case "MedicineList":
+                            insert.AlbumList = string.IsNullOrEmpty(val) ? new List<AlbumDetailTicketModel>() : JsonConvert.DeserializeObject<List<AlbumDetailTicketModel>>(val);
+                            break;
+                    }
+
+                }
+            }
+            var data = _db.sp_Album_Ins(MasterID, insert.ClassID, insert.Thumbnail, insert.Description, insert.DateCreate, insert.UserCreate);
+         
+            if (insert.AlbumList?.Any() == true)
+            {
+                for (int i = 0; i < insert.AlbumList.Count; i++)
+                {
+                    var item = insert.AlbumList[i];
+                    var myfilename = string.Format(@"{0}", Guid.NewGuid());
+                    string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\AlbumUpload\" + myfilename + ".jpg";
+                    var file = files[i];
+                    file.SaveAs(filepath);
+                  
+                    var data1 = _db.sp_AlbumImage_Ins(MasterID, myfilename, item.Description, item.Sort);
+                }
+            }
+
             return Ok(new ResponseModel<int>
             {
                 Code = 27,
@@ -36,6 +79,24 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+        ///// <summary>
+        ///// Thêm album mới
+        ///// </summary>
+        ///// <param name="album"></param>
+        ///// <returns></returns>
+        //[Route("InsertAlbum")]
+        //[HttpPost]
+        //public IHttpActionResult InsertAlbum(AlbumModel album)
+        //{
+
+        //    var data = _db.sp_Album_Ins(album.ClassID, album.Thumbnail, album.Description, album.DateCreate, album.UserCreate);
+        //    return Ok(new ResponseModel<int>
+        //    {
+        //        Code = 27,
+        //        Message = AppConstants.Successfully,
+        //        Data = data,
+        //    });
+        //}
 
         /// <summary>
         /// update album
@@ -79,7 +140,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select/All")]
         [HttpGet]
-        public IHttpActionResult AlbumSelAll(string SchoolId,string ClassId)
+        public IHttpActionResult AlbumSelAll(string SchoolId, string ClassId)
         {
             var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, ClassId).ToList();
             if (data.Any())
@@ -108,7 +169,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select/School")]
         [HttpGet]
-        public IHttpActionResult AlbumSelSchool(string SchoolId,string ClassId)
+        public IHttpActionResult AlbumSelSchool(string SchoolId, string ClassId)
         {
             var data = _db.sp_Album_sel_ClassAndSchool(SchoolId, ClassId).ToList();
             if (data.Any())
@@ -139,7 +200,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult AlbumSel(String SchoolID,string ClassId)
+        public IHttpActionResult AlbumSel(String SchoolID, string ClassId)
         {
             var data = _db.sp_Album_sel_ClassAndSchool(SchoolID, ClassId).ToList();
             if (data.Any())
@@ -199,7 +260,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Detail")]
         [HttpGet]
-        public IHttpActionResult AlbumDetailSel(Guid AlbumID,Guid GiaoVien_PhuHuynhClick)
+        public IHttpActionResult AlbumDetailSel(Guid AlbumID, Guid GiaoVien_PhuHuynhClick)
         {
             var data = _db.sp_AlbumDetail_sel(AlbumID, GiaoVien_PhuHuynhClick).ToList();
             if (data.Any())

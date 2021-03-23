@@ -222,6 +222,7 @@
           <Parameter Name="AlbumID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Album_Ins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AlbumID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Thumbnail" Type="nvarchar" Mode="In" />
           <Parameter Name="Description" Type="nvarchar" Mode="In" />
@@ -854,6 +855,7 @@
           <Parameter Name="AlbumID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Album_Ins">
+            <Parameter Name="AlbumID" Mode="In" Type="Guid" />
             <Parameter Name="ClassID" Mode="In" Type="Guid" />
             <Parameter Name="Thumbnail" Mode="In" Type="String" />
             <Parameter Name="Description" Mode="In" Type="String" />
@@ -1698,7 +1700,7 @@
             <Parameter Name="Width" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Health_Del">
-            <Parameter Name="ID" Mode="In" Type="Guid" />
+          <Parameter Name="ID" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">

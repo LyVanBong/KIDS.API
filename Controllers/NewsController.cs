@@ -3,6 +3,7 @@ using KIDS.API.Database;
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Http;
 
@@ -26,7 +27,22 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult InsertNews(UpdateNewsModel insert)
         {
-            var data = _db.sp_News_Ins(insert.Title, insert.Content, insert.ClassId, insert.ImageUrl, insert.DateCreate, insert.UserCreate);
+            string strm = insert.ImageUrl;
+            var bytess = Convert.FromBase64String(strm);
+            var myfilename = string.Format(@"{0}", Guid.NewGuid());
+
+            //string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
+           // string filepath = @"C:\Software\SchoolKids\Main\NewsUpload\1.jpg";
+
+            string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
+
+            using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
+            {
+                imageFile.Write(bytess, 0, bytess.Length);
+                imageFile.Flush();
+            }
+
+            var data = _db.sp_News_Ins(insert.Title, insert.Content, insert.ClassId, myfilename, insert.DateCreate, insert.UserCreate);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,
@@ -43,14 +59,46 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult UpdateNews(UpdateNewsModel update)
         {
-            var data = _db.sp_News_Upd(update.NewsId, update.Title, update.Content, update.ImageUrl, update.DateCreate,
-                update.UserCreate);
-            return Ok(new ResponseModel<int>
+            var data1 = _db.sp_Student_Profile_sel(update.NewsId).ToList();
+
+            if (data1.Any())
             {
-                Code = 30,
-                Message = "SUCCESSFULLY",
-                Data = data,
-            });
+                var Record = data1.FirstOrDefault();
+                var fileName = string.IsNullOrEmpty(Record.Picture) ? update.NewsId.ToString() : Record.Picture;
+
+                string strm = update.ImageUrl;
+                var bytess = Convert.FromBase64String(strm);
+
+                var myfilename = string.Format(@"{0}", Guid.NewGuid());
+                //string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
+
+                string filepath = @"C:/Software/SchoolKids/Main";
+
+                using (var imageFile = new FileStream(filepath + fileName, FileMode.OpenOrCreate))
+                {
+                    imageFile.Write(bytess, 0, bytess.Length);
+                    imageFile.Flush();
+                }
+
+                var data = _db.sp_News_Upd(update.NewsId, update.Title, update.Content, fileName, update.DateCreate,
+                update.UserCreate);
+                return Ok(new ResponseModel<int>
+                {
+                    Code = 30,
+                    Message = "SUCCESSFULLY",
+                    Data = data,
+                });
+
+            }
+            else
+            {
+                return Ok(new ResponseModel<int>()
+                {
+                    Code = -19,
+                    Message = "FAILED",
+                    Data = -1,
+                });
+            }
         }
 
         /// <summary>
@@ -135,7 +183,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select/School")]
         [HttpGet]
-        public IHttpActionResult NewsSelSchool(string ClassId,string SchoolId)
+        public IHttpActionResult NewsSelSchool(string ClassId, string SchoolId)
         {
             var data = _db.sp_News_sel_ClassAndSchool(ClassId, SchoolId).ToList();
             if (data.Any())
@@ -165,9 +213,9 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Select")]
         [HttpGet]
-        public IHttpActionResult NewsSel(string ClassID,string SchoolID)
+        public IHttpActionResult NewsSel(string ClassID, string SchoolID)
         {
-            var data = _db.sp_News_sel_ClassID(ClassID,SchoolID).ToList();
+            var data = _db.sp_News_sel_ClassID(ClassID, SchoolID).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<IEnumerable<sp_News_sel_ClassID_Result>>()
@@ -195,7 +243,7 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Detail")]
         [HttpGet]
-        public IHttpActionResult NewsDetail(Guid NewsID,Guid GiaoVien_PhuHuynhClick)
+        public IHttpActionResult NewsDetail(Guid NewsID, Guid GiaoVien_PhuHuynhClick)
         {
             var data = _db.sp_NewsDetail_sel(NewsID, GiaoVien_PhuHuynhClick).ToList();
             if (data.Any())

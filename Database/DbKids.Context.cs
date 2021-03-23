@@ -116,8 +116,12 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Del", albumIDParameter);
         }
     
-        public virtual int sp_Album_Ins(Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
+        public virtual int sp_Album_Ins(Nullable<System.Guid> albumID, Nullable<System.Guid> classID, string thumbnail, string description, Nullable<System.DateTime> dateCreate, Nullable<System.Guid> userCreate)
         {
+            var albumIDParameter = albumID.HasValue ?
+                new ObjectParameter("AlbumID", albumID) :
+                new ObjectParameter("AlbumID", typeof(System.Guid));
+    
             var classIDParameter = classID.HasValue ?
                 new ObjectParameter("ClassID", classID) :
                 new ObjectParameter("ClassID", typeof(System.Guid));
@@ -138,7 +142,7 @@ namespace KIDS.API.Database
                 new ObjectParameter("UserCreate", userCreate) :
                 new ObjectParameter("UserCreate", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter, userCreateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Album_Ins", albumIDParameter, classIDParameter, thumbnailParameter, descriptionParameter, dateCreateParameter, userCreateParameter);
         }
     
         public virtual ObjectResult<sp_Album_sel_Result> sp_Album_sel(string classID)
