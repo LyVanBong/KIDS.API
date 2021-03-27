@@ -4,6 +4,7 @@ using KIDS.API.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -49,7 +50,7 @@ namespace KIDS.API.Controllers
                             insert.UserCreate = Guid.Parse(val);
                             break;
 
-                        case "MedicineList":
+                        case "AlbumList":
                             insert.AlbumList = string.IsNullOrEmpty(val) ? new List<AlbumDetailTicketModel>() : JsonConvert.DeserializeObject<List<AlbumDetailTicketModel>>(val);
                             break;
                     }
@@ -57,18 +58,44 @@ namespace KIDS.API.Controllers
                 }
             }
             var data = _db.sp_Album_Ins(MasterID, insert.ClassID, insert.Thumbnail, insert.Description, insert.DateCreate, insert.UserCreate);
-         
+
             if (insert.AlbumList?.Any() == true)
             {
                 for (int i = 0; i < insert.AlbumList.Count; i++)
                 {
                     var item = insert.AlbumList[i];
                     var myfilename = string.Format(@"{0}", Guid.NewGuid());
-                    string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\AlbumUpload\" + myfilename + ".jpg";
-                    var file = files[i];
-                    file.SaveAs(filepath);
-                  
-                    var data1 = _db.sp_AlbumImage_Ins(MasterID, myfilename, item.Description, item.Sort);
+                    string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn\AlbumUpload\" + myfilename + ".jpg";
+
+                    if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\AlbumUpload"))
+                    {
+                        Directory.CreateDirectory(@"C:\inetpub\HKids\school.hkids.edu.vn\AlbumUpload");
+                    }
+
+                    if (files?.Count >= i + 1)
+                    {
+                        var file = files[i];
+                        file.SaveAs(filepath);
+                    }
+
+                    if (item.Action == 0)
+                    {
+                        var data1 = _db.sp_AlbumImage_Ins(MasterID, myfilename, item.Description, item.Sort);
+                    }
+                    else if (item.Action == 1)
+                    {
+                        var data1 = _db.sp_AlbumImage_Upd(item.AlbumID, myfilename, item.Description, item.Sort);
+                    }
+                    else
+                    {
+                        var data1 = _db.sp_AlbumImage_Del(item.AlbumID);
+                    }
+
+
+                    //var file = files[i];
+                    //file.SaveAs(filepath);
+
+
                 }
             }
 
@@ -107,13 +134,96 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult UpdateAlbum(AlbumModel album)
         {
+            var insert = new AlbumTicketModel();
+
+            var httpRequest = HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key)
+                    {
+                        case "ClassID":
+                            insert.ClassID = Guid.Parse(val);
+                            break;
+                        case "Thumbnail":
+                            insert.Thumbnail = val;
+                            break;
+                        case "Description":
+                            insert.Description = val;
+                            break;
+                        case "DateCreate":
+                            insert.DateCreate = DateTime.Parse(val); ;
+                            break;
+                        case "UserCreate":
+                            insert.UserCreate = Guid.Parse(val);
+                            break;
+
+                        case "AlbumList":
+                            insert.AlbumList = string.IsNullOrEmpty(val) ? new List<AlbumDetailTicketModel>() : JsonConvert.DeserializeObject<List<AlbumDetailTicketModel>>(val);
+                            break;
+                    }
+
+                }
+            }
             var data = _db.sp_Album_Upd(album.AlbumID, album.Thumbnail, album.Description, album.UserCreate, album.DateCreate);
+
+            if (insert.AlbumList?.Any() == true)
+            {
+                try
+                {
+                    for (int i = 0; i < insert.AlbumList.Count; i++)
+                    {
+                        var item = insert.AlbumList[i];
+                        var myfilename = "/AlbumUpload/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
+
+                        string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn" + myfilename;
+
+
+                        if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\AlbumUpload"))
+                        {
+                            Directory.CreateDirectory(@"C:\inetpub\HKids\school.hkids.edu.vn\AlbumUpload");
+                        }
+
+
+
+                        if (files?.Count >= i + 1)
+                        {
+                            using (var imageFile = new FileStream(filepath + myfilename, FileMode.OpenOrCreate))
+                            {
+                                //imageFile.Write(bytess, 0, bytess.Length);
+                                //imageFile.Flush();
+                                var file = files[i];
+                                file.SaveAs(filepath);
+                            }
+
+                        }
+
+                        var data1 = _db.sp_AlbumImage_Upd(item.AlbumID, myfilename, item.Description, item.Sort);
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.ToString());
+                }
+            }
+
             return Ok(new ResponseModel<int>
             {
-                Code = 27,
-                Message = AppConstants.Successfully,
+                Code = 30,
+                Message = "SUCCESSFULLY",
                 Data = data,
             });
+            //var data = _db.sp_Album_Upd(album.AlbumID, album.Thumbnail, album.Description, album.UserCreate, album.DateCreate);
+            //return Ok(new ResponseModel<int>
+            //{
+            //    Code = 27,
+            //    Message = AppConstants.Successfully,
+            //    Data = data,
+            //});
         }
 
         /// <summary>

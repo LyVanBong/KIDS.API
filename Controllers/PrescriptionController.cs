@@ -53,7 +53,7 @@ namespace KIDS.API.Controllers
                             insert.ToDate = DateTime.Parse(val);
                             break;
                         case "Date":
-                            insert.Date = DateTime.Parse(val);
+                            insert.Date = DateTime.Now;
                             break;
                         case "Content":
                             insert.Content = val;
@@ -75,15 +75,38 @@ namespace KIDS.API.Controllers
             var data = _db.sp_Student_Prescription_Ins(MasterID, insert.FromDate, insert.ToDate, insert.Date, insert.Content, insert.StudentID, insert.ClassID);
             if (insert.MedicineList?.Any() == true)
             {
-                for (int i = 0; i < insert.MedicineList.Count; i++)
+                try
                 {
-                    var item = insert.MedicineList[i];
-                    var myfilename = string.Format(@"{0}", Guid.NewGuid());
-                    string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
-                    var file = files[i];
-                    file.SaveAs(filepath);
-                    var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
+                    for (int i = 0; i < insert.MedicineList.Count; i++)
+                    {
+                        var item = insert.MedicineList[i];
+                        var myfilename = "/NewsUpload/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
+
+                        string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn" + myfilename;
+
+
+                        if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload"))
+                        {
+                            Directory.CreateDirectory(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload");
+                        }
+
+                        if (files?.Count >= i + 1)
+                        {
+                            var file = files[i];
+                            file.SaveAs(filepath);
+                        }
+
+
+                        var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
+
+
+                    }
                 }
+                catch (Exception e)
+                {
+                    return BadRequest(e.ToString());
+                }
+
             }
 
             return Ok(new ResponseModel<int>
@@ -93,6 +116,121 @@ namespace KIDS.API.Controllers
                 Data = data,
             });
         }
+
+        /// <summary>
+        ///Học sinh Sửa đơn thuốc
+        /// </summaryPrescription/Update
+        /// <returns></returns>
+        [Route("Update")]
+        [HttpPost]
+        public IHttpActionResult UpdatePrescription(PrescriptionModel update)
+        {
+
+            var insert = new MedicineTicketModel();
+
+            var httpRequest = HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key)
+                    {
+                        case "FromDate":
+                            insert.FromDate = DateTime.Parse(val);
+                            break;
+                        case "ToDate":
+                            insert.ToDate = DateTime.Parse(val);
+                            break;
+                        case "Date":
+                            insert.Date = DateTime.Parse(val);
+                            break;
+                        case "Content":
+                            insert.Content = val;
+                            break;
+                        case "StudentID":
+                            insert.StudentID = Guid.Parse(val);
+                            break;
+                        case "ClassID":
+                            insert.ClassID = Guid.Parse(val);
+                            break;
+                        case "MedicineList":
+                            insert.MedicineList = string.IsNullOrEmpty(val) ? new List<MedicineDetailTicketModel>() : JsonConvert.DeserializeObject<List<MedicineDetailTicketModel>>(val);
+                            break;
+                    }
+
+                }
+            }
+            var data = _db.sp_Student_Prescription_Upd(update.ID, update.FromDate, update.ToDate, update.Date, update.Content);
+
+            if (insert.MedicineList?.Any() == true)
+            {
+                try
+                {
+                    var insertList = insert.MedicineList.Where(x => x.Action == 0).ToList();
+                    for (int i = 0; i < insertList.Count; i++)
+                    {
+                        var item = insert.MedicineList[i];
+                        var myfilename = "/NewsUpload/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
+
+                        string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn" + myfilename;
+
+
+                        if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload"))
+                        {
+                            Directory.CreateDirectory(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload");
+                        }
+
+
+
+                        if (files?.Count >= i + 1)
+                        {
+                            using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
+                            {
+                                //imageFile.Write(bytess, 0, bytess.Length);
+                                //imageFile.Flush();
+                                var file = files[i];
+                                file.SaveAs(filepath);
+                            }
+
+                        }
+
+                        //var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
+                        var data1 = _db.sp_Student_Prescription_Detail_Upd(item.Id, myfilename, item.Name, item.Unit, item.Note);
+                    }
+
+
+                    var updateList = insert.MedicineList.Where(x => x.Action == 1).ToList();
+                    for (int i = 0; i < updateList.Count; i++)
+                    {
+                        var item = insert.MedicineList[i];
+                        //var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
+                        var data1 = _db.sp_Student_Prescription_Detail_Upd(item.Id, string.Empty, item.Name, item.Unit, item.Note);
+                    }
+
+                    var deleteList = insert.MedicineList.Where(x => x.Action == 2).ToList();
+                    foreach(var item in deleteList)
+                    {
+                        _db.sp_Student_Prescription_Del(item.Id);
+
+                     
+                    }
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.ToString());
+                }
+            }
+
+            return Ok(new ResponseModel<int>
+            {
+                Code = 30,
+                Message = "SUCCESSFULLY",
+                Data = data,
+            });
+        }
+
         //HỌC SINH VÀ GIÁO VIÊN
 
         [HttpGet()]
@@ -129,10 +267,11 @@ namespace KIDS.API.Controllers
                             result.MedicineList.Add(new MedicineDetailTicketModel
                             {
                                 Id = item.ID,
+                                Name = item.Name,
                                 Picture = item.Picture,
                                 Note = item.Description,
                                 Unit = item.Unit
-                            });
+                            }); ;
                         }
                     }
 
@@ -225,22 +364,7 @@ namespace KIDS.API.Controllers
         //}
 
 
-        /// <summary>
-        ///Học sinh Sửa đơn thuốc
-        /// </summaryPrescription/Update
-        /// <returns></returns>
-        [Route("Update")]
-        [HttpPost]
-        public IHttpActionResult UpdatePrescription(PrescriptionModel update)
-        {
-            var data = _db.sp_Student_Prescription_Upd(update.ID, update.FromDate, update.ToDate, update.Date, update.Content);
-            return Ok(new ResponseModel<int>
-            {
-                Code = 30,
-                Message = "SUCCESSFULLY",
-                Data = data,
-            });
-        }
+
 
         // Xóa đơn thuốc Master
         // <param name="PrescriptionId"></param>

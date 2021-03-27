@@ -1165,7 +1165,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_StudentParent_sel_Result>("sp_StudentParent_sel", studentIDParameter);
         }
     
-        public virtual int sp_Students_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture)
+        public virtual int sp_Students_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture, Nullable<int> nhomMau, string ghiChu)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
@@ -1199,7 +1199,15 @@ namespace KIDS.API.Database
                 new ObjectParameter("Picture", picture) :
                 new ObjectParameter("Picture", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Students_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, mobileParameter, emailParameter, addressParameter, pictureParameter);
+            var nhomMauParameter = nhomMau.HasValue ?
+                new ObjectParameter("NhomMau", nhomMau) :
+                new ObjectParameter("NhomMau", typeof(int));
+    
+            var ghiChuParameter = ghiChu != null ?
+                new ObjectParameter("GhiChu", ghiChu) :
+                new ObjectParameter("GhiChu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Students_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, mobileParameter, emailParameter, addressParameter, pictureParameter, nhomMauParameter, ghiChuParameter);
         }
     
         public virtual ObjectResult<sp_Teacher_Profile_sel_Result> sp_Teacher_Profile_sel(Nullable<System.Guid> teacherID)
@@ -2404,7 +2412,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Study_Morning_sel_Result>("sp_Student_Study_Morning_sel", dateParameter, classIDParameter, studentIDParameter);
         }
     
-        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string email, string address, string picture)
+        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string email, string address, string picture,int nhommau,String ghichu)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
@@ -2433,8 +2441,16 @@ namespace KIDS.API.Database
             var pictureParameter = picture != null ?
                 new ObjectParameter("Picture", picture) :
                 new ObjectParameter("Picture", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, emailParameter, addressParameter, pictureParameter);
+
+            var nhommauParameter = nhommau != null ?
+               new ObjectParameter("NhomMau", picture) :
+               new ObjectParameter("NhomMau", typeof(string));
+
+            var ghichuParameter = ghichu != null ?
+               new ObjectParameter("GhiChu", picture) :
+               new ObjectParameter("GhiChu", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, emailParameter, addressParameter, pictureParameter, nhommauParameter, ghichuParameter);
         }
     
         public virtual ObjectResult<sp_Student_sel_Result> sp_Student_sel(Nullable<System.Guid> classID)
@@ -3093,6 +3109,23 @@ namespace KIDS.API.Database
                 new ObjectParameter("ID", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Del", iDParameter);
+        }
+    
+        public virtual int sp_Student_NhomMau_Upd(Nullable<System.Guid> studentID, Nullable<int> nhomMau, string ghiChu)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(System.Guid));
+    
+            var nhomMauParameter = nhomMau.HasValue ?
+                new ObjectParameter("NhomMau", nhomMau) :
+                new ObjectParameter("NhomMau", typeof(int));
+    
+            var ghiChuParameter = ghiChu != null ?
+                new ObjectParameter("GhiChu", ghiChu) :
+                new ObjectParameter("GhiChu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_NhomMau_Upd", studentIDParameter, nhomMauParameter, ghiChuParameter);
         }
     }
 }

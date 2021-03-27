@@ -17,5 +17,7 @@ namespace KIDS.API.Database
         public string Contents { get; set; }
         public string ThoiGian { get; set; }
         public string NhanXet { get; set; }
+        public string Title { get; set; }
+        public string TitleStudy { get; set; }
     }
 }

@@ -31,10 +31,10 @@ namespace KIDS.API.Controllers
             var bytess = Convert.FromBase64String(strm);
             var myfilename = string.Format(@"{0}", Guid.NewGuid());
 
-            //string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
+            //string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
            // string filepath = @"C:\Software\SchoolKids\Main\NewsUpload\1.jpg";
 
-            string filepath = @"C:\inetpub\Kids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
+            string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload\" + myfilename + ".jpg";
 
             using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
             {
@@ -70,7 +70,7 @@ namespace KIDS.API.Controllers
                 var bytess = Convert.FromBase64String(strm);
 
                 var myfilename = string.Format(@"{0}", Guid.NewGuid());
-                //string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
+                //string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
 
                 string filepath = @"C:/Software/SchoolKids/Main";
 

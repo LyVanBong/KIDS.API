@@ -11,5 +11,7 @@ namespace KIDS.API.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public string Picture { get; set; }
+        public int NhomMau { get; set; }
+        public string GhiChu { get; set; }
     }
 }

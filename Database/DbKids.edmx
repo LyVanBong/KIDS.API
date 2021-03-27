@@ -518,6 +518,11 @@
         <Function Name="sp_Student_HocPhi_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="sp_Student_NhomMau_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="NhomMau" Type="int" Mode="In" />
+          <Parameter Name="GhiChu" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_Student_ParentProfile_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ParentID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -621,6 +626,8 @@
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
           <Parameter Name="Address" Type="nvarchar" Mode="In" />
           <Parameter Name="Picture" Type="nvarchar" Mode="In" />
+          <Parameter Name="NhomMau" Type="int" Mode="In" />
+          <Parameter Name="GhiChu" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_Study_Plan_Afternoon_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="datetime" Mode="In" />
@@ -1170,6 +1177,8 @@
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="Picture" Mode="In" Type="String" />
+            <Parameter Name="NhomMau" Mode="In" Type="Int32" />
+            <Parameter Name="GhiChu" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Teacher_Profile_sel" ReturnType="Collection(H_KIDSModel.sp_Teacher_Profile_sel_Result)">
           <Parameter Name="TeacherID" Mode="In" Type="Guid" />
@@ -1701,6 +1710,11 @@
           </FunctionImport>
           <FunctionImport Name="sp_Student_Health_Del">
           <Parameter Name="ID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Student_NhomMau_Upd">
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="NhomMau" Mode="In" Type="Int32" />
+            <Parameter Name="GhiChu" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Login_Result">
@@ -2699,8 +2713,11 @@
         </ComplexType>
         <ComplexType Name="sp_Student_Study_Morning_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="true" />
-          <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Contents" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
+          <Property Type="String" Name="NhanXet" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TitleStudy" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_Student_sel_Result">
           <Property Type="Guid" Name="StudentID" Nullable="false" />
@@ -2766,6 +2783,8 @@
           <Property Type="String" Name="Contents" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
           <Property Type="String" Name="NhanXet" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TitleStudy" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_KhoanThu_DotThu_ChiTiet_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="false" />
@@ -4132,6 +4151,9 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+                <ScalarProperty Name="NhanXet" ColumnName="NhanXet" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TitleStudy" ColumnName="TitleStudy" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4214,6 +4236,8 @@
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
                 <ScalarProperty Name="NhanXet" ColumnName="NhanXet" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TitleStudy" ColumnName="TitleStudy" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4804,6 +4828,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Student_Health_Upd" FunctionName="H_KIDSModel.Store.sp_Student_Health_Upd" />
           <FunctionImportMapping FunctionImportName="sp_Student_Health_Del" FunctionName="H_KIDSModel.Store.sp_Student_Health_Del" />
+          <FunctionImportMapping FunctionImportName="sp_Student_NhomMau_Upd" FunctionName="H_KIDSModel.Store.sp_Student_NhomMau_Upd" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

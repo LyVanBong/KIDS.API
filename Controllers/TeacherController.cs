@@ -37,8 +37,8 @@ namespace KIDS.API.Controllers
                 string strm = teacher.Picture;
                 var bytess = Convert.FromBase64String(strm);
 
-                var myfilename = string.Format(@"{0}", Guid.NewGuid());
-                string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
+                var myfilename = "/TeacherPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
+                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
                 //string filepath = @"C:/Software/SchoolKids/Main";
 
 

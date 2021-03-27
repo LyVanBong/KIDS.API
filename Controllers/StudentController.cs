@@ -37,8 +37,8 @@ namespace KIDS.API.Controllers
                 string strm = student.Picture;
                 var bytess = Convert.FromBase64String(strm);
 
-                var myfilename = string.Format(@"{0}", Guid.NewGuid());
-                string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
+                //var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
+                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
                 //string filepath = @"C:/Software/SchoolKids/Main";
 
 
@@ -48,7 +48,7 @@ namespace KIDS.API.Controllers
                     imageFile.Flush();
                 }
 
-                var data = _db.sp_Student_Profile_Upd(student.StudentId, student.Name, student.Sex, student.Dob, student.Email, student.Address, fileName);
+                var data = _db.sp_Student_Profile_Upd(student.StudentId, student.Name, student.Sex, student.Dob, student.Email, student.Address, fileName, student.NhomMau, student.GhiChu);
                 if (data > 0)
                 {
                     return Ok(new ResponseModel<int>()
@@ -198,8 +198,51 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("ParentUpdate")]
         [HttpPost]
-        public IHttpActionResult ParentUpdate(ParentModel student)
+        public IHttpActionResult ParentUpdate()
         {
+            var httpRequest = System.Web.HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var student = new ParentModel();
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key)
+                    {
+                        case "ID":
+                            student.ID = Guid.Parse(val);
+                            break;
+                        case "Name":
+                            student.Name = val;
+                            break;
+                        case "Sex":
+                            student.Sex =int.Parse(val);
+                            break;
+                        case "Dob":
+                            student.Dob = DateTime.Parse(val); ;
+                            break;
+                        case "Mobile":
+                            student.Mobile = val;
+                            break;
+                        case "Email":
+                            student.Email = val;
+                            break;
+                        case "Address":
+                            student.Address = val;
+                            break;
+                        case "Picture":
+                            student.Picture = val;
+                            break;
+
+
+                    }
+
+                }
+            }
+
+
+
 
             var data1 = _db.sp_Students_Parents_Detail_sel(student.ID.ToString()).ToList();
 
@@ -209,21 +252,46 @@ namespace KIDS.API.Controllers
                 var fileName = string.IsNullOrEmpty(studentRecord.Picture) ? student.ID.ToString() : studentRecord.Picture;
 
                 string strm = student.Picture;
-                var bytess = Convert.FromBase64String(strm);
+                //var bytess = Convert.FromBase64String(strm);
 
-                var myfilename = string.Format(@"{0}", Guid.NewGuid());
-                string filepath = @"C:/inetpub/Kids/school.hkids.edu.vn";
-                //string filepath = @"C:/Software/SchoolKids/Main";
+                //var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
+                //string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
 
+                var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
-                using (var imageFile = new FileStream(filepath + fileName, FileMode.OpenOrCreate))
+                string filepath = @"C:\" + myfilename;
+
+                //if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload"))
+                //{
+                //    Directory.CreateDirectory(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload");
+                //}
+                try
                 {
-                    imageFile.Write(bytess, 0, bytess.Length);
-                    imageFile.Flush();
+                    if (files?.Count > 0)
+                    {
+                        using (var imageFile = new FileStream(filepath, FileMode.CreateNew))
+                        {
+                            //imageFile.Write(bytess, 0, bytess.Length);
+                            //imageFile.Flush();
+                            var file = files[0];
+                            file.SaveAs(filepath);
+
+
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.ToString());
                 }
 
+                //imageFile.Write(bytess, 0, bytess.Length);
+                //imageFile.Flush();
 
-                var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, fileName);
+
+
+
+                var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, myfilename);
                 if (data > 0)
                 {
                     return Ok(new ResponseModel<int>()
@@ -245,13 +313,14 @@ namespace KIDS.API.Controllers
             }
             else
             {
-                return Ok(new ResponseModel<int>()
+                return Ok(new ResponseModel<int>
                 {
-                    Code = -19,
-                    Message = "FAILED",
-                    Data = -1,
+                    Code = 30,
+                    Message = "SUCCESSFULLY",
+                    Data = 12,
                 });
             }
+
         }
     }
 }
