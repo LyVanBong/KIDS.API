@@ -74,8 +74,8 @@ namespace KIDS.API.Controllers
 
                     if (files?.Count >= i + 1)
                     {
-                        var file = files[i];
-                        file.SaveAs(filepath);
+                        var file = HttpContext.Current.Request.Files.Get("Picture");
+                        //file.SaveAs("C:/Software/SchoolKids/Main/" + fileName);
                     }
 
                     if (item.Action == 0)

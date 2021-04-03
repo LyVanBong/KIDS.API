@@ -47,7 +47,9 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult Insert(HealthModel insert)
         {
-            var data = _db.sp_Student_Health_Ins(insert.StudentID, insert.ClassID, insert.Date, insert.MonthAge, insert.Height, insert.Width);
+         
+            double BMI = insert.Width * 10000 / (insert.Height * insert.Height);
+            var data = _db.sp_Student_Health_Ins(insert.StudentID, insert.ClassID, insert.Date, insert.MonthAge, insert.Height, insert.Width, BMI);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,
@@ -61,8 +63,9 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult Update(HealthModel update)
         {
+            double BMI = update.Width * 10000 / (update.Height * update.Height);
             var data = _db.sp_Student_Health_Upd(update.ID, update.Height,
-                update.Width);
+                update.Width, BMI);
             return Ok(new ResponseModel<int>
             {
                 Code = 30,

@@ -18,5 +18,6 @@ namespace KIDS.API.Database
         public string BuaAn { get; set; }
         public Nullable<int> Sort { get; set; }
         public string MealComment { get; set; }
+        public string TenMonAn { get; set; }
     }
 }

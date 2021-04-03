@@ -51,5 +51,6 @@ namespace KIDS.API.Models
         public string Name { get; set; }
         public string Picture { get; set; }
         public string ClassName { get; set; }
+        public string TenMonAn { get; set; }
     }
 }

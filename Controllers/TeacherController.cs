@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace KIDS.API.Controllers
@@ -25,28 +26,74 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Update")]
         [HttpPost]
-        public IHttpActionResult Update(TeacherModel teacher)
+        public IHttpActionResult Update()
         {
-            var data1 = _db.sp_Student_Profile_sel(teacher.TeacherId).ToList();
+            var httpRequest = System.Web.HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var teacher = new TeacherModel();
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key)
+                    {
+                        case "TeacherId":
+                            teacher.TeacherId = Guid.Parse(val);
+                            break;
+                        case "Name":
+                            teacher.Name = val;
+                            break;
+                        case "Sex":
+                            teacher.Sex = int.Parse(val);
+                            break;
+                        case "Dob":
+                            teacher.Dob = DateTime.Parse(val); ;
+                            break;
+                        case "Mobile":
+                            teacher.Phone = val;
+                            break;
+                        case "Email":
+                            teacher.Email = val;
+                            break;
+                        case "Address":
+                            teacher.Address = val;
+                            break;
+                        case "Picture":
+                            teacher.Picture = val;
+                            break;
+
+
+                    }
+
+                }
+            }
+
+            var data1 = _db.sp_Teacher_Profile_sel(teacher.TeacherId).ToList();
 
             if (data1.Any())
             {
                 var studentRecord = data1.FirstOrDefault();
                 var fileName = string.IsNullOrEmpty(studentRecord.Picture) ? teacher.TeacherId.ToString() : studentRecord.Picture;
-
-                string strm = teacher.Picture;
-                var bytess = Convert.FromBase64String(strm);
+                if (fileName.Length <= Guid.Empty.ToString().Length)
+                    fileName = "/TeacherPhoto/" + fileName + ".jpg";
 
                 var myfilename = "/TeacherPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
-                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
-                //string filepath = @"C:/Software/SchoolKids/Main";
+
+                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn" + myfilename;
+                //string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
 
 
-                using (var imageFile = new FileStream(filepath + fileName, FileMode.OpenOrCreate))
+
+                using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
                 {
-                    imageFile.Write(bytess, 0, bytess.Length);
-                    imageFile.Flush();
+
+                    var file = HttpContext.Current.Request.Files.Get("Picture");
+                    file.SaveAs("C:/inetpub/HKids/school.hkids.edu.vn/" + fileName);
+
+
                 }
+
 
 
                 var data = _db.sp_Teacher_Profile_Upd(teacher.TeacherId, teacher.Name, teacher.Sex, teacher.Dob, teacher.Phone, teacher.Email, teacher.Address, fileName);

@@ -502,6 +502,7 @@
           <Parameter Name="MonthAge" Type="float" Mode="In" />
           <Parameter Name="Height" Type="float" Mode="In" />
           <Parameter Name="Width" Type="float" Mode="In" />
+          <Parameter Name="BMI" Type="float" Mode="In" />
         </Function>
         <Function Name="sp_Student_Health_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
@@ -510,6 +511,7 @@
           <Parameter Name="ID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Height" Type="float" Mode="In" />
           <Parameter Name="Width" Type="float" Mode="In" />
+          <Parameter Name="BMI" Type="float" Mode="In" />
         </Function>
         <Function Name="sp_Student_HocPhi_ChiTiet_sel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DotThuID" Type="uniqueidentifier" Mode="In" />
@@ -1699,6 +1701,7 @@
             <Parameter Name="MonthAge" Mode="In" Type="Double" />
             <Parameter Name="Height" Mode="In" Type="Double" />
             <Parameter Name="Width" Mode="In" Type="Double" />
+            <Parameter Name="BMI" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Health_sel" ReturnType="Collection(H_KIDSModel.sp_Student_Health_sel_Result)">
           <Parameter Name="StudentID" Mode="In" Type="Guid" />
@@ -1707,6 +1710,7 @@
             <Parameter Name="ID" Mode="In" Type="Guid" />
             <Parameter Name="Height" Mode="In" Type="Double" />
             <Parameter Name="Width" Mode="In" Type="Double" />
+            <Parameter Name="BMI" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Health_Del">
           <Parameter Name="ID" Mode="In" Type="Guid" />
@@ -1908,6 +1912,7 @@
           <Property Type="String" Name="BuaAn" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Sort" Nullable="true" />
           <Property Type="String" Name="MealComment" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TenMonAn" Nullable="true" MaxLength="500" />
         </ComplexType>
         <ComplexType Name="sp_Student_Daily_sel_Result">
           <Property Type="Guid" Name="ID" Nullable="false" />
@@ -3464,6 +3469,7 @@
                 <ScalarProperty Name="BuaAn" ColumnName="BuaAn" />
                 <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="MealComment" ColumnName="MealComment" />
+                <ScalarProperty Name="TenMonAn" ColumnName="TenMonAn" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

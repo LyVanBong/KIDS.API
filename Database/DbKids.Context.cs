@@ -2412,7 +2412,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Study_Morning_sel_Result>("sp_Student_Study_Morning_sel", dateParameter, classIDParameter, studentIDParameter);
         }
     
-        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string email, string address, string picture,int nhommau,String ghichu)
+        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string email, string address, string picture)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
@@ -2441,16 +2441,8 @@ namespace KIDS.API.Database
             var pictureParameter = picture != null ?
                 new ObjectParameter("Picture", picture) :
                 new ObjectParameter("Picture", typeof(string));
-
-            var nhommauParameter = nhommau != null ?
-               new ObjectParameter("NhomMau", picture) :
-               new ObjectParameter("NhomMau", typeof(string));
-
-            var ghichuParameter = ghichu != null ?
-               new ObjectParameter("GhiChu", picture) :
-               new ObjectParameter("GhiChu", typeof(string));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, emailParameter, addressParameter, pictureParameter, nhommauParameter, ghichuParameter);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Profile_Upd", studentIDParameter, nameParameter, sexParameter, dOBParameter, emailParameter, addressParameter, pictureParameter);
         }
     
         public virtual ObjectResult<sp_Student_sel_Result> sp_Student_sel(Nullable<System.Guid> classID)
@@ -3047,7 +3039,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Teacher_Daily_Study_All_Upd", classIDParameter, dateParameter, studyCommentAMParameter);
         }
     
-        public virtual int sp_Student_Health_Ins(Nullable<System.Guid> studentID, Nullable<System.Guid> classID, Nullable<System.DateTime> date, Nullable<double> monthAge, Nullable<double> height, Nullable<double> width)
+        public virtual int sp_Student_Health_Ins(Nullable<System.Guid> studentID, Nullable<System.Guid> classID, Nullable<System.DateTime> date, Nullable<double> monthAge, Nullable<double> height, Nullable<double> width, Nullable<double> bMI)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
@@ -3073,7 +3065,11 @@ namespace KIDS.API.Database
                 new ObjectParameter("Width", width) :
                 new ObjectParameter("Width", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Ins", studentIDParameter, classIDParameter, dateParameter, monthAgeParameter, heightParameter, widthParameter);
+            var bMIParameter = bMI.HasValue ?
+                new ObjectParameter("BMI", bMI) :
+                new ObjectParameter("BMI", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Ins", studentIDParameter, classIDParameter, dateParameter, monthAgeParameter, heightParameter, widthParameter, bMIParameter);
         }
     
         public virtual ObjectResult<sp_Student_Health_sel_Result> sp_Student_Health_sel(Nullable<System.Guid> studentID)
@@ -3085,7 +3081,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Health_sel_Result>("sp_Student_Health_sel", studentIDParameter);
         }
     
-        public virtual int sp_Student_Health_Upd(Nullable<System.Guid> iD, Nullable<double> height, Nullable<double> width)
+        public virtual int sp_Student_Health_Upd(Nullable<System.Guid> iD, Nullable<double> height, Nullable<double> width, Nullable<double> bMI)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
@@ -3099,7 +3095,11 @@ namespace KIDS.API.Database
                 new ObjectParameter("Width", width) :
                 new ObjectParameter("Width", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Upd", iDParameter, heightParameter, widthParameter);
+            var bMIParameter = bMI.HasValue ?
+                new ObjectParameter("BMI", bMI) :
+                new ObjectParameter("BMI", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Student_Health_Upd", iDParameter, heightParameter, widthParameter, bMIParameter);
         }
     
         public virtual int sp_Student_Health_Del(Nullable<System.Guid> iD)

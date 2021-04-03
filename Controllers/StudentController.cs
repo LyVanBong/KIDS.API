@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace KIDS.API.Controllers
@@ -25,30 +26,68 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Update")]
         [HttpPost]
-        public IHttpActionResult Update(StudentModel student)
+        public IHttpActionResult Update()
         {
+            var httpRequest = System.Web.HttpContext.Current.Request;
+            var files = httpRequest.Files;
+            var student = new StudentModel();
+            var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
+            foreach (var key in formData.AllKeys)
+            {
+                foreach (var val in formData.GetValues(key))
+                {
+                    switch (key)
+                    {
+                        case "StudentID":
+                            student.StudentId = Guid.Parse(val);
+                            break;
+                        case "Name":
+                            student.Name = val;
+                            break;
+                        case "Sex":
+                            student.Sex = int.Parse(val);
+                            break;
+                        case "Dob":
+                            student.Dob = DateTime.Parse(val); ;
+                            break;
+                        case "Email":
+                            student.Email = val;
+                            break;
+                        case "Address":
+                            student.Address = val;
+                            break;
+                        case "Picture":
+                            student.Picture = val;
+                            break;
+
+
+                    }
+
+                }
+            }
             var data1 = _db.sp_Student_Profile_sel(student.StudentId).ToList();
 
             if (data1.Any())
             {
                 var studentRecord = data1.FirstOrDefault();
                 var fileName = string.IsNullOrEmpty(studentRecord.Picture) ? student.StudentId.ToString() : studentRecord.Picture;
+                if (fileName.Length <= Guid.Empty.ToString().Length)
+                    fileName = "/StudentPhoto/" + fileName + ".jpg";
+                var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
-                string strm = student.Picture;
-                var bytess = Convert.FromBase64String(strm);
+                string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
 
-                //var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
-                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
-                //string filepath = @"C:/Software/SchoolKids/Main";
-
-
-                using (var imageFile = new FileStream(filepath + fileName, FileMode.OpenOrCreate))
+                using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
                 {
-                    imageFile.Write(bytess, 0, bytess.Length);
-                    imageFile.Flush();
+
+                    var file = HttpContext.Current.Request.Files.Get("Picture");
+                    file.SaveAs("C:/Software/SchoolKids/Main/" + fileName);
+
+
                 }
 
-                var data = _db.sp_Student_Profile_Upd(student.StudentId, student.Name, student.Sex, student.Dob, student.Email, student.Address, fileName, student.NhomMau, student.GhiChu);
+
+                var data = _db.sp_Student_Profile_Upd(student.StudentId, student.Name, student.Sex, student.Dob, student.Email, student.Address, fileName);
                 if (data > 0)
                 {
                     return Ok(new ResponseModel<int>()
@@ -201,6 +240,10 @@ namespace KIDS.API.Controllers
         public IHttpActionResult ParentUpdate()
         {
             var httpRequest = System.Web.HttpContext.Current.Request;
+            //var file = HttpContext.Current.Request.Files.Get("Picture");
+            //file.SaveAs("C:/Software/SchoolKids/Main/StudentPhoto/" + file.FileName);
+
+            //return Ok();
             var files = httpRequest.Files;
             var student = new ParentModel();
             var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
@@ -217,7 +260,7 @@ namespace KIDS.API.Controllers
                             student.Name = val;
                             break;
                         case "Sex":
-                            student.Sex =int.Parse(val);
+                            student.Sex = int.Parse(val);
                             break;
                         case "Dob":
                             student.Dob = DateTime.Parse(val); ;
@@ -250,13 +293,8 @@ namespace KIDS.API.Controllers
             {
                 var studentRecord = data1.FirstOrDefault();
                 var fileName = string.IsNullOrEmpty(studentRecord.Picture) ? student.ID.ToString() : studentRecord.Picture;
-
-                string strm = student.Picture;
-                //var bytess = Convert.FromBase64String(strm);
-
-                //var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
-                //string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn";
-
+                if (fileName.Length <= Guid.Empty.ToString().Length)
+                    fileName = "/StudentPhoto/" + fileName + ".jpg";
                 var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
                 string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
@@ -271,10 +309,9 @@ namespace KIDS.API.Controllers
                     {
                         using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
                         {
-                            //imageFile.Write(bytess, 0, bytess.Length);
-                            //imageFile.Flush();
-                            var file = files[0];
-                            file.SaveAs(filepath);
+
+                            var file = HttpContext.Current.Request.Files.Get("Picture");
+                            file.SaveAs("C:/Software/SchoolKids/Main/" + fileName);
 
 
                         }
@@ -282,16 +319,10 @@ namespace KIDS.API.Controllers
                 }
                 catch (Exception e)
                 {
-                   return BadRequest(e.ToString());
+                    return BadRequest(e.ToString());
                 }
 
-                //imageFile.Write(bytess, 0, bytess.Length);
-                //imageFile.Flush();
-
-
-
-
-                var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, myfilename);
+                var data = _db.sp_Student_ParentProfile_Upd(student.ID, student.Name, student.Sex, student.Dob, student.Mobile, student.Email, student.Address, fileName);
                 if (data > 0)
                 {
                     return Ok(new ResponseModel<int>()
