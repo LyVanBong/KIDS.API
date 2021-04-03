@@ -59,9 +59,9 @@ namespace KIDS.API.Controllers
                         case "Address":
                             teacher.Address = val;
                             break;
-                        case "Picture":
-                            teacher.Picture = val;
-                            break;
+                        //case "Picture":
+                        //    teacher.Picture = val;
+                        //    break;
 
 
                     }
