@@ -259,7 +259,7 @@ namespace KIDS.API.Controllers
 
                 var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
-                string filepath = @"C:\" + myfilename;
+                string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
 
                 //if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload"))
                 //{
@@ -269,7 +269,7 @@ namespace KIDS.API.Controllers
                 {
                     if (files?.Count > 0)
                     {
-                        using (var imageFile = new FileStream(filepath, FileMode.CreateNew))
+                        using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
                         {
                             //imageFile.Write(bytess, 0, bytess.Length);
                             //imageFile.Flush();
@@ -282,7 +282,7 @@ namespace KIDS.API.Controllers
                 }
                 catch (Exception e)
                 {
-                    return BadRequest(e.ToString());
+                   return BadRequest(e.ToString());
                 }
 
                 //imageFile.Write(bytess, 0, bytess.Length);
