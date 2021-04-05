@@ -123,10 +123,10 @@ namespace KIDS.API.Controllers
         /// <returns></returns>
         [Route("Update")]
         [HttpPost]
-        public IHttpActionResult UpdatePrescription(PrescriptionModel update)
+        public IHttpActionResult UpdatePrescription()
         {
 
-            var insert = new MedicineTicketModel();
+            var update = new MedicineTicketModel();
 
             var httpRequest = HttpContext.Current.Request;
             var files = httpRequest.Files;
@@ -137,41 +137,44 @@ namespace KIDS.API.Controllers
                 {
                     switch (key)
                     {
+                        case "ID":
+                            update.Id = Guid.Parse(val);
+                            break;
                         case "FromDate":
-                            insert.FromDate = DateTime.Parse(val);
+                            update.FromDate = DateTime.Parse(val);
                             break;
                         case "ToDate":
-                            insert.ToDate = DateTime.Parse(val);
+                            update.ToDate = DateTime.Parse(val);
                             break;
                         case "Date":
-                            insert.Date = DateTime.Parse(val);
+                            update.Date = DateTime.Parse(val);
                             break;
                         case "Content":
-                            insert.Content = val;
+                            update.Content = val;
                             break;
                         case "StudentID":
-                            insert.StudentID = Guid.Parse(val);
+                            update.StudentID = Guid.Parse(val);
                             break;
                         case "ClassID":
-                            insert.ClassID = Guid.Parse(val);
+                            update.ClassID = Guid.Parse(val);
                             break;
                         case "MedicineList":
-                            insert.MedicineList = string.IsNullOrEmpty(val) ? new List<MedicineDetailTicketModel>() : JsonConvert.DeserializeObject<List<MedicineDetailTicketModel>>(val);
+                            update.MedicineList = string.IsNullOrEmpty(val) ? new List<MedicineDetailTicketModel>() : JsonConvert.DeserializeObject<List<MedicineDetailTicketModel>>(val);
                             break;
                     }
 
                 }
             }
-            var data = _db.sp_Student_Prescription_Upd(update.ID, update.FromDate, update.ToDate, update.Date, update.Content);
+            var data = _db.sp_Student_Prescription_Upd(update.Id, update.FromDate, update.ToDate, update.Date, update.Content);
 
-            if (insert.MedicineList?.Any() == true)
+            if (update.MedicineList?.Any() == true)
             {
                 try
                 {
-                    var insertList = insert.MedicineList.Where(x => x.Action == 0).ToList();
+                    var insertList = update.MedicineList.Where(x => x.Action == 0).ToList();
                     for (int i = 0; i < insertList.Count; i++)
                     {
-                        var item = insert.MedicineList[i];
+                        var item = update.MedicineList[i];
                         var myfilename = "/NewsUpload/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
                         string filepath = @"C:\inetpub\HKids\school.hkids.edu.vn" + myfilename;
@@ -186,14 +189,8 @@ namespace KIDS.API.Controllers
 
                         if (files?.Count >= i + 1)
                         {
-                            using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
-                            {
-                                //imageFile.Write(bytess, 0, bytess.Length);
-                                //imageFile.Flush();
-                                var file = files[i];
-                                file.SaveAs(filepath);
-                            }
-
+                            var file = files[i];
+                            file.SaveAs(filepath);
                         }
 
                         //var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
@@ -201,15 +198,15 @@ namespace KIDS.API.Controllers
                     }
 
 
-                    var updateList = insert.MedicineList.Where(x => x.Action == 1).ToList();
+                    var updateList = update.MedicineList.Where(x => x.Action == 1).ToList();
                     for (int i = 0; i < updateList.Count; i++)
                     {
-                        var item = insert.MedicineList[i];
+                        var item = update.MedicineList[i];
                         //var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
                         var data1 = _db.sp_Student_Prescription_Detail_Upd(item.Id, string.Empty, item.Name, item.Unit, item.Note);
                     }
 
-                    var deleteList = insert.MedicineList.Where(x => x.Action == 2).ToList();
+                    var deleteList = update.MedicineList.Where(x => x.Action == 2).ToList();
                     foreach(var item in deleteList)
                     {
                         _db.sp_Student_Prescription_Del(item.Id);
