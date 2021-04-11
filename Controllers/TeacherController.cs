@@ -2,6 +2,7 @@
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -78,7 +79,15 @@ namespace KIDS.API.Controllers
                 if (httpRequest.Files.Count > 0)
                 {
                     var fileImage = httpRequest.Files;
-                    fileImage[0].SaveAs("C:/inetpub/HKids/school.hkids.edu.vn/" + fileName);
+                    var newPathFileName = "C:/inetpub/HKids/school.hkids.edu.vn/TeacherPhoto/" + teacher.TeacherId +
+                                          "_" + fileImage[0].FileName;
+                    fileImage[0].SaveAs(newPathFileName);
+                    if (File.Exists(newPathFileName))
+                    {
+                        File.Delete(filepath);
+                        fileName = "/TeacherPhoto/" + teacher.TeacherId +
+                                  "_" + fileImage[0].FileName;
+                    }
                 }
 
                 var data = _db.sp_Teacher_Profile_Upd(teacher.TeacherId, teacher.Name, teacher.Sex, teacher.Dob, teacher.Phone, teacher.Email, teacher.Address, fileName);
