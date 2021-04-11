@@ -75,13 +75,13 @@ namespace KIDS.API.Controllers
                     fileName = "/StudentPhoto/" + fileName + ".jpg";
                 var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
-                string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
+                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn" + myfilename;
 
                 using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
                 {
 
                     var file = HttpContext.Current.Request.Files.Get("Picture");
-                    file.SaveAs("C:/Software/SchoolKids/Main/" + fileName);
+                    file.SaveAs("C:/inetpub/HKids/school.hkids.edu.vn" + fileName);
 
 
                 }
@@ -297,7 +297,7 @@ namespace KIDS.API.Controllers
                     fileName = "/StudentPhoto/" + fileName + ".jpg";
                 var myfilename = "/StudentPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
-                string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
+                string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn/" + myfilename;
 
                 //if (!Directory.Exists(@"C:\inetpub\HKids\school.hkids.edu.vn\NewsUpload"))
                 //{
@@ -311,7 +311,7 @@ namespace KIDS.API.Controllers
                         {
 
                             var file = HttpContext.Current.Request.Files.Get("Picture");
-                            file.SaveAs("C:/Software/SchoolKids/Main/" + fileName);
+                            file.SaveAs("C:/inetpub/HKids/school.hkids.edu.vn" + fileName);
 
 
                         }

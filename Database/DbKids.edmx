@@ -2720,9 +2720,16 @@
           <Property Type="Guid" Name="ID" Nullable="true" />
           <Property Type="String" Name="Contents" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="ThoiGian" Nullable="true" MaxLength="125" />
-          <Property Type="String" Name="NhanXet" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="Title" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="TitleStudy" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NhanXetHoc" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="NhanXetAn" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="NhanXetNgu" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="NhanXetWC" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="NhanXetNgay" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhieuBeNgoanNgay" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NhanXetTuan" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PhieuBeNgoanTuan" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_Student_sel_Result">
           <Property Type="Guid" Name="StudentID" Nullable="false" />
@@ -4157,9 +4164,16 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
-                <ScalarProperty Name="NhanXet" ColumnName="NhanXet" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="TitleStudy" ColumnName="TitleStudy" />
+                <ScalarProperty Name="NhanXetHoc" ColumnName="NhanXetHoc" />
+                <ScalarProperty Name="NhanXetAn" ColumnName="NhanXetAn" />
+                <ScalarProperty Name="NhanXetNgu" ColumnName="NhanXetNgu" />
+                <ScalarProperty Name="NhanXetWC" ColumnName="NhanXetWC" />
+                <ScalarProperty Name="NhanXetNgay" ColumnName="NhanXetNgay" />
+                <ScalarProperty Name="PhieuBeNgoanNgay" ColumnName="PhieuBeNgoanNgay" />
+                <ScalarProperty Name="NhanXetTuan" ColumnName="NhanXetTuan" />
+                <ScalarProperty Name="PhieuBeNgoanTuan" ColumnName="PhieuBeNgoanTuan" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

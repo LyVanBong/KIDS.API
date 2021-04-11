@@ -2,7 +2,6 @@
 using KIDS.API.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -28,8 +27,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult Update()
         {
-            var httpRequest = System.Web.HttpContext.Current.Request;
-            var files = httpRequest.Files;
+            var httpRequest = HttpContext.Current.Request;
             var teacher = new TeacherModel();
             var formData = httpRequest.Form ?? new System.Collections.Specialized.NameValueCollection();
             foreach (var key in formData.AllKeys)
@@ -50,7 +48,7 @@ namespace KIDS.API.Controllers
                         case "Dob":
                             teacher.Dob = DateTime.Parse(val); ;
                             break;
-                        case "Mobile":
+                        case "Phone":
                             teacher.Phone = val;
                             break;
                         case "Email":
@@ -59,11 +57,6 @@ namespace KIDS.API.Controllers
                         case "Address":
                             teacher.Address = val;
                             break;
-                        //case "Picture":
-                        //    teacher.Picture = val;
-                        //    break;
-
-
                     }
 
                 }
@@ -81,20 +74,12 @@ namespace KIDS.API.Controllers
                 var myfilename = "/TeacherPhoto/" + string.Format(@"{0}", Guid.NewGuid()) + ".jpg";
 
                 string filepath = @"C:/inetpub/HKids/school.hkids.edu.vn" + myfilename;
-                //string filepath = @"C:/Software/SchoolKids/Main" + myfilename;
 
-
-
-                using (var imageFile = new FileStream(filepath, FileMode.OpenOrCreate))
+                if (httpRequest.Files.Count > 0)
                 {
-
-                    var file = HttpContext.Current.Request.Files.Get("Picture");
-                    file.SaveAs("C:/inetpub/HKids/school.hkids.edu.vn/" + fileName);
-
-
+                    var fileImage = httpRequest.Files;
+                    fileImage[0].SaveAs("C:/inetpub/HKids/school.hkids.edu.vn/" + fileName);
                 }
-
-
 
                 var data = _db.sp_Teacher_Profile_Upd(teacher.TeacherId, teacher.Name, teacher.Sex, teacher.Dob, teacher.Phone, teacher.Email, teacher.Address, fileName);
                 if (data > 0)
