@@ -89,10 +89,11 @@ namespace KIDS.API.Controllers
         //Học sinh: lấy danh sách tin nhắn giáo viên gửi
         [Route("Select/TeacherToStudent")]
         [HttpGet]
-        public IHttpActionResult CommunicationSelTeacherToStudent(String StudentId)
+        public IHttpActionResult CommunicationSelTeacherToStudent(String StudentId,String ClassID)
         {
             var db = new H_KIDSEntities();
-            var data = db.sp_Student_Communications_sel_TeacherToStudent(Guid.Parse(HashFunctionHelper.GetValueOrDBNull(StudentId))).ToList();
+            var data = db.sp_Student_Communications_sel_TeacherToStudent(Guid.Parse(HashFunctionHelper.GetValueOrDBNull(StudentId)),
+                Guid.Parse(HashFunctionHelper.GetValueOrDBNull(ClassID))).ToList();
             if (data.Any())
             {
                 return Ok(new ResponseModel<List<sp_Student_Communications_sel_TeacherToStudent_Result>>()

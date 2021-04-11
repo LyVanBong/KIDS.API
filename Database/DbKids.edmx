@@ -473,6 +473,7 @@
         </Function>
         <Function Name="sp_Student_Communications_sel_TeacherToStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ClassID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="sp_Student_Communications_Upd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CommunicationID" Type="uniqueidentifier" Mode="In" />
@@ -1477,7 +1478,8 @@
           <Parameter Name="Parent" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Student_Communications_sel_TeacherToStudent" ReturnType="Collection(H_KIDSModel.sp_Student_Communications_sel_TeacherToStudent_Result)">
-          <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="StudentID" Mode="In" Type="Guid" />
+            <Parameter Name="ClassID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="sp_Teacher_CommunicationAprove_Upd">
             <Parameter Name="CommunicationID" Mode="In" Type="Guid" />
@@ -3107,6 +3109,9 @@
           <Property Type="String" Name="ClassName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="GradeName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Picture" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Banner" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Banner2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Banner3" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="sp_Album_sel_ClassAndSchoolForParent_Result">
           <Property Type="Guid" Name="AlbumID" Nullable="false" />
@@ -4598,6 +4603,9 @@
                 <ScalarProperty Name="ClassName" ColumnName="ClassName" />
                 <ScalarProperty Name="GradeName" ColumnName="GradeName" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Banner" ColumnName="Banner" />
+                <ScalarProperty Name="Banner2" ColumnName="Banner2" />
+                <ScalarProperty Name="Banner3" ColumnName="Banner3" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

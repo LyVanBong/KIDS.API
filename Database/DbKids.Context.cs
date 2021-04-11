@@ -2321,13 +2321,17 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_Reply_Result>("sp_Student_Communications_sel_Reply", parentParameter);
         }
     
-        public virtual ObjectResult<sp_Student_Communications_sel_TeacherToStudent_Result> sp_Student_Communications_sel_TeacherToStudent(Nullable<System.Guid> studentID)
+        public virtual ObjectResult<sp_Student_Communications_sel_TeacherToStudent_Result> sp_Student_Communications_sel_TeacherToStudent(Nullable<System.Guid> studentID, Nullable<System.Guid> classID)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
                 new ObjectParameter("StudentID", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_TeacherToStudent_Result>("sp_Student_Communications_sel_TeacherToStudent", studentIDParameter);
+            var classIDParameter = classID.HasValue ?
+                new ObjectParameter("ClassID", classID) :
+                new ObjectParameter("ClassID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Communications_sel_TeacherToStudent_Result>("sp_Student_Communications_sel_TeacherToStudent", studentIDParameter, classIDParameter);
         }
     
         public virtual int sp_Teacher_CommunicationAprove_Upd(Nullable<System.Guid> communicationID, Nullable<bool> isConfirmed, Nullable<System.Guid> teacherID, string content)
