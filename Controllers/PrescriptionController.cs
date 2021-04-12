@@ -97,7 +97,9 @@ namespace KIDS.API.Controllers
                         }
 
 
-                        var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
+                        //var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, MasterID, item.Name, item.Unit, item.Note);
+
+                        var data1 = _db.sp_Student_Prescription_Detail_Ins(myfilename, insert.Id, item.Name, item.Unit, item.Note);
 
 
                     }
