@@ -24,5 +24,6 @@ namespace KIDS.API.Database
         public Nullable<double> Width { get; set; }
         public Nullable<System.Guid> WidthStatus { get; set; }
         public Nullable<System.Guid> UserCreate { get; set; }
+        public string Caption { get; set; }
     }
 }

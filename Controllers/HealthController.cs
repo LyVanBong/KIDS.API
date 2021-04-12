@@ -47,7 +47,7 @@ namespace KIDS.API.Controllers
         [HttpPost]
         public IHttpActionResult Insert(HealthModel insert)
         {
-         
+
             double BMI = insert.Width * 10000 / (insert.Height * insert.Height);
             var data = _db.sp_Student_Health_Ins(insert.StudentID, insert.ClassID, insert.Date, insert.MonthAge, insert.Height, insert.Width, BMI);
             return Ok(new ResponseModel<int>

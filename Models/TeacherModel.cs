@@ -6,7 +6,7 @@ namespace KIDS.API.Models
     {
         public Guid TeacherId { get; set; }
         public string Name { get; set; }
-        public int Sex { get; set; }
+        public bool Sex { get; set; }
         public DateTime Dob { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

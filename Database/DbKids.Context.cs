@@ -1165,7 +1165,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_StudentParent_sel_Result>("sp_StudentParent_sel", studentIDParameter);
         }
     
-        public virtual int sp_Students_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture, Nullable<int> nhomMau, string ghiChu)
+        public virtual int sp_Students_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<bool> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture, Nullable<int> nhomMau, string ghiChu)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
@@ -1177,7 +1177,7 @@ namespace KIDS.API.Database
     
             var sexParameter = sex.HasValue ?
                 new ObjectParameter("Sex", sex) :
-                new ObjectParameter("Sex", typeof(int));
+                new ObjectParameter("Sex", typeof(bool));
     
             var dOBParameter = dOB.HasValue ?
                 new ObjectParameter("DOB", dOB) :
@@ -1219,7 +1219,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Teacher_Profile_sel_Result>("sp_Teacher_Profile_sel", teacherIDParameter);
         }
     
-        public virtual int sp_Teacher_Profile_Upd(Nullable<System.Guid> teacherID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string phone, string email, string address, string picture)
+        public virtual int sp_Teacher_Profile_Upd(Nullable<System.Guid> teacherID, string name, Nullable<bool> sex, Nullable<System.DateTime> dOB, string phone, string email, string address, string picture)
         {
             var teacherIDParameter = teacherID.HasValue ?
                 new ObjectParameter("TeacherID", teacherID) :
@@ -1231,7 +1231,7 @@ namespace KIDS.API.Database
     
             var sexParameter = sex.HasValue ?
                 new ObjectParameter("Sex", sex) :
-                new ObjectParameter("Sex", typeof(int));
+                new ObjectParameter("Sex", typeof(bool));
     
             var dOBParameter = dOB.HasValue ?
                 new ObjectParameter("DOB", dOB) :
@@ -2416,7 +2416,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Student_Study_Morning_sel_Result>("sp_Student_Study_Morning_sel", dateParameter, classIDParameter, studentIDParameter);
         }
     
-        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string email, string address, string picture)
+        public virtual int sp_Student_Profile_Upd(Nullable<System.Guid> studentID, string name, Nullable<bool> sex, Nullable<System.DateTime> dOB, string email, string address, string picture)
         {
             var studentIDParameter = studentID.HasValue ?
                 new ObjectParameter("StudentID", studentID) :
@@ -2428,7 +2428,7 @@ namespace KIDS.API.Database
     
             var sexParameter = sex.HasValue ?
                 new ObjectParameter("Sex", sex) :
-                new ObjectParameter("Sex", typeof(int));
+                new ObjectParameter("Sex", typeof(bool));
     
             var dOBParameter = dOB.HasValue ?
                 new ObjectParameter("DOB", dOB) :
@@ -2775,7 +2775,7 @@ namespace KIDS.API.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_News_sel_ClassAndSchoolForParent_Result>("sp_News_sel_ClassAndSchoolForParent", parentIDParameter, schoolIDParameter);
         }
     
-        public virtual int sp_Student_ParentProfile_Upd(Nullable<System.Guid> parentID, string name, Nullable<int> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture)
+        public virtual int sp_Student_ParentProfile_Upd(Nullable<System.Guid> parentID, string name, Nullable<bool> sex, Nullable<System.DateTime> dOB, string mobile, string email, string address, string picture)
         {
             var parentIDParameter = parentID.HasValue ?
                 new ObjectParameter("ParentID", parentID) :
@@ -2787,7 +2787,7 @@ namespace KIDS.API.Database
     
             var sexParameter = sex.HasValue ?
                 new ObjectParameter("Sex", sex) :
-                new ObjectParameter("Sex", typeof(int));
+                new ObjectParameter("Sex", typeof(bool));
     
             var dOBParameter = dOB.HasValue ?
                 new ObjectParameter("DOB", dOB) :

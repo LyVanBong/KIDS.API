@@ -45,7 +45,7 @@ namespace KIDS.API.Controllers
                             student.Name = val;
                             break;
                         case "Sex":
-                            student.Sex = int.Parse(val);
+                            student.Sex = val.ToLower() == "true" ? true : false;
                             break;
                         case "Dob":
                             student.Dob = DateTime.Parse(val); ;
@@ -260,7 +260,7 @@ namespace KIDS.API.Controllers
                             student.Name = val;
                             break;
                         case "Sex":
-                            student.Sex = int.Parse(val);
+                            student.Sex = val.ToLower() == "true" ? true : false;
                             break;
                         case "Dob":
                             student.Dob = DateTime.Parse(val); ;

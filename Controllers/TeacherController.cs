@@ -43,7 +43,7 @@ namespace KIDS.API.Controllers
                             teacher.Name = val;
                             break;
                         case "Sex":
-                            teacher.Sex = int.Parse(val);
+                            teacher.Sex = val.ToLower() == "true" ? true : false;
                             break;
                         case "Dob":
                             teacher.Dob = DateTime.Parse(val); ;
